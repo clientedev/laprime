@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Prime - Universo da Beleza</title>
+    <meta name="description" content="Na La Prime, você encontra estética, odontologia e beleza com qualidade e conforto. Promovendo autocuidado, saúde e autoestima." />
+    <meta property="og:title" content="La Prime - Universo da Beleza" />
+    <meta property="og:description" content="Autocuidado e bem-estar em um só lugar. Conheça nossos serviços de estética, odontologia e beleza." />
+    <meta property="og:image" content="https://picsum.photos/1200/630?random=1" />
+    <meta property="og:url" content="https://laprime.com.br" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-dark': '#0d2438', // Dark blue from logo
+              'brand-gold': '#bda07e', // Gold from logo
+              'brand-light': '#f5f1ed', // Light beige for background
+              'brand-text': '#3c3c3c', // Main text color
+            },
+            fontFamily: {
+              'serif': ['Playfair Display', 'serif'],
+              'sans': ['Poppins', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+</head>
+  <body class="bg-brand-light font-sans text-brand-text">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
