@@ -1,6 +1,6 @@
 
-import React, { useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { useRef, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
@@ -13,6 +13,7 @@ import OdontologiaPage from './pages/OdontologiaPage';
 
 const AppContent: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const aboutRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const testimonialsRef = useRef<HTMLDivElement>(null);
@@ -26,9 +27,21 @@ const AppContent: React.FC = () => {
     contact: contactRef,
   };
 
+  useEffect(() => {
+    if (location.hash) {
+      const sectionId = location.hash.substring(1);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   const scrollToSection = (section: keyof typeof sectionRefs) => {
     if (location.pathname !== '/') {
-      window.location.href = `/#${section}`;
+      navigate(`/#${section}`);
     } else {
       sectionRefs[section].current?.scrollIntoView({ behavior: 'smooth' });
     }
