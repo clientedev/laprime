@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <h2 className="text-3xl md:text-4xl font-serif text-brand-dark mb-4 text-center">
@@ -7,16 +8,39 @@ const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     </h2>
   );
   
-// Fix: Replaced JSX.Element with React.ReactElement to resolve "Cannot find namespace 'JSX'" error.
-const ServiceCard: React.FC<{ icon: React.ReactElement, title: string, description: string }> = ({ icon, title, description }) => (
-    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center flex flex-col items-center">
-        <div className="bg-brand-gold/10 text-brand-gold rounded-full p-4 mb-6">
-            {icon}
+const ServiceCard: React.FC<{ icon: React.ReactElement, title: string, description: string, link?: string }> = ({ icon, title, description, link }) => {
+    const content = (
+        <>
+            <div className="bg-brand-gold/10 text-brand-gold rounded-full p-4 mb-6">
+                {icon}
+            </div>
+            <h3 className="text-xl font-serif text-brand-dark mb-2">{title}</h3>
+            <p className="text-gray-600 text-sm mb-4">{description}</p>
+            {link && (
+                <span className="text-brand-gold font-semibold text-sm inline-flex items-center">
+                    Saiba mais 
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                </span>
+            )}
+        </>
+    );
+
+    if (link) {
+        return (
+            <Link to={link} className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 text-center flex flex-col items-center hover:transform hover:-translate-y-1">
+                {content}
+            </Link>
+        );
+    }
+
+    return (
+        <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center flex flex-col items-center">
+            {content}
         </div>
-        <h3 className="text-xl font-serif text-brand-dark mb-2">{title}</h3>
-        <p className="text-gray-600 text-sm">{description}</p>
-    </div>
-);
+    );
+};
 
 const EsteticaIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2a2 2 0 0 1 2 2v.5a2 2 0 0 0 2 2h.5a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2h.5a2 2 0 0 0 2-2v-.5a2 2 0 0 1 2-2z"></path><line x1="12" y1="12" x2="12" y2="12"></line><line x1="8" y1="12" x2="8" y2="12"></line><line x1="16" y1="12" x2="16" y2="12"></line><path d="M9 17c1.5-1.5 3-1.5 4.5 0"></path></svg>;
 const OdontoIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.16,13.16a2.1,2.1,0,0,0-2.1.53,5.34,5.34,0,0,1-7,0,2.1,2.1,0,0,0-2.1-.53,2.1,2.1,0,0,0-.53,2.1,8,8,0,0,0,12.26,0,2.1,2.1,0,0,0-.53-2.1Z"></path><path d="M21.16,13.16a2.1,2.1,0,0,0-2.1.53,5.34,5.34,0,0,1-7,0,2.1,2.1,0,0,0-2.1-.53,2.1,2.1,0,0,0-.53,2.1,8,8,0,0,0,12.26,0,2.1,2.1,0,0,0-.53-2.1Z"></path><path d="M7,12.28a5.5,5.5,0,0,0,10,0"></path><path d="M12,2a10,10,0,1,0,0,20,10,10,0,0,0,0-20Z"></path></svg>;
@@ -26,11 +50,11 @@ const LashIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height
 
 const ServicesSection: React.FC = () => {
     const services = [
-        { icon: <EsteticaIcon />, title: "Estética Facial e Corporal", description: "Tratamentos para realçar sua beleza natural, com tecnologias de ponta e cuidado personalizado." },
-        { icon: <OdontoIcon />, title: "Odontologia Estética", description: "Conquiste o sorriso dos seus sonhos com clareamento, lentes de contato e harmonização." },
-        { icon: <ManicureIcon />, title: "Manicure e Pedicure", description: "Mãos e pés impecáveis com serviços de alta qualidade em um ambiente relaxante e seguro." },
-        { icon: <HairIcon />, title: "Cabeleireiro", description: "Cortes, coloração e tratamentos que expressam sua identidade e cuidam da saúde dos seus fios." },
-        { icon: <LashIcon />, title: "Lash Designer", description: "Realce seu olhar com extensões de cílios aplicadas por especialistas, garantindo um resultado natural." },
+        { icon: <EsteticaIcon />, title: "Estética Facial e Corporal", description: "Tratamentos para realçar sua beleza natural, com tecnologias de ponta e cuidado personalizado.", link: "/servicos/estetica" },
+        { icon: <OdontoIcon />, title: "Odontologia Estética", description: "Conquiste o sorriso dos seus sonhos com clareamento, lentes de contato e harmonização.", link: "/servicos/odontologia" },
+        { icon: <ManicureIcon />, title: "Manicure e Pedicure", description: "Mãos e pés impecáveis com serviços de alta qualidade em um ambiente relaxante e seguro.", link: "/servicos/unhas" },
+        { icon: <HairIcon />, title: "Salão de Beleza", description: "Cortes, coloração e tratamentos que expressam sua identidade e cuidam da saúde dos seus fios.", link: "/servicos/salao" },
+        { icon: <LashIcon />, title: "Extensão de Cílios", description: "Realce seu olhar com extensões de cílios aplicadas por especialistas, garantindo um resultado natural.", link: "/servicos/cilios" },
     ];
 
     return (

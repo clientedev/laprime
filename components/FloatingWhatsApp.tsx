@@ -4,11 +4,11 @@ import React from 'react';
 const FloatingWhatsApp: React.FC = () => {
     return (
         <a 
-            href="https://wa.me/5511999999999" 
+            href="https://wa.me/5511992153511?text=Olá! Gostaria de agendar um horário na La Prime." 
             target="_blank" 
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-40 bg-green-500 text-white rounded-full p-4 shadow-lg hover:bg-green-600 transition-all duration-300 transform hover:scale-110"
-            aria-label="Contact us on WhatsApp"
+            aria-label="Fale conosco no WhatsApp"
         >
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 

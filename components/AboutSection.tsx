@@ -10,29 +10,33 @@ const AboutSection: React.FC = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle>Bem-vinda à La Prime</SectionTitle>
+        <SectionTitle>Bem-vinda à La Prime Saúde e Bem Estar</SectionTitle>
         <p className="text-center max-w-3xl mx-auto mb-12 text-gray-600">
-          Nascemos do desejo de promover autocuidado, saúde e autoestima. Com apenas 9 meses, já nos tornamos um refúgio para quem busca uma experiência de luxo acessível e resultados que transformam.
+          A clínica foi construída com o intuito de que o cliente não venha só procurar um serviço, 
+          mas que ele se sinta acolhido e com a sua autoestima elevada.
         </p>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <h3 className="text-2xl font-serif text-brand-dark">Nossa História</h3>
             <p className="text-gray-600 leading-relaxed">
-              Fundada por Sabrina Teles, a La Prime foi criada para ser mais que uma clínica: um universo de beleza onde todos os serviços de bem-estar se encontram. Acreditamos que cuidar de si é um ato de amor e nossa missão é facilitar esse momento, com atendimento personalizado e a mais alta qualidade.
+              A La Prime nasceu do desejo de criar um espaço onde beleza, saúde e bem-estar se encontram. 
+              Mais do que uma clínica, somos um universo dedicado ao cuidado completo: salão, unhas, cílios, 
+              estética e odontologia em um só lugar. Acreditamos que cuidar de si é um ato de amor próprio, 
+              e nossa missão é proporcionar esse momento especial com atendimento acolhedor e qualidade excepcional.
             </p>
             <div className="space-y-4">
               <div>
                 <h4 className="font-bold text-brand-dark">Missão</h4>
-                <p className="text-gray-500">Oferecer uma experiência completa de beleza e bem-estar, melhorando a qualidade de vida e a autoestima de nossos clientes.</p>
+                <p className="text-gray-500">Elevar a autoestima e proporcionar bem-estar através de serviços de beleza e saúde com atendimento acolhedor e personalizado.</p>
               </div>
               <div>
                 <h4 className="font-bold text-brand-dark">Visão</h4>
-                <p className="text-gray-500">Ser a clínica de referência em estética e bem-estar, reconhecida pela excelência, inovação e acolhimento.</p>
+                <p className="text-gray-500">Ser referência em cuidado integral de beleza e saúde, reconhecida pelo ambiente acolhedor e resultados que transformam vidas.</p>
               </div>
               <div>
                 <h4 className="font-bold text-brand-dark">Valores</h4>
-                <p className="text-gray-500">Atendimento personalizado, qualidade, inovação, e um ambiente acolhedor e moderno.</p>
+                <p className="text-gray-500">Acolhimento, qualidade, autoestima, bem-estar e atendimento humanizado.</p>
               </div>
             </div>
           </div>
