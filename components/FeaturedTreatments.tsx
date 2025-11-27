@@ -1,4 +1,7 @@
 import React from 'react';
+import criolipoliseImg from '@assets/stock_images/cryolipolysis_body_c_88e028e1.jpg';
+import botoxImg from '@assets/stock_images/botox_injection_faci_370000f9.jpg';
+import preenchimentoImg from '@assets/stock_images/dermal_filler_lip_in_c408a9e9.jpg';
 
 const TreatmentCard: React.FC<{ image: string; title: string; description: string; alt: string; }> = ({ image, title, description, alt }) => (
     <div className="relative group overflow-hidden rounded-lg shadow-xl">
@@ -15,19 +18,19 @@ const TreatmentCard: React.FC<{ image: string; title: string; description: strin
 const FeaturedTreatments: React.FC = () => {
     const treatments = [
         {
-            image: "https://images.unsplash.com/photo-1574005329813-955d14316b04?q=80&w=600&auto=format&fit=crop",
+            image: criolipoliseImg,
             title: "Criolipólise",
             description: "Reduza a gordura localizada de forma eficaz e segura. Um tratamento inovador para esculpir seu corpo sem cirurgia.",
             alt: "Tratamento de Criolipólise para contorno corporal"
         },
         {
-            image: "https://images.unsplash.com/photo-1615160933358-cf0b9f44126d?q=80&w=600&auto=format&fit=crop",
+            image: botoxImg,
             title: "Botox",
             description: "Suavize rugas e linhas de expressão, rejuvenescendo sua aparência com naturalidade e precisão.",
             alt: "Mulher com pele rejuvenescida após tratamento com Botox"
         },
         {
-            image: "https://images.unsplash.com/photo-1620916723233-01a8e8513903?q=80&w=600&auto=format&fit=crop",
+            image: preenchimentoImg,
             title: "Preenchimento",
             description: "Restaure o volume, contorno e hidratação da pele, realçando seus traços de maneira sutil e elegante.",
             alt: "Aplicação de preenchimento facial para harmonização"
