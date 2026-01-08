@@ -20,8 +20,6 @@ const Login = ({ onLogin }) => {
       const { access_token } = response.data;
       localStorage.setItem('token', access_token);
       
-      // Real app would fetch profile, here we infer role for demo or simple logic
-      // In production, backend should return user data with login
       const role = email.includes('admin') ? 'ADMIN' : (email.includes('pro') ? 'PROFISSIONAL' : 'CLIENTE');
       const user = { email, role }; 
       onLogin(user);
@@ -34,16 +32,16 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl border border-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-brand-light py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl border border-brand-gold/20">
         <div className="text-center">
-          <div className="inline-flex p-4 bg-blue-50 rounded-full mb-4">
-            <ShieldCheck className="w-8 h-8 text-blue-600" />
+          <div className="inline-flex p-4 bg-brand-light rounded-full mb-4">
+            <ShieldCheck className="w-8 h-8 text-brand-gold" />
           </div>
-          <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">Bem-vindo de volta</h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <h2 className="text-3xl font-serif font-bold text-brand-dark tracking-tight">Bem-vindo de volta</h2>
+          <p className="mt-2 text-sm text-gray-600 font-sans">
             Novo por aqui?{' '}
-            <Link to="/register" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link to="/register" className="font-medium text-brand-gold hover:text-opacity-80">
               Crie sua conta gratuita
             </Link>
           </p>
@@ -52,22 +50,22 @@ const Login = ({ onLogin }) => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="relative">
-              <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+              <Mail className="absolute left-3 top-3 w-5 h-5 text-brand-gold/50" />
               <input
                 type="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-10 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-10 py-3 border border-gray-200 placeholder-gray-400 text-brand-dark rounded-t-md focus:outline-none focus:ring-brand-gold focus:border-brand-gold focus:z-10 sm:text-sm font-sans"
                 placeholder="Seu e-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+              <Lock className="absolute left-3 top-3 w-5 h-5 text-brand-gold/50" />
               <input
                 type="password"
                 required
-                className="appearance-none rounded-none relative block w-full px-10 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-10 py-3 border border-gray-200 placeholder-gray-400 text-brand-dark rounded-b-md focus:outline-none focus:ring-brand-gold focus:border-brand-gold focus:z-10 sm:text-sm font-sans"
                 placeholder="Sua senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -79,10 +77,10 @@ const Login = ({ onLogin }) => {
             <button
               type="submit"
               disabled={loading}
-              className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transition-all font-sans \${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <LogIn className="h-5 w-5 text-blue-400 group-hover:text-blue-300" aria-hidden="true" />
+                <LogIn className="h-5 w-5 text-brand-dark/50 group-hover:text-brand-dark" aria-hidden="true" />
               </span>
               {loading ? 'Entrando...' : 'Acessar Sistema'}
             </button>

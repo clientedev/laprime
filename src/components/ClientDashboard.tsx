@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Calendar, Clock, User, CheckCircle, XCircle, AlertCircle, Plus } from 'lucide-react';
+import { Calendar, Clock, User, CheckCircle, XCircle, AlertCircle, Plus, Scissors } from 'lucide-react';
 import AppointmentForm from './AppointmentForm';
 
 const ClientDashboard = () => {
@@ -22,21 +22,24 @@ const ClientDashboard = () => {
     fetchData();
   }, [refresh]);
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch(status) {
-      case 'APROVADO': return 'bg-green-100 text-green-800 border-green-200';
-      case 'RECUSADO': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'APROVADO': return 'bg-green-50 text-green-700 border-green-100';
+      case 'RECUSADO': return 'bg-red-50 text-red-700 border-red-100';
+      default: return 'bg-brand-light text-brand-gold border-brand-gold/20';
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-800">Meus Agendamentos</h1>
+    <div className="max-w-6xl mx-auto space-y-8 py-12 px-4">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+          <h1 className="text-4xl font-serif font-bold text-brand-dark">Meus Agendamentos</h1>
+          <p className="text-gray-500 font-sans mt-1">Gerencie suas consultas e procedimentos na La Prime.</p>
+        </div>
         <button 
           onClick={() => setShowForm(!showForm)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
+          className="bg-brand-gold text-brand-dark px-6 py-3 rounded-full flex items-center gap-2 transition-all hover:bg-opacity-90 shadow-lg font-bold font-sans"
         >
           <Plus className="w-5 h-5" />
           {showForm ? 'Fechar Formulário' : 'Novo Agendamento'}
@@ -45,9 +48,9 @@ const ClientDashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className={`lg:col-span-1 transition-all duration-300 ${showForm ? 'opacity-100 scale-100' : 'opacity-0 scale-95 hidden'}`}>
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-4">
-            <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-blue-500" />
+          <div className="bg-white p-8 rounded-2xl shadow-xl border border-brand-gold/10 sticky top-24">
+            <h2 className="text-2xl font-serif font-bold text-brand-dark mb-6 flex items-center gap-2">
+              <Scissors className="w-6 h-6 text-brand-gold" />
               Agendar Serviço
             </h2>
             <AppointmentForm onSuccess={() => {
@@ -58,50 +61,50 @@ const ClientDashboard = () => {
         </div>
 
         <div className={`${showForm ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="px-6 py-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
-              <h2 className="font-semibold text-gray-700">Histórico de Solicitações</h2>
-              <span className="text-xs font-medium text-gray-500">{appointments.length} registros encontrados</span>
+          <div className="bg-white rounded-2xl shadow-xl border border-brand-gold/10 overflow-hidden">
+            <div className="px-8 py-6 bg-brand-light/50 border-b border-brand-gold/10 flex justify-between items-center">
+              <h2 className="font-serif font-bold text-brand-dark text-xl">Histórico de Solicitações</h2>
+              <span className="text-xs font-bold text-brand-gold uppercase tracking-widest bg-white px-3 py-1 rounded-full">{appointments.length} REGISTROS</span>
             </div>
             <div className="divide-y divide-gray-100">
               {appointments.length === 0 ? (
-                <div className="p-12 text-center">
-                  <div className="inline-flex p-4 bg-blue-50 rounded-full mb-4">
-                    <Calendar className="w-8 h-8 text-blue-400" />
+                <div className="p-20 text-center">
+                  <div className="inline-flex p-6 bg-brand-light rounded-full mb-6 text-brand-gold">
+                    <Calendar className="w-12 h-12" />
                   </div>
-                  <p className="text-gray-500">Você ainda não possui agendamentos.</p>
+                  <p className="text-gray-500 font-serif text-xl italic">Você ainda não possui agendamentos.</p>
                   <button 
                     onClick={() => setShowForm(true)}
-                    className="mt-4 text-blue-600 font-semibold hover:underline"
+                    className="mt-6 text-brand-gold font-bold hover:underline font-sans"
                   >
                     Fazer meu primeiro agendamento
                   </button>
                 </div>
-              ) : appointments.map((appt) => (
-                <div key={appt.id} className="p-6 hover:bg-gray-50 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-blue-50 p-3 rounded-lg text-blue-600">
-                      <Clock className="w-6 h-6" />
+              ) : appointments.map((appt: any) => (
+                <div key={appt.id} className="p-8 hover:bg-brand-light/20 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="flex items-start gap-6">
+                    <div className="bg-brand-light p-4 rounded-xl text-brand-gold">
+                      <Clock className="w-8 h-8" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900 text-lg">
+                      <h3 className="font-serif font-bold text-brand-dark text-2xl">
                         {new Date(appt.data).toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' })}
                       </h3>
-                      <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 text-sm text-gray-500">
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" /> {appt.hora}
+                      <div className="flex flex-wrap gap-x-6 gap-y-2 mt-2 text-sm text-gray-500 font-sans">
+                        <span className="flex items-center gap-2">
+                          <Clock className="w-4 h-4 text-brand-gold" /> {appt.hora}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <User className="w-4 h-4" /> Profissional ID: {appt.professional_id}
+                        <span className="flex items-center gap-2">
+                          <User className="w-4 h-4 text-brand-gold" /> Profissional ID: {appt.professional_id}
                         </span>
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getStatusColor(appt.status)}`}>
+                  <div className="flex flex-col items-end gap-3">
+                    <span className={`px-4 py-1.5 rounded-full text-xs font-black border tracking-widest ${getStatusColor(appt.status)}`}>
                       {appt.status}
                     </span>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest">
+                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
                       Solicitado em {new Date(appt.created_at).toLocaleDateString()}
                     </p>
                   </div>
