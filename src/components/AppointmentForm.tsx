@@ -14,8 +14,8 @@ const AppointmentForm = ({ onSuccess }) => {
   useEffect(() => {
     const fetchData = async () => {
       const [sRes, pRes] = await Promise.all([
-        axios.get('http://localhost:8000/services/'),
-        axios.get('http://localhost:8000/professionals/')
+        axios.get('/api/services/'),
+        axios.get('/api/professionals/')
       ]);
       setServices(sRes.data);
       setProfessionals(pRes.data);
@@ -27,7 +27,7 @@ const AppointmentForm = ({ onSuccess }) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     try {
-      await axios.post('http://localhost:8000/appointments/', {
+      await axios.post('/api/appointments/', {
         ...formData,
         service_id: parseInt(formData.service_id),
         professional_id: parseInt(formData.professional_id),

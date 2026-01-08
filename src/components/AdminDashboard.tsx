@@ -14,8 +14,8 @@ const AdminDashboard = () => {
       const headers = { Authorization: `Bearer ${token}` };
       try {
         const [statsRes, apptsRes] = await Promise.all([
-          axios.get('http://localhost:8000/admin/dashboard', { headers }),
-          axios.get('http://localhost:8000/appointments/my', { headers })
+          axios.get('/api/admin/dashboard', { headers }),
+          axios.get('/api/appointments/my', { headers })
         ]);
         setStats(statsRes.data);
         setAppointments(apptsRes.data.filter(a => a.status === 'PENDENTE'));
@@ -29,7 +29,7 @@ const AdminDashboard = () => {
   const handleStatusUpdate = async (id, status) => {
     const token = localStorage.getItem('token');
     try {
-      await axios.patch(`http://localhost:8000/appointments/${id}/status?status=${status}`, {}, {
+      await axios.patch(`/api/appointments/${id}/status?status=${status}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       window.location.reload();

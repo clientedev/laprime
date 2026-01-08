@@ -9,7 +9,7 @@ const ProfessionalDashboard = () => {
     const fetchAppointments = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get('http://localhost:8000/appointments/my', {
+        const response = await axios.get('/api/appointments/my', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setAppointments(response.data);

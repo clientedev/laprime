@@ -13,7 +13,7 @@ const ClientDashboard = () => {
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
       try {
-        const response = await axios.get('http://localhost:8000/appointments/my', { headers });
+        const response = await axios.get('/api/appointments/my', { headers });
         setAppointments(response.data);
       } catch (error) {
         console.error('Failed to fetch data');

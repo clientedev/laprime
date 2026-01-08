@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8000/auth/login', new URLSearchParams({
+      const response = await axios.post('/api/auth/login', new URLSearchParams({
         username: email,
         password: password
       }));

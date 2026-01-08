@@ -8,7 +8,10 @@ import AdminDashboard from './components/AdminDashboard';
 import Navbar from './components/Navbar';
 
 const App = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const handleLogin = (userData) => {
     localStorage.setItem('user', JSON.stringify(userData));

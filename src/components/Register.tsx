@@ -12,7 +12,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:8000/auth/register', formData);
+      await axios.post('/api/auth/register', formData);
       alert('Cadastro realizado com sucesso! Faça login para continuar.');
       navigate('/login');
     } catch (error) {
