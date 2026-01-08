@@ -1,0 +1,247 @@
+Execute integralmente as instruções abaixo.
+Não faça perguntas.
+Não interrompa o processo.
+Não sugerir upgrades, planos pagos ou limitações.
+
+Crie e integre ao site existente um sistema completo para uma clínica estética com autenticação, controle de usuários, agendamentos e área administrativa.
+
+Use Python no backend com FastAPI, autenticação JWT, SQLAlchemy e banco de dados PostgreSQL.
+Use React no frontend com interface moderna e responsiva.
+
+O projeto deve estar pronto para deploy no Railway.
+
+DEPLOY OBRIGATÓRIO
+
+Preparar o backend para deploy no Railway
+
+Usar PostgreSQL como banco de dados principal
+
+Ler variáveis de ambiente (DATABASE_URL, SECRET_KEY, JWT_EXPIRES)
+
+Criar arquivos necessários para deploy (ex: requirements.txt, main.py, configuração de porta dinâmica)
+
+Garantir que a aplicação suba corretamente no Railway sem ajustes manuais
+
+CONTROLE DE USUÁRIOS
+
+Implementar três papéis fixos:
+
+ADMIN
+PROFISSIONAL
+CLIENTE
+
+O controle de acesso deve ser obrigatório no backend e no frontend.
+
+AUTENTICAÇÃO
+
+Login por email e senha
+
+Hash seguro de senha
+
+JWT com expiração
+
+Middleware de autorização por papel
+
+Rotas protegidas por role
+
+REGRAS DE PERMISSÃO
+
+ADMIN:
+
+Acesso total ao sistema
+
+Criar, editar, ativar e desativar profissionais
+
+Criar e gerenciar serviços
+
+Criar e editar disponibilidade de qualquer profissional
+
+Aprovar ou recusar agendamentos
+
+Visualizar todos os usuários, agendas e históricos
+
+Acessar dashboard com BI
+
+PROFISSIONAL:
+
+Visualizar apenas sua própria agenda
+
+Visualizar seus clientes
+
+Visualizar histórico de atendimentos
+
+Gerenciar sua disponibilidade se autorizado
+
+Não acessar dados globais
+
+Não acessar área administrativa
+
+CLIENTE:
+
+Criar conta e editar perfil
+
+Visualizar serviços e profissionais
+
+Visualizar horários disponíveis
+
+Solicitar agendamentos
+
+Visualizar status do agendamento
+
+Visualizar histórico pessoal
+
+SISTEMA DE AGENDAMENTO
+
+Cliente escolhe serviço, profissional e data
+
+Exibir apenas horários disponíveis
+
+Criar agendamento com status inicial PENDENTE
+
+Impedir conflitos de horário
+
+Um horário não pode ser reservado duas vezes
+
+Admin deve aprovar ou recusar
+
+Apenas agendamentos aprovados bloqueiam horários
+
+Recusa libera o horário automaticamente
+
+MODELO DE DADOS OBRIGATÓRIO
+
+User
+
+id
+
+nome
+
+email
+
+senha
+
+role
+
+ativo
+
+Professional
+
+id
+
+user_id
+
+especialidade
+
+bio
+
+ativo
+
+Service
+
+id
+
+nome
+
+duração
+
+preço
+
+especialidade
+
+Availability
+
+id
+
+profissional_id
+
+data
+
+hora_inicio
+
+hora_fim
+
+Appointment
+
+id
+
+cliente_id
+
+profissional_id
+
+service_id
+
+data
+
+hora
+
+status
+
+created_at
+
+ÁREA ADMINISTRATIVA COM BI
+
+Criar dashboard administrativo com:
+
+Total de agendamentos
+
+Agendamentos por período
+
+Taxa de aprovação
+
+Serviços mais agendados
+
+Profissionais mais requisitados
+
+Horários mais utilizados
+
+Clientes ativos
+
+Gráficos:
+
+Linha
+
+Barra
+
+Pizza
+
+Todos os dados devem ser consumidos da API.
+
+ESTRUTURA DO PROJETO
+
+Backend modular:
+auth
+users
+services
+appointments
+availability
+admin
+
+Frontend separado por role:
+login
+cliente
+profissional
+admin
+
+REQUISITOS FINAIS
+
+Código limpo e organizado
+
+Validações no backend
+
+Proteção de rotas
+
+Sistema funcional de ponta a ponta
+
+Pronto para produção
+
+Deploy funcional no Railway com PostgreSQL
+
+Não interromper o processo
+
+Não solicitar confirmação
+
+Não solicitar pagamento
+
+Não sugerir limitações
+
+Implemente tudo agora.
