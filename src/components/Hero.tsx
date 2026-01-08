@@ -6,7 +6,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
-    <section className="relative h-screen flex items-center justify-center text-center text-white">
+    <section id="home" className="relative h-screen flex items-center justify-center text-center text-white pt-20">
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
       <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1920&auto=format&fit=crop" alt="Mulher serena recebendo tratamento de spa" className="absolute inset-0 w-full h-full object-cover"/>
       <div className="relative z-20 px-4">

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Calendar, Clock, User, Scissors, Heart } from 'lucide-react';
+import { Calendar, Clock, User, Scissors, Heart, CheckCircle, MapPin, Star } from 'lucide-react';
 
 const AppointmentForm = ({ onSuccess }) => {
   const [services, setServices] = useState([]);
   const [professionals, setProfessionals] = useState([]);
+  const [availabilities, setAvailabilities] = useState([]);
   const [formData, setFormData] = useState({
     service_id: '',
     professional_id: '',
@@ -28,6 +29,17 @@ const AppointmentForm = ({ onSuccess }) => {
     };
     fetchData();
   }, []);
+
+  const handleProfessionalChange = async (profId: string) => {
+    setFormData({ ...formData, professional_id: profId, data: '', hora: '' });
+    if (!profId) return;
+    try {
+      const response = await axios.get(`/api/availability/${profId}`);
+      setAvailabilities(response.data);
+    } catch (error) {
+      console.error('Erro ao carregar disponibilidade');
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,51 +84,65 @@ const AppointmentForm = ({ onSuccess }) => {
       <div className="space-y-2">
         <label className="text-xs font-black text-brand-dark uppercase tracking-widest flex items-center gap-2">
           <User className="w-3 h-3 text-brand-gold" />
-          Profissional
+          Especialista
         </label>
         <select 
           className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
-          onChange={(e) => setFormData({...formData, professional_id: e.target.value})}
+          onChange={(e) => handleProfessionalChange(e.target.value)}
           required
           value={formData.professional_id}
         >
-          <option value="">Selecione quem irá te atender...</option>
-          {professionals.map(p => <option key={p.id} value={p.id}>{p.especialidade} (Especialista)</option>)}
+          <option value="">Selecione o especialista...</option>
+          {professionals.map(p => <option key={p.id} value={p.id}>{p.especialidade}</option>)}
         </select>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label className="text-xs font-black text-brand-dark uppercase tracking-widest flex items-center gap-2">
-            <Calendar className="w-3 h-3 text-brand-gold" />
-            Data
-          </label>
-          <input 
-            type="date" 
-            className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
-            onChange={(e) => setFormData({...formData, data: e.target.value})}
-            required
-            min={new Date().toISOString().split('T')[0]}
-          />
+      {formData.professional_id && (
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="text-xs font-black text-brand-dark uppercase tracking-widest flex items-center gap-2">
+              <Calendar className="w-3 h-3 text-brand-gold" />
+              Datas Disponíveis
+            </label>
+            <select 
+              className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
+              onChange={(e) => setFormData({...formData, data: e.target.value})}
+              required
+              value={formData.data}
+            >
+              <option value="">Selecione a data...</option>
+              {[...new Set(availabilities.map(a => new Date(a.data).toISOString().split('T')[0]))].map(date => (
+                <option key={date} value={date}>{new Date(date).toLocaleDateString('pt-BR')}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black text-brand-dark uppercase tracking-widest flex items-center gap-2">
+              <Clock className="w-3 h-3 text-brand-gold" />
+              Horário
+            </label>
+            <select 
+              className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
+              onChange={(e) => setFormData({...formData, hora: e.target.value})}
+              required
+              value={formData.hora}
+              disabled={!formData.data}
+            >
+              <option value="">Selecione o horário...</option>
+              {availabilities
+                .filter(a => new Date(a.data).toISOString().split('T')[0] === formData.data)
+                .map(a => (
+                  <option key={a.id} value={a.hora_inicio}>{a.hora_inicio} - {a.hora_fim}</option>
+                ))}
+            </select>
+          </div>
         </div>
-        <div className="space-y-2">
-          <label className="text-xs font-black text-brand-dark uppercase tracking-widest flex items-center gap-2">
-            <Clock className="w-3 h-3 text-brand-gold" />
-            Horário
-          </label>
-          <input 
-            type="time" 
-            className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
-            onChange={(e) => setFormData({...formData, hora: e.target.value})}
-            required
-          />
-        </div>
-      </div>
+      )}
 
       <button 
         type="submit"
-        disabled={loading}
-        className={`w-full bg-brand-dark text-white p-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-brand-gold hover:text-brand-dark transition-all shadow-lg \${loading ? 'opacity-50' : ''}`}
+        disabled={loading || !formData.hora}
+        className={`w-full bg-brand-dark text-white p-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-brand-gold hover:text-brand-dark transition-all shadow-lg ${loading ? 'opacity-50' : ''}`}
       >
         {loading ? 'Processando...' : 'Confirmar Agendamento'}
       </button>

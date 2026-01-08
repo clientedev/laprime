@@ -44,7 +44,7 @@ const App = () => {
   return (
     <Router>
       <Header user={user} onLogout={handleLogout} onNavigate={scrollToSection} />
-      <div className="min-h-screen bg-brand-light font-sans text-brand-text">
+      <div className="min-h-screen bg-brand-light font-sans text-brand-text w-full overflow-x-hidden">
         <Suspense fallback={<div className="p-20 text-center font-serif text-2xl text-brand-dark italic">Carregando experiência La Prime...</div>}>
           <Routes>
             <Route path="/" element={<HomePage aboutRef={aboutRef} servicesRef={servicesRef} testimonialsRef={testimonialsRef} contactRef={contactRef} />} />
@@ -56,7 +56,7 @@ const App = () => {
                 user ? (
                   user.role === 'ADMIN' ? <AdminDashboard /> :
                   user.role === 'PROFISSIONAL' ? <ProfessionalDashboard /> :
-                  <div className="pt-20"><ClientDashboard /></div>
+                  <div className="pt-20 px-0"><ClientDashboard /></div>
                 ) : <Navigate to="/login" />
               } 
             />
