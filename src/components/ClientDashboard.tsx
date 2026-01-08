@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import AppointmentForm from './AppointmentForm';
+
 const ClientDashboard = () => {
   const [appointments, setAppointments] = useState([]);
-  const [services, setServices] = useState([]);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
       const headers = { Authorization: `Bearer ${token}` };
       try {
-        const [apptsRes, servsRes] = await Promise.all([
-          axios.get('http://localhost:8000/appointments/my', { headers }),
-          axios.get('http://localhost:8000/services/', { headers })
-        ]);
-        setAppointments(apptsRes.data);
-        setServices(servsRes.data);
+        const response = await axios.get('http://localhost:8000/appointments/my', { headers });
+        setAppointments(response.data);
       } catch (error) {
         console.error('Failed to fetch data');
       }
     };
     fetchData();
-  }, []);
+  }, [refresh]);
 
   return (
     <div>
@@ -29,8 +27,7 @@ const ClientDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded shadow">
           <h2 className="text-xl font-bold mb-4">Novo Agendamento</h2>
-          {/* Appointment Form would go here */}
-          <p className="text-gray-500 italic">Selecione um serviço e profissional para agendar.</p>
+          <AppointmentForm onSuccess={() => setRefresh(r => r + 1)} />
         </div>
         <div className="bg-white p-6 rounded shadow">
           <h2 className="text-xl font-bold mb-4">Histórico</h2>

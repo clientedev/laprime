@@ -19,6 +19,18 @@ const AdminDashboard = () => {
     fetchStats();
   }, []);
 
+  const handleStatusUpdate = async (id, status) => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.patch(\`http://localhost:8000/appointments/\${id}/status?status=\${status}\`, {}, {
+        headers: { Authorization: \`Bearer \${token}\` }
+      });
+      window.location.reload();
+    } catch (error) {
+      alert('Erro ao atualizar status');
+    }
+  };
+
   if (!stats) return <div>Carregando...</div>;
 
   return (
@@ -40,7 +52,14 @@ const AdminDashboard = () => {
       </div>
       
       <div className="bg-white p-6 rounded shadow mb-8">
-        <h2 className="text-xl font-bold mb-4">Uso de Serviços</h2>
+        <h2 className="text-xl font-bold mb-4">Gerenciar Agendamentos Pendentes</h2>
+        <div className="space-y-4">
+          {/* This would ideally be a separate component for better state management */}
+          <p className="text-sm text-gray-500">Utilize os endpoints de gerenciamento para aprovar/recusar solicitações.</p>
+        </div>
+      </div>
+      
+      <div className="bg-white p-6 rounded shadow mb-8">
         <ul>
           {stats.services_usage.map((service, index) => (
             <li key={index} className="flex justify-between border-b py-2">

@@ -56,7 +56,7 @@ def update_status(
     appointment = db.query(models.Appointment).filter(models.Appointment.id == appointment_id).first()
     if not appointment:
         raise HTTPException(status_code=404, detail="Appointment not found")
-    setattr(appointment, "status", status)
+    appointment.status = status
     db.commit()
     db.refresh(appointment)
     return appointment
