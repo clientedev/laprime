@@ -55,7 +55,7 @@ def check_role(required_roles: list):
         if current_user.role not in required_roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail="The user doesn't have enough privileges"
+                detail="O usuário não tem privilégios suficientes"
             )
         return current_user
     return role_checker

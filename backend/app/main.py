@@ -2,13 +2,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .db.session import engine, Base
 from .models import models
-from .api.endpoints import auth
+from .api.endpoints import auth, services, appointments, availability, admin, professionals
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Clínica Estética API")
 
 app.include_router(auth.router)
+app.include_router(services.router)
+app.include_router(appointments.router)
+app.include_router(availability.router)
+app.include_router(admin.router)
+app.include_router(professionals.router)
 
 app.add_middleware(
     CORSMiddleware,
