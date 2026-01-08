@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from './Logo';
+import { LayoutDashboard, LogOut } from 'lucide-react';
 
 interface HeaderProps {
+  user?: { email: string; role: string } | null;
+  onLogout?: () => void;
   onNavigate: (section: 'home' | 'about' | 'services' | 'testimonials' | 'contact') => void;
 }
 
@@ -17,9 +21,13 @@ const NavLink: React.FC<{
   </button>
 );
 
-const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
+const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,27 +45,62 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     { label: 'Contato', section: 'contact' as const },
   ];
 
+  const handleNavClick = (section: any) => {
+    if (!isHomePage) {
+      navigate('/');
+      setTimeout(() => onNavigate(section), 100);
+    } else {
+      onNavigate(section);
+    }
+    setIsOpen(false);
+  };
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-dark shadow-lg' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 \${isScrolled || !isHomePage ? 'bg-brand-dark shadow-lg' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <div className="flex-shrink-0 cursor-pointer" onClick={() => onNavigate('home')}>
+          <div className="flex-shrink-0 cursor-pointer" onClick={() => navigate('/')}>
             <Logo className="w-28 text-brand-gold" />
           </div>
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:items-center md:space-x-8">
             {navItems.map(item => (
-              <NavLink key={item.section} onClick={() => onNavigate(item.section)}>
+              <NavLink key={item.section} onClick={() => handleNavClick(item.section)}>
                 {item.label}
               </NavLink>
             ))}
           </nav>
 
-          <div className="hidden md:block">
-            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="bg-brand-gold text-brand-dark font-sans font-semibold py-2 px-6 rounded-full hover:bg-opacity-80 transition-all duration-300">
-              Agendar Agora
-            </a>
+          <div className="hidden md:flex items-center gap-4">
+            {user ? (
+              <div className="flex items-center gap-4">
+                <Link to="/dashboard" className="text-white hover:text-brand-gold flex items-center gap-2 text-sm font-semibold">
+                  <LayoutDashboard className="w-4 h-4" />
+                  Painel
+                </Link>
+                <div className="h-4 w-px bg-gray-600" />
+                <div className="flex items-center gap-2">
+                   <div className="flex flex-col items-end">
+                    <span className="text-[10px] text-gray-400 uppercase tracking-tighter">Olá,</span>
+                    <span className="text-xs font-bold text-white leading-none">{user.email.split('@')[0]}</span>
+                  </div>
+                  <button onClick={onLogout} className="text-gray-400 hover:text-red-500 transition-colors">
+                    <LogOut className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-4">
+                <Link to="/login" className="text-white hover:text-brand-gold text-sm font-semibold">Entrar</Link>
+                <Link 
+                  to="/register" 
+                  className="bg-brand-gold text-brand-dark font-sans font-semibold py-2 px-6 rounded-full hover:bg-opacity-80 transition-all duration-300"
+                >
+                  Cadastrar
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -82,18 +125,23 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
             {navItems.map(item => (
               <button
                 key={item.section}
-                onClick={() => {
-                  onNavigate(item.section);
-                  setIsOpen(false);
-                }}
+                onClick={() => handleNavClick(item.section)}
                 className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-gold hover:text-brand-dark w-full text-center"
               >
                 {item.label}
               </button>
             ))}
-             <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="mt-4 bg-brand-gold text-brand-dark font-sans font-semibold py-2 px-6 rounded-full hover:bg-opacity-80 transition-all duration-300 w-fit">
-              Agendar Agora
-            </a>
+            {user ? (
+               <div className="w-full pt-4 border-t border-gray-700 flex flex-col items-center gap-4">
+                 <Link to="/dashboard" onClick={() => setIsOpen(false)} className="text-white font-bold">Painel de Controle</Link>
+                 <button onClick={() => { onLogout?.(); setIsOpen(false); }} className="text-red-400 font-bold">Sair</button>
+               </div>
+            ) : (
+              <div className="w-full pt-4 border-t border-gray-700 flex flex-col items-center gap-4">
+                <Link to="/login" onClick={() => setIsOpen(false)} className="text-white font-bold">Entrar</Link>
+                <Link to="/register" onClick={() => setIsOpen(false)} className="bg-brand-gold text-brand-dark font-bold py-2 px-8 rounded-full">Cadastrar</Link>
+              </div>
+            )}
           </div>
         </div>
       )}

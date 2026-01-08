@@ -6,7 +6,7 @@ import ClientDashboard from './components/ClientDashboard';
 import ProfessionalDashboard from './components/ProfessionalDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import HomePage from './components/HomePage';
-import Navbar from './components/Navbar';
+import Header from './components/Header';
 
 const App = () => {
   const [user, setUser] = useState(() => {
@@ -36,7 +36,12 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar user={user} onLogout={handleLogout} />
+      <Header user={user} onLogout={handleLogout} onNavigate={(section) => {
+        const element = document.getElementById(section);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }} />
       <div className="min-h-screen bg-brand-light">
         <Routes>
           <Route path="/" element={<HomePage aboutRef={aboutRef} servicesRef={servicesRef} testimonialsRef={testimonialsRef} contactRef={contactRef} />} />
