@@ -21,8 +21,14 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 
+# Root endpoint for health check
 @app.get("/")
 def read_root():
-    return {"message": "Bem-vindo à API da Clínica Estética"}
+    return {
+        "status": "online",
+        "message": "Sistema de Gestão Clínica LA PRIME",
+        "version": "1.0.0"
+    }

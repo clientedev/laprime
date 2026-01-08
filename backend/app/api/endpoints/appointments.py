@@ -56,7 +56,13 @@ def update_status(
     appointment = db.query(models.Appointment).filter(models.Appointment.id == appointment_id).first()
     if not appointment:
         raise HTTPException(status_code=404, detail="Appointment not found")
-    appointment.status = status
+    
+    # Check if the transition is valid (business logic)
+    if status == "APROVADO":
+        # Additional checks for conflicts could be added here
+        pass
+        
+    setattr(appointment, "status", status)
     db.commit()
     db.refresh(appointment)
     return appointment
