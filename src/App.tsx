@@ -5,12 +5,17 @@ import Register from './components/Register';
 import ClientDashboard from './components/ClientDashboard';
 import ProfessionalDashboard from './components/ProfessionalDashboard';
 import AdminDashboard from './components/AdminDashboard';
+import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar';
 
 const App = () => {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : null;
+    try {
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch (e) {
+      return null;
+    }
   });
 
   const handleLogin = (userData) => {
@@ -27,8 +32,9 @@ const App = () => {
   return (
     <Router>
       <Navbar user={user} onLogout={handleLogout} />
-      <div className="container mx-auto p-4">
+      <div className="min-h-screen bg-brand-light">
         <Routes>
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/register" element={<Register />} />
           <Route 
@@ -41,7 +47,7 @@ const App = () => {
               ) : <Navigate to="/login" />
             } 
           />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </Router>
