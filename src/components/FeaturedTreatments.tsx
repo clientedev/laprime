@@ -1,5 +1,5 @@
 import React from 'react';
-import criolipoliseImg from '@assets/image_1764245049681.png';
+import criolipoliseImg from '@assets/stock_images/cryolipolysis_body_c_88e028e1.jpg';
 import botoxImg from '@assets/stock_images/botox_injection_faci_370000f9.jpg';
 import preenchimentoImg from '@assets/stock_images/dermal_filler_lip_in_c408a9e9.jpg';
 

@@ -5,7 +5,7 @@ import Register from './components/Register';
 import ClientDashboard from './components/ClientDashboard';
 import ProfessionalDashboard from './components/ProfessionalDashboard';
 import AdminDashboard from './components/AdminDashboard';
-import LandingPage from './components/LandingPage';
+import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
 
 const App = () => {
@@ -29,12 +29,17 @@ const App = () => {
     setUser(null);
   };
 
+  const aboutRef = React.useRef(null);
+  const servicesRef = React.useRef(null);
+  const testimonialsRef = React.useRef(null);
+  const contactRef = React.useRef(null);
+
   return (
     <Router>
       <Navbar user={user} onLogout={handleLogout} />
       <div className="min-h-screen bg-brand-light">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<HomePage aboutRef={aboutRef} servicesRef={servicesRef} testimonialsRef={testimonialsRef} contactRef={contactRef} />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/register" element={<Register />} />
           <Route 
