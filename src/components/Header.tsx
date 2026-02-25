@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from './Logo';
 import { LayoutDashboard, LogOut } from 'lucide-react';
+import PromotionBanner from './PromotionBanner';
 
 interface HeaderProps {
   user?: { email: string; role: string } | null;
@@ -56,13 +57,14 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 \${isScrolled || !isHomePage ? 'bg-brand-dark shadow-lg' : 'bg-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || !isHomePage ? 'bg-brand-dark shadow-lg' : 'bg-brand-dark/0'}`}>
+      <PromotionBanner />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0 cursor-pointer" onClick={() => navigate('/')}>
             <Logo className="w-28 text-brand-gold" />
           </div>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex md:items-center md:space-x-8">
             {navItems.map(item => (
@@ -70,6 +72,8 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
                 {item.label}
               </NavLink>
             ))}
+            <Link to="/blog" className="text-white uppercase tracking-wider font-sans text-sm hover:text-brand-gold transition-colors duration-300">Blog</Link>
+            <Link to="/galeria" className="text-white uppercase tracking-wider font-sans text-sm hover:text-brand-gold transition-colors duration-300">Galeria</Link>
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
@@ -81,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
                 </Link>
                 <div className="h-4 w-px bg-gray-600" />
                 <div className="flex items-center gap-2">
-                   <div className="flex flex-col items-end">
+                  <div className="flex flex-col items-end">
                     <span className="text-[10px] text-gray-400 uppercase tracking-tighter">Olá,</span>
                     <span className="text-xs font-bold text-white leading-none">{user.email.split('@')[0]}</span>
                   </div>
@@ -93,8 +97,8 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
             ) : (
               <div className="flex items-center gap-4">
                 <Link to="/login" className="text-white hover:text-brand-gold text-sm font-semibold">Entrar</Link>
-                <Link 
-                  to="/register" 
+                <Link
+                  to="/register"
                   className="bg-brand-gold text-brand-dark font-sans font-semibold py-2 px-6 rounded-full hover:bg-opacity-80 transition-all duration-300"
                 >
                   Cadastrar
@@ -117,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-brand-dark/95 backdrop-blur-sm absolute top-20 left-0 right-0">
@@ -131,11 +135,13 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
                 {item.label}
               </button>
             ))}
+            <Link to="/blog" onClick={() => setIsOpen(false)} className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-gold hover:text-brand-dark w-full text-center">Blog</Link>
+            <Link to="/galeria" onClick={() => setIsOpen(false)} className="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-gold hover:text-brand-dark w-full text-center">Galeria</Link>
             {user ? (
-               <div className="w-full pt-4 border-t border-gray-700 flex flex-col items-center gap-4">
-                 <Link to="/dashboard" onClick={() => setIsOpen(false)} className="text-white font-bold">Painel de Controle</Link>
-                 <button onClick={() => { onLogout?.(); setIsOpen(false); }} className="text-red-400 font-bold">Sair</button>
-               </div>
+              <div className="w-full pt-4 border-t border-gray-700 flex flex-col items-center gap-4">
+                <Link to="/dashboard" onClick={() => setIsOpen(false)} className="text-white font-bold">Painel de Controle</Link>
+                <button onClick={() => { onLogout?.(); setIsOpen(false); }} className="text-red-400 font-bold">Sair</button>
+              </div>
             ) : (
               <div className="w-full pt-4 border-t border-gray-700 flex flex-col items-center gap-4">
                 <Link to="/login" onClick={() => setIsOpen(false)} className="text-white font-bold">Entrar</Link>

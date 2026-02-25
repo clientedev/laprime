@@ -7,6 +7,15 @@ import ProfessionalDashboard from './components/ProfessionalDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import HomePage from './components/HomePage';
 import Header from './components/Header';
+import SalaoPage from './components/SalaoPage';
+import UnhasPage from './components/UnhasPage';
+import CiliosPage from './components/CiliosPage';
+import EsteticaPage from './components/EsteticaPage';
+import OdontologiaPage from './components/OdontologiaPage';
+import BlogPage from './components/BlogPage';
+import BlogPostPage from './components/BlogPostPage';
+import GalleryPage from './components/GalleryPage';
+import PromotionBanner from './components/PromotionBanner';
 
 const App = () => {
   const [user, setUser] = useState(() => {
@@ -50,15 +59,23 @@ const App = () => {
             <Route path="/" element={<HomePage aboutRef={aboutRef} servicesRef={servicesRef} testimonialsRef={testimonialsRef} contactRef={contactRef} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/register" element={<Register />} />
-            <Route 
-              path="/dashboard" 
+            <Route path="/servicos/salao" element={<SalaoPage />} />
+            <Route path="/servicos/unhas" element={<UnhasPage />} />
+            <Route path="/servicos/cilios" element={<CiliosPage />} />
+            <Route path="/servicos/estetica" element={<EsteticaPage />} />
+            <Route path="/servicos/odontologia" element={<OdontologiaPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:id" element={<BlogPostPage />} />
+            <Route path="/galeria" element={<GalleryPage />} />
+            <Route
+              path="/dashboard"
               element={
                 user ? (
                   user.role === 'ADMIN' ? <AdminDashboard /> :
-                  user.role === 'PROFISSIONAL' ? <ProfessionalDashboard /> :
-                  <div className="pt-20 px-0"><ClientDashboard /></div>
+                    user.role === 'PROFISSIONAL' ? <ProfessionalDashboard /> :
+                      <div className="pt-20 px-0"><ClientDashboard /></div>
                 ) : <Navigate to="/login" />
-              } 
+              }
             />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

@@ -10,7 +10,8 @@ router = APIRouter(prefix="/services", tags=["services"])
 
 @router.get("/", response_model=List[schemas.ServiceResponse])
 def get_services(db: Session = Depends(get_db)):
-    return db.query(models.Service).all()
+    # Retorna apenas serviços associados a profissionais ativos
+    return db.query(models.Service).join(models.Professional).filter(models.Professional.ativo == True).all()
 
 @router.post("/", response_model=schemas.ServiceResponse)
 def create_service(

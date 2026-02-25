@@ -10,7 +10,18 @@ router = APIRouter(prefix="/professionals", tags=["professionals"])
 
 @router.get("/", response_model=List[schemas.ProfessionalResponse])
 def get_professionals(db: Session = Depends(get_db)):
-    return db.query(models.Professional).filter(models.Professional.ativo == True).all()
+    results = db.query(models.Professional, models.User.nome).join(models.User, models.Professional.user_id == models.User.id).filter(models.Professional.ativo == True).all()
+    return [
+        {
+            "id": p.id,
+            "user_id": p.user_id,
+            "especialidade": p.especialidade,
+            "bio": p.bio,
+            "ativo": p.ativo,
+            "nome": nome,
+            "services": p.services
+        } for p, nome in results
+    ]
 
 @router.post("/", response_model=schemas.ProfessionalResponse)
 def create_professional(
@@ -18,10 +29,23 @@ def create_professional(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(check_role(["ADMIN"]))
 ):
-    new_prof = models.Professional(**professional.dict())
+    prof_data = professional.dict(exclude={"services"})
+    new_prof = models.Professional(**prof_data)
     db.add(new_prof)
     db.commit()
     db.refresh(new_prof)
+    
+    # Create services if provided
+    if professional.services:
+        for svc_data in professional.services:
+            new_svc = models.Service(
+                **svc_data.dict(exclude={"professional_id"}),
+                professional_id=new_prof.id
+            )
+            db.add(new_svc)
+        db.commit()
+        db.refresh(new_prof)
+    
     return new_prof
 
 @router.patch("/{professional_id}/deactivate")

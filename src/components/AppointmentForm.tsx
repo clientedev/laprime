@@ -12,6 +12,7 @@ const AppointmentForm = ({ onSuccess }) => {
     data: '',
     hora: ''
   });
+  const [busySlots, setBusySlots] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const AppointmentForm = ({ onSuccess }) => {
 
   const handleProfessionalChange = async (profId: string) => {
     setFormData({ ...formData, professional_id: profId, data: '', hora: '' });
+    setBusySlots([]);
     if (!profId) return;
     try {
       const response = await axios.get(`/api/availability/${profId}`);
@@ -39,6 +41,46 @@ const AppointmentForm = ({ onSuccess }) => {
     } catch (error) {
       console.error('Erro ao carregar disponibilidade');
     }
+  };
+
+  const handleDateChange = async (date: string) => {
+    setFormData({ ...formData, data: date, hora: '' });
+    if (!date || !formData.professional_id) return;
+    try {
+      const res = await axios.get(`/api/appointments/busy-slots?professional_id=${formData.professional_id}&data=${date}`);
+      setBusySlots(res.data);
+    } catch (error) {
+      console.error('Erro ao buscar horários ocupados');
+    }
+  };
+
+  const getValidSlots = () => {
+    if (!formData.data || !formData.service_id) return [];
+
+    const selectedService = services.find(s => String(s.id) === formData.service_id);
+    const duration = selectedService ? selectedService.duracao : 30;
+    const date = formData.data;
+    const ranges = availabilities.filter(a => new Date(a.data).toISOString().split('T')[0] === date);
+
+    const slots: string[] = [];
+    ranges.forEach(range => {
+      let current = new Date(`${date}T${range.hora_inicio}`);
+      const end = new Date(`${date}T${range.hora_fim}`);
+
+      while (current < end) {
+        const timeStr = current.toTimeString().substring(0, 5);
+        const slotEnd = new Date(current.getTime() + duration * 60000);
+        const slotEndStr = slotEnd.toTimeString().substring(0, 5);
+
+        if (slotEndStr > range.hora_fim) break;
+
+        const isBusy = busySlots.some((bsTime: string) => bsTime >= timeStr && bsTime < slotEndStr);
+        if (!isBusy) slots.push(timeStr);
+
+        current.setMinutes(current.getMinutes() + 30);
+      }
+    });
+    return slots;
   };
 
   const handleSubmit = async (e) => {
@@ -70,9 +112,9 @@ const AppointmentForm = ({ onSuccess }) => {
           <Heart className="w-3 h-3 text-brand-gold" />
           Serviço Desejado
         </label>
-        <select 
+        <select
           className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
-          onChange={(e) => setFormData({...formData, service_id: e.target.value})}
+          onChange={(e) => setFormData({ ...formData, service_id: e.target.value })}
           required
           value={formData.service_id}
         >
@@ -86,7 +128,7 @@ const AppointmentForm = ({ onSuccess }) => {
           <User className="w-3 h-3 text-brand-gold" />
           Especialista
         </label>
-        <select 
+        <select
           className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
           onChange={(e) => handleProfessionalChange(e.target.value)}
           required
@@ -104,9 +146,9 @@ const AppointmentForm = ({ onSuccess }) => {
               <Calendar className="w-3 h-3 text-brand-gold" />
               Datas Disponíveis
             </label>
-            <select 
+            <select
               className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
-              onChange={(e) => setFormData({...formData, data: e.target.value})}
+              onChange={(e) => handleDateChange(e.target.value)}
               required
               value={formData.data}
             >
@@ -121,25 +163,23 @@ const AppointmentForm = ({ onSuccess }) => {
               <Clock className="w-3 h-3 text-brand-gold" />
               Horário
             </label>
-            <select 
+            <select
               className="w-full p-3 bg-brand-light border border-brand-gold/20 rounded-xl focus:ring-2 focus:ring-brand-gold focus:outline-none text-sm transition-all"
-              onChange={(e) => setFormData({...formData, hora: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, hora: e.target.value })}
               required
               value={formData.hora}
               disabled={!formData.data}
             >
               <option value="">Selecione o horário...</option>
-              {availabilities
-                .filter(a => new Date(a.data).toISOString().split('T')[0] === formData.data)
-                .map(a => (
-                  <option key={a.id} value={a.hora_inicio}>{a.hora_inicio} - {a.hora_fim}</option>
-                ))}
+              {getValidSlots().map(slot => (
+                <option key={slot} value={slot}>{slot}</option>
+              ))}
             </select>
           </div>
         </div>
       )}
 
-      <button 
+      <button
         type="submit"
         disabled={loading || !formData.hora}
         className={`w-full bg-brand-dark text-white p-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-brand-gold hover:text-brand-dark transition-all shadow-lg ${loading ? 'opacity-50' : ''}`}

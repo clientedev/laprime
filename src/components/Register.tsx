@@ -4,12 +4,16 @@ import { useNavigate, Link } from 'react-router-dom';
 import { UserPlus, Mail, Lock, UserCircle, ShieldCheck } from 'lucide-react';
 
 const Register = () => {
-  const [formData, setFormData] = useState({ nome: '', email: '', senha: '', role: 'CLIENTE' });
+  const [formData, setFormData] = useState({ nome: '', email: '', telefone: '', senha: '', role: 'CLIENTE' });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.nome || !formData.email || !formData.senha) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
     setLoading(true);
     try {
       await axios.post('/api/auth/register', formData);
@@ -37,7 +41,7 @@ const Register = () => {
             </Link>
           </p>
         </div>
-        
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="relative">
@@ -61,23 +65,24 @@ const Register = () => {
               />
             </div>
             <div className="relative">
+              <ShieldCheck className="absolute left-3 top-3 w-5 h-5 text-brand-gold/50" />
+              <input
+                type="tel"
+                required
+                className="appearance-none rounded-none relative block w-full px-10 py-3 border border-gray-200 placeholder-gray-400 text-brand-dark focus:outline-none focus:ring-brand-gold focus:border-brand-gold focus:z-10 sm:text-sm font-sans"
+                placeholder="Telefone (DDD + Número)"
+                onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
+              />
+            </div>
+            <div className="relative">
               <Lock className="absolute left-3 top-3 w-5 h-5 text-brand-gold/50" />
               <input
                 type="password"
                 required
-                className="appearance-none rounded-none relative block w-full px-10 py-3 border border-gray-200 placeholder-gray-400 text-brand-dark focus:outline-none focus:ring-brand-gold focus:border-brand-gold focus:z-10 sm:text-sm font-sans"
+                className="appearance-none rounded-none relative block w-full px-10 py-3 border border-gray-200 placeholder-gray-400 text-brand-dark rounded-b-md focus:outline-none focus:ring-brand-gold focus:border-brand-gold focus:z-10 sm:text-sm font-sans"
                 placeholder="Senha de acesso"
                 onChange={(e) => setFormData({ ...formData, senha: e.target.value })}
               />
-            </div>
-            <div className="relative">
-              <select
-                className="appearance-none rounded-none relative block w-full px-4 py-3 border border-gray-200 text-brand-dark rounded-b-md focus:outline-none focus:ring-brand-gold focus:border-brand-gold focus:z-10 sm:text-sm bg-white font-sans"
-                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-              >
-                <option value="CLIENTE">Sou Cliente (Desejo agendar)</option>
-                <option value="PROFISSIONAL">Sou Profissional (Desejo atender)</option>
-              </select>
             </div>
           </div>
 

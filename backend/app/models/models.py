@@ -8,6 +8,7 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String)
     email = Column(String, unique=True, index=True)
+    telefone = Column(String, nullable=True)
     senha = Column(String)
     role = Column(String) # ADMIN, PROFISSIONAL, CLIENTE
     ativo = Column(Boolean, default=True)
@@ -64,3 +65,35 @@ class Appointment(Base):
     client = relationship("User", back_populates="appointments")
     professional = relationship("Professional", back_populates="appointments")
     service = relationship("Service", back_populates="appointments")
+
+class BlogPost(Base):
+    __tablename__ = "blog_posts"
+    id = Column(Integer, primary_key=True, index=True)
+    titulo = Column(String)
+    conteudo = Column(String)
+    imagem_url = Column(String, nullable=True)
+    author_id = Column(Integer, ForeignKey("users.id"))
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, onupdate=func.now())
+
+class GalleryImage(Base):
+    __tablename__ = "gallery_images"
+    id = Column(Integer, primary_key=True, index=True)
+    url = Column(String)
+    titulo = Column(String, nullable=True)
+    descricao = Column(String, nullable=True)
+    uploaded_at = Column(DateTime, server_default=func.now())
+
+class Review(Base):
+    __tablename__ = "reviews"
+    id = Column(Integer, primary_key=True, index=True)
+    nome_cliente = Column(String)
+    rating = Column(Integer)
+    comentario = Column(String)
+    is_approved = Column(Boolean, default=False)
+    created_at = Column(DateTime, server_default=func.now())
+class Setting(Base):
+    __tablename__ = "settings"
+    id = Column(Integer, primary_key=True, index=True)
+    key = Column(String, unique=True, index=True)
+    value = Column(String)
