@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+﻿import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
@@ -178,8 +178,8 @@ const AdminDashboard = () => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
-  const dayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-  const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  const dayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'SÃ¡b'];
+  const monthNames = ['Janeiro', 'Fevereiro', 'MarÃ§o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
   const fetchAgendaData = useCallback(async () => {
     const token = localStorage.getItem('token');
@@ -300,7 +300,7 @@ const AdminDashboard = () => {
   const handleBlockFullDay = async (dateKey: string) => {
     const profId = selectedProfFilter === 'all' ? '' : selectedProfFilter;
     if (!profId) { alert('Selecione um profissional para bloquear o dia'); return; }
-    if (!confirm(`Bloquear todos os horários de ${new Date(dateKey + 'T12:00').toLocaleDateString('pt-BR')}?`)) return;
+    if (!confirm(`Bloquear todos os horÃ¡rios de ${new Date(dateKey + 'T12:00').toLocaleDateString('pt-BR')}?`)) return;
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     try {
@@ -339,7 +339,7 @@ const AdminDashboard = () => {
 
   const handleBulkCreate = async () => {
     if (!bulkConfig.professional_id || !bulkConfig.date_start || !bulkConfig.date_end || bulkConfig.days.length === 0) {
-      alert('Preencha os campos obrigatórios (Profissional, Datas e Dias)');
+      alert('Preencha os campos obrigatÃ³rios (Profissional, Datas e Dias)');
       return;
     }
 
@@ -348,7 +348,7 @@ const AdminDashboard = () => {
     const end = new Date(bulkConfig.date_end + 'T12:00:00');
     const availabilities = [];
 
-    // Verificamos se há um serviço selecionado para calcular a duração dos slots
+    // Verificamos se hÃ¡ um serviÃ§o selecionado para calcular a duraÃ§Ã£o dos slots
     let slotDuration = 0;
     if (bulkConfig.service_id) {
       const prof = allProfessionals.find(p => String(p.id) === bulkConfig.professional_id);
@@ -395,7 +395,7 @@ const AdminDashboard = () => {
     }
 
     if (availabilities.length === 0) {
-      alert('Nenhuma data compatível encontrada no período');
+      alert('Nenhuma data compatÃ­vel encontrada no perÃ­odo');
       return;
     }
 
@@ -407,7 +407,7 @@ const AdminDashboard = () => {
       setShowBulkPanel(false);
       window.location.reload();
     } catch {
-      alert('Erro ao criar horários em massa');
+      alert('Erro ao criar horÃ¡rios em massa');
     }
   };
 
@@ -420,7 +420,7 @@ const AdminDashboard = () => {
       });
       fetchData(); // Using fetchData instead of reload for better UX
     } catch (error) {
-      alert('Erro ao alterar status do usuário');
+      alert('Erro ao alterar status do usuÃ¡rio');
     }
   };
 
@@ -432,13 +432,13 @@ const AdminDashboard = () => {
       });
       fetchData();
     } catch (error) {
-      alert('Erro ao alterar cargo do usuário');
+      alert('Erro ao alterar cargo do usuÃ¡rio');
     }
   };
 
   const handleCreateUser = async () => {
     if (!newUserData.nome || !newUserData.email || !newUserData.senha) {
-      alert('Nome, E-mail e Senha são obrigatórios');
+      alert('Nome, E-mail e Senha sÃ£o obrigatÃ³rios');
       return;
     }
     const token = localStorage.getItem('token');
@@ -446,18 +446,18 @@ const AdminDashboard = () => {
       await axios.post('/api/admin/users', newUserData, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      alert('Usuário criado com sucesso!');
+      alert('UsuÃ¡rio criado com sucesso!');
       setShowAddUserModal(false);
       setNewUserData({ nome: '', email: '', telefone: '', senha: '', role: 'CLIENTE' });
       fetchData();
     } catch (error: any) {
       if (error.response?.status === 401) {
-        alert('Sessão expirada. Por favor, faça login novamente.');
+        alert('SessÃ£o expirada. Por favor, faÃ§a login novamente.');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         navigate('/login');
       } else {
-        alert(error.response?.data?.detail || 'Erro ao criar usuário');
+        alert(error.response?.data?.detail || 'Erro ao criar usuÃ¡rio');
       }
     }
   };
@@ -485,15 +485,15 @@ const AdminDashboard = () => {
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      alert('Horário cadastrado com sucesso!');
+      alert('HorÃ¡rio cadastrado com sucesso!');
       fetchData();
     } catch (error) {
-      alert('Erro ao cadastrar horário');
+      alert('Erro ao cadastrar horÃ¡rio');
     }
   };
 
   const handleDeleteAvailability = async (id: number) => {
-    if (!confirm('Excluir este horário?')) return;
+    if (!confirm('Excluir este horÃ¡rio?')) return;
     const token = localStorage.getItem('token');
     try {
       await axios.delete(`/api/availability/${id}`, {
@@ -501,7 +501,7 @@ const AdminDashboard = () => {
       });
       fetchData();
     } catch (error) {
-      alert('Erro ao excluir horário');
+      alert('Erro ao excluir horÃ¡rio');
     }
   };
 
@@ -518,10 +518,10 @@ const AdminDashboard = () => {
       }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      alert('Horário bloqueado com sucesso!');
+      alert('HorÃ¡rio bloqueado com sucesso!');
       fetchData();
     } catch (error) {
-      alert('Erro ao bloquear horário');
+      alert('Erro ao bloquear horÃ¡rio');
     }
   };
 
@@ -552,7 +552,7 @@ const AdminDashboard = () => {
 
   const handleAddPost = async () => {
     if (!newPostData.titulo || !newPostData.conteudo) {
-      alert("Título e conteúdo são obrigatórios");
+      alert("TÃ­tulo e conteÃºdo sÃ£o obrigatÃ³rios");
       return;
     }
     const token = localStorage.getItem('token');
@@ -593,7 +593,7 @@ const AdminDashboard = () => {
 
   const handleAddGalleryImage = async () => {
     if (!newGalleryData.url) {
-      alert("A imagem ou URL é obrigatória");
+      alert("A imagem ou URL Ã© obrigatÃ³ria");
       return;
     }
     const token = localStorage.getItem('token');
@@ -605,7 +605,7 @@ const AdminDashboard = () => {
       setNewGalleryData({ url: '', titulo: '', descricao: '' });
       setGalleryImageSource('url');
       fetchData();
-      alert("Imagem adicionada à galeria!");
+      alert("Imagem adicionada Ã  galeria!");
     } catch (error) {
       console.error("Error adding gallery image", error);
       alert("Erro ao adicionar imagem");
@@ -696,10 +696,10 @@ const AdminDashboard = () => {
     { id: 'bi', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
     { id: 'agenda', label: 'Agenda', icon: <CalendarRange className="w-5 h-5" /> },
     { id: 'professionals', label: 'Profissionais', icon: <Briefcase className="w-5 h-5" /> },
-    { id: 'users', label: 'Usuários', icon: <Users className="w-5 h-5" /> },
+    { id: 'users', label: 'UsuÃ¡rios', icon: <Users className="w-5 h-5" /> },
     { id: 'blog', label: 'Blog', icon: <FileText className="w-5 h-5" /> },
     { id: 'gallery', label: 'Galeria', icon: <ImageIcon className="w-5 h-5" /> },
-    { id: 'reviews', label: 'Avaliações', icon: <Star className="w-5 h-5" /> },
+    { id: 'reviews', label: 'AvaliaÃ§Ãµes', icon: <Star className="w-5 h-5" /> },
     { id: 'config', label: 'Ajustes', icon: <Settings className="w-5 h-5" /> },
   ];
 
@@ -707,7 +707,7 @@ const AdminDashboard = () => {
     <div className="flex items-center justify-center h-screen bg-brand-light/20">
       <div className="text-center">
         <div className="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-        <p className="font-serif text-xl text-brand-dark italic">Carregando inteligência de dados...</p>
+        <p className="font-serif text-xl text-brand-dark italic">Carregando inteligÃªncia de dados...</p>
       </div>
     </div>
   );
@@ -801,7 +801,7 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {[
                   { label: 'Total Agendamentos', val: stats?.total_appointments || 0, icon: <Calendar />, color: 'text-brand-dark' },
-                  { label: 'Taxa Aprovação', val: `\${(stats?.approval_rate || 0).toFixed(1)}%`, icon: <CheckCircle />, color: 'text-green-600' },
+                  { label: 'Taxa AprovaÃ§Ã£o', val: `\${(stats?.approval_rate || 0).toFixed(1)}%`, icon: <CheckCircle />, color: 'text-green-600' },
                   { label: 'Clientes Ativos', val: stats?.active_clients || 0, icon: <Users />, color: 'text-brand-gold' },
                   { label: 'Especialidades', val: (stats?.services_usage || []).length, icon: <Scissors />, color: 'text-purple-600' }
                 ].map((kpi, i) => (
@@ -823,7 +823,7 @@ const AdminDashboard = () => {
                 <div className="bg-white p-10 rounded-3xl shadow-xl border border-brand-gold/5">
                   <h2 className="text-2xl font-serif font-bold text-brand-dark mb-8 flex items-center gap-3">
                     <TrendingUp className="text-brand-gold w-6 h-6" />
-                    Demanda por Serviço
+                    Demanda por ServiÃ§o
                   </h2>
                   <div className="h-[400px]">
                     <ResponsiveContainer width="100%" height="100%">
@@ -841,7 +841,7 @@ const AdminDashboard = () => {
                 <div className="bg-white p-10 rounded-3xl shadow-xl border border-brand-gold/5">
                   <h2 className="text-2xl font-serif font-bold text-brand-dark mb-8 flex items-center gap-3">
                     <TrendingUp className="text-brand-gold w-6 h-6" />
-                    Distribuição de Volume
+                    DistribuiÃ§Ã£o de Volume
                   </h2>
                   <div className="h-[400px]">
                     <ResponsiveContainer width="100%" height="100%">
@@ -870,7 +870,7 @@ const AdminDashboard = () => {
 
               <div className="bg-white rounded-3xl shadow-2xl border border-brand-gold/10 overflow-hidden">
                 <div className="px-10 py-8 border-b border-gray-100 flex justify-between items-center bg-brand-dark">
-                  <h2 className="text-2xl font-serif font-bold text-white">Solicitações Pendentes</h2>
+                  <h2 className="text-2xl font-serif font-bold text-white">SolicitaÃ§Ãµes Pendentes</h2>
                   <span className="bg-brand-gold text-brand-dark text-[10px] font-black px-4 py-1.5 rounded-full tracking-widest">
                     {appointments.length} NOVOS AGENDAMENTOS
                   </span>
@@ -882,12 +882,12 @@ const AdminDashboard = () => {
                         <th className="px-10 py-5">Cliente</th>
                         <th className="px-10 py-5">Data & Hora</th>
                         <th className="px-10 py-5">Especialidade</th>
-                        <th className="px-10 py-5">Decisão</th>
+                        <th className="px-10 py-5">DecisÃ£o</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 font-sans">
                       {appointments.length === 0 ? (
-                        <tr><td colSpan={4} className="px-10 py-20 text-center text-gray-400 font-serif text-xl italic">Toda a agenda está em dia.</td></tr>
+                        <tr><td colSpan={4} className="px-10 py-20 text-center text-gray-400 font-serif text-xl italic">Toda a agenda estÃ¡ em dia.</td></tr>
                       ) : (Array.isArray(appointments) ? appointments : []).map((appt: any) => (
                         <tr key={appt.id} className="hover:bg-brand-light/20 transition-colors">
                           <td className="px-10 py-6">
@@ -895,10 +895,10 @@ const AdminDashboard = () => {
                             <div className="text-xs text-brand-gold font-sans">{appt.cliente_telefone || 'Sem telefone'}</div>
                           </td>
                           <td className="px-10 py-6 text-gray-600">
-                            <span className="font-bold">{new Date(appt.data).toLocaleDateString()}</span> às {appt.hora}
+                            <span className="font-bold">{new Date(appt.data).toLocaleDateString()}</span> Ã s {appt.hora}
                           </td>
                           <td className="px-10 py-6">
-                            <div className="text-brand-gold font-bold">{appt.service_nome || `Serviço #\${appt.service_id}`}</div>
+                            <div className="text-brand-gold font-bold">{appt.service_nome || `ServiÃ§o #\${appt.service_id}`}</div>
                             <div className="text-[10px] text-gray-400 font-sans uppercase tracking-widest">com {appt.professional_nome || `Prof. #\${appt.professional_id}`}</div>
                           </td>
                           <td className="px-10 py-6">
@@ -917,7 +917,7 @@ const AdminDashboard = () => {
                               </button>
                               {appt.cliente_telefone && (
                                 <a
-                                  href={`https://wa.me/55${appt.cliente_telefone.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá ${appt.cliente_nome || 'Cliente'}, aqui é da La Prime. Seu agendamento para ${appt.service_nome || 'seu serviço'} no dia ${new Date(appt.data).toLocaleDateString()} às ${appt.hora} foi confirmado!`)}`}
+                                  href={`https://wa.me/55${appt.cliente_telefone.replace(/\D/g, '')}?text=${encodeURIComponent(`OlÃ¡ ${appt.cliente_nome || 'Cliente'}, aqui Ã© da La Prime. Seu agendamento para ${appt.service_nome || 'seu serviÃ§o'} no dia ${new Date(appt.data).toLocaleDateString()} Ã s ${appt.hora} foi confirmado!`)}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="bg-[#25D366] hover:bg-[#128C7E] text-white px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest transition-all shadow-md shadow-green-100 flex items-center gap-1.5"
@@ -974,8 +974,8 @@ const AdminDashboard = () => {
                 <div className="bg-brand-dark text-white rounded-3xl shadow-2xl p-8 border border-white/10 animate-in slide-in-from-top-4 duration-500">
                   <div className="flex justify-between items-center mb-8">
                     <div>
-                      <h3 className="text-2xl font-serif font-bold text-brand-gold">Configuração em Massa</h3>
-                      <p className="text-white/60 text-xs font-sans mt-1">Defina horários de trabalho para múltiplos dias de uma vez.</p>
+                      <h3 className="text-2xl font-serif font-bold text-brand-gold">ConfiguraÃ§Ã£o em Massa</h3>
+                      <p className="text-white/60 text-xs font-sans mt-1">Defina horÃ¡rios de trabalho para mÃºltiplos dias de uma vez.</p>
                     </div>
                     <button onClick={() => setShowBulkPanel(false)} className="text-white/30 hover:text-white">
                       <X className="w-6 h-6" />
@@ -998,7 +998,7 @@ const AdminDashboard = () => {
                     </div>
 
                     <div className="md:col-span-1">
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-brand-gold/60 mb-2">Serviço (Slots)</label>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-brand-gold/60 mb-2">ServiÃ§o (Slots)</label>
                       <select
                         value={bulkConfig.service_id}
                         onChange={(e) => setBulkConfig({ ...bulkConfig, service_id: e.target.value })}
@@ -1026,7 +1026,7 @@ const AdminDashboard = () => {
                           onChange={(e) => setBulkConfig({ ...bulkConfig, date_start: e.target.value })}
                           className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-gold text-sm"
                         />
-                        <span className="text-white/20">até</span>
+                        <span className="text-white/20">atÃ©</span>
                         <input
                           type="date"
                           value={bulkConfig.date_end}
@@ -1037,7 +1037,7 @@ const AdminDashboard = () => {
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-black uppercase tracking-widest text-brand-gold/60 mb-2">Horário (Início - Fim)</label>
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-brand-gold/60 mb-2">HorÃ¡rio (InÃ­cio - Fim)</label>
                       <div className="flex items-center gap-2">
                         <input
                           type="time"
@@ -1057,7 +1057,7 @@ const AdminDashboard = () => {
                     <div className="md:col-span-4">
                       <label className="block text-[10px] font-black uppercase tracking-widest text-brand-gold/60 mb-4">Dias da Semana</label>
                       <div className="flex flex-wrap gap-3">
-                        {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((name, idx) => (
+                        {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'SÃ¡b'].map((name, idx) => (
                           <button
                             key={idx}
                             onClick={() => {
@@ -1079,7 +1079,7 @@ const AdminDashboard = () => {
                         onClick={handleBulkCreate}
                         className="bg-brand-gold text-brand-dark px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-brand-gold/20 flex items-center gap-2"
                       >
-                        <CheckCircle className="w-4 h-4" /> Gerar Horários em Massa
+                        <CheckCircle className="w-4 h-4" /> Gerar HorÃ¡rios em Massa
                       </button>
                     </div>
                   </div>
@@ -1107,7 +1107,7 @@ const AdminDashboard = () => {
                     className="border-2 border-brand-light rounded-xl px-4 py-2 text-sm font-sans outline-none focus:border-brand-gold bg-white"
                   >
                     <option value="all">Todos Profissionais</option>
-                    {(allProfessionals || []).map(p => (
+                    {(Array.isArray(allProfessionals) ? allProfessionals : []).map(p => (
                       <option key={p.id} value={p.id}>{p.nome}</option>
                     ))}
                   </select>
@@ -1190,7 +1190,7 @@ const AdminDashboard = () => {
                                       onDragStart={() => setDragItem(appt)}
                                       onClick={(e) => { e.stopPropagation(); openEditModal(appt); }}
                                       style={{ height: `calc(${heightFactor * 100}% - 4px)`, zIndex: 20 }}
-                                      title={`Cliente: ${appt.cliente_nome}\nServiço: ${appt.service_nome}\nProfissional: ${appt.professional_nome}\nStatus: ${appt.status}`}
+                                      title={`Cliente: ${appt.cliente_nome}\nServiÃ§o: ${appt.service_nome}\nProfissional: ${appt.professional_nome}\nStatus: ${appt.status}`}
                                       className={`absolute inset-x-0.5 top-0.5 rounded-lg p-1.5 shadow-sm cursor-move transition-transform hover:scale-[1.02] active:scale-95 ${STATUS_COLORS[appt.status] || 'bg-brand-dark'} overflow-hidden border border-white/20 flex flex-col`}
                                     >
                                       <div className="flex items-center gap-1 mb-0.5">
@@ -1202,7 +1202,7 @@ const AdminDashboard = () => {
                                             <button
                                               onClick={(e) => {
                                                 e.stopPropagation();
-                                                const text = `Olá ${appt.cliente_nome}, aqui é da La Prime. Confirmamos seu horário no dia ${new Date(appt.data).toLocaleDateString()} às ${appt.hora}.`;
+                                                const text = `OlÃ¡ ${appt.cliente_nome}, aqui Ã© da La Prime. Confirmamos seu horÃ¡rio no dia ${new Date(appt.data).toLocaleDateString()} Ã s ${appt.hora}.`;
                                                 window.open(`https://wa.me/55${appt.cliente_telefone.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`, '_blank');
                                               }}
                                               className="p-1 hover:bg-white/20 rounded-md transition-colors"
@@ -1244,7 +1244,7 @@ const AdminDashboard = () => {
             <div className="bg-white rounded-3xl shadow-2xl border border-brand-gold/10 overflow-hidden">
               <div className="px-10 py-8 border-b border-gray-100 flex justify-between items-center bg-brand-dark text-white">
                 <div className="flex items-center gap-4">
-                  <h2 className="text-2xl font-serif font-bold">Base de Usuários</h2>
+                  <h2 className="text-2xl font-serif font-bold">Base de UsuÃ¡rios</h2>
                   <div className="flex items-center gap-2 text-brand-gold border-l border-white/10 pl-4">
                     <Shield className="w-5 h-5" />
                     <span className="text-xs font-black uppercase tracking-widest">{users.length} Registros</span>
@@ -1254,18 +1254,18 @@ const AdminDashboard = () => {
                   onClick={() => setShowAddUserModal(true)}
                   className="bg-brand-gold text-brand-dark px-6 py-2.5 rounded-full font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg"
                 >
-                  Novo Usuário
+                  Novo UsuÃ¡rio
                 </button>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
                   <thead className="bg-brand-light text-brand-dark text-xs uppercase font-black tracking-widest">
                     <tr>
-                      <th className="px-10 py-5">Usuário</th>
+                      <th className="px-10 py-5">UsuÃ¡rio</th>
                       <th className="px-10 py-5">E-mail</th>
                       <th className="px-10 py-5">Perfil/Cargo</th>
                       <th className="px-10 py-5">Status</th>
-                      <th className="px-10 py-5">Ações</th>
+                      <th className="px-10 py-5">AÃ§Ãµes</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-sans">
@@ -1315,7 +1315,7 @@ const AdminDashboard = () => {
                     <FileText className="w-8 h-8 text-brand-gold" />
                   </div>
                   <div>
-                    <h2 className="text-3xl font-serif font-bold text-brand-dark leading-none">Gestão do Blog</h2>
+                    <h2 className="text-3xl font-serif font-bold text-brand-dark leading-none">GestÃ£o do Blog</h2>
                     <p className="text-xs text-gray-400 mt-2 font-black uppercase tracking-widest">Informativos e Novidades</p>
                   </div>
                 </div>
@@ -1416,7 +1416,7 @@ const AdminDashboard = () => {
           ) : tab === 'reviews' ? (
             <div className="bg-white rounded-3xl shadow-xl border border-brand-gold/10 overflow-hidden">
               <div className="px-10 py-8 bg-brand-dark text-white flex justify-between items-center">
-                <h2 className="text-2xl font-serif font-bold">Moderação de Depoimentos</h2>
+                <h2 className="text-2xl font-serif font-bold">ModeraÃ§Ã£o de Depoimentos</h2>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
@@ -1424,9 +1424,9 @@ const AdminDashboard = () => {
                     <tr>
                       <th className="px-10 py-5">Cliente</th>
                       <th className="px-10 py-5">Nota</th>
-                      <th className="px-10 py-5">Comentário</th>
+                      <th className="px-10 py-5">ComentÃ¡rio</th>
                       <th className="px-10 py-5">Status</th>
-                      <th className="px-10 py-5">Ações</th>
+                      <th className="px-10 py-5">AÃ§Ãµes</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-sans">
@@ -1473,9 +1473,9 @@ const AdminDashboard = () => {
           ) : tab === 'config' ? (
             <div className="bg-white rounded-3xl shadow-xl p-8 border border-brand-gold/10">
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-3xl font-serif font-bold text-brand-dark">Configurações do Site</h2>
+                <h2 className="text-3xl font-serif font-bold text-brand-dark">ConfiguraÃ§Ãµes do Site</h2>
                 <div className="flex items-center gap-3 bg-brand-light/20 px-4 py-2 rounded-2xl">
-                  <span className="text-xs font-bold text-brand-dark uppercase tracking-widest">Faixa de Promoção</span>
+                  <span className="text-xs font-bold text-brand-dark uppercase tracking-widest">Faixa de PromoÃ§Ã£o</span>
                   <button
                     onClick={() => setPromoActive(!promoActive)}
                     className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${promoActive ? 'bg-brand-gold' : 'bg-gray-300'}`}
@@ -1491,7 +1491,7 @@ const AdminDashboard = () => {
                   <div className="bg-brand-light/10 p-6 rounded-3xl border border-brand-gold/5">
                     <h3 className="text-lg font-serif font-bold text-brand-dark mb-4 flex items-center gap-2">
                       <Plus className="w-5 h-5 text-brand-gold" />
-                      Faixa de Promoção
+                      Faixa de PromoÃ§Ã£o
                     </h3>
                     <div className="space-y-4">
                       <div>
@@ -1500,7 +1500,7 @@ const AdminDashboard = () => {
                           value={promoText}
                           onChange={(e) => setPromoText(e.target.value)}
                           className="w-full border-2 border-brand-light rounded-xl px-4 py-3 focus:border-brand-gold outline-none font-sans h-20 italic"
-                          placeholder="Ex: 🎉 Promoção de Verão: 20% OFF em todos os tratamentos a laser!"
+                          placeholder="Ex: ðŸŽ‰ PromoÃ§Ã£o de VerÃ£o: 20% OFF em todos os tratamentos a laser!"
                         />
                       </div>
 
@@ -1582,7 +1582,7 @@ const AdminDashboard = () => {
                               onChange={(e) => setPromoStyle({ ...promoStyle, speed: parseInt(e.target.value) })}
                               className="w-full accent-brand-gold"
                             />
-                            <p className="text-[8px] text-gray-400 italic mt-1 text-center">Menos segundos = Mais rápido</p>
+                            <p className="text-[8px] text-gray-400 italic mt-1 text-center">Menos segundos = Mais rÃ¡pido</p>
                           </div>
                         )}
                       </div>
@@ -1593,14 +1593,14 @@ const AdminDashboard = () => {
                             await axios.put('/api/settings/promo_text', { value: promoText });
                             await axios.put('/api/settings/promo_active', { value: String(promoActive) });
                             await axios.put('/api/settings/promo_style', { value: JSON.stringify(promoStyle) });
-                            alert('Configuração salva com sucesso!');
+                            alert('ConfiguraÃ§Ã£o salva com sucesso!');
                           } catch {
-                            alert('Erro ao salvar configuração.');
+                            alert('Erro ao salvar configuraÃ§Ã£o.');
                           }
                         }}
                         className="w-full bg-brand-dark text-white font-bold py-3 rounded-xl hover:bg-brand-gold transition-colors shadow-lg"
                       >
-                        Salvar Promoção
+                        Salvar PromoÃ§Ã£o
                       </button>
                     </div>
                   </div>
@@ -1691,14 +1691,14 @@ const AdminDashboard = () => {
                 <h2 className="text-3xl font-serif font-bold text-brand-dark mb-8">Novo Profissional</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Usuário Registrado</label>
+                    <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">UsuÃ¡rio Registrado</label>
                     <select
                       value={newProf.user_id}
                       onChange={(e) => setNewProf({ ...newProf, user_id: e.target.value })}
                       required
                       className="w-full border-2 border-brand-light rounded-xl px-5 py-3 focus:border-brand-gold outline-none font-sans bg-white"
                     >
-                      <option value="">Selecione um usuário...</option>
+                      <option value="">Selecione um usuÃ¡rio...</option>
                       {(Array.isArray(users) ? users : []).map(u => (
                         <option key={u.id} value={u.id}>{u.nome} ({u.email})</option>
                       ))}
@@ -1717,25 +1717,25 @@ const AdminDashboard = () => {
                 </div>
 
                 <div className="mt-6">
-                  <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Serviços Prestados</label>
+                  <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">ServiÃ§os Prestados</label>
                   <div className="space-y-4 bg-brand-light/20 p-6 rounded-2xl border border-brand-gold/10">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <input
                         type="text"
                         id="svc-nome"
-                        placeholder="Nome do Serviço"
+                        placeholder="Nome do ServiÃ§o"
                         className="bg-white border-2 border-brand-light rounded-xl px-4 py-2 outline-none focus:border-brand-gold"
                       />
                       <input
                         type="number"
                         id="svc-duracao"
-                        placeholder="Duração (min)"
+                        placeholder="DuraÃ§Ã£o (min)"
                         className="bg-white border-2 border-brand-light rounded-xl px-4 py-2 outline-none focus:border-brand-gold"
                       />
                       <input
                         type="number"
                         id="svc-preco"
-                        placeholder="Preço (R$)"
+                        placeholder="PreÃ§o (R$)"
                         className="bg-white border-2 border-brand-light rounded-xl px-4 py-2 outline-none focus:border-brand-gold"
                       />
                       <button
@@ -1762,7 +1762,7 @@ const AdminDashboard = () => {
                         }}
                         className="bg-brand-gold text-brand-dark rounded-xl font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all"
                       >
-                        Adicionar à Lista
+                        Adicionar Ã  Lista
                       </button>
                     </div>
 
@@ -1785,7 +1785,7 @@ const AdminDashboard = () => {
                 </div>
 
                 <div className="mt-6">
-                  <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Bio / Descrição</label>
+                  <label className="block text-xs font-black uppercase tracking-widest text-gray-400 mb-2">Bio / DescriÃ§Ã£o</label>
                   <textarea
                     value={newProf.bio}
                     onChange={(e) => setNewProf({ ...newProf, bio: e.target.value })}
@@ -1816,7 +1816,7 @@ const AdminDashboard = () => {
 
               <div className="bg-white rounded-3xl shadow-xl border border-brand-gold/10 overflow-hidden">
                 <div className="px-10 py-8 border-b border-gray-100 bg-brand-dark text-white">
-                  <h2 className="text-2xl font-serif font-bold">Profissionais e Seus Serviços</h2>
+                  <h2 className="text-2xl font-serif font-bold">Profissionais e Seus ServiÃ§os</h2>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
@@ -1824,7 +1824,7 @@ const AdminDashboard = () => {
                       <tr>
                         <th className="px-10 py-5">Nome</th>
                         <th className="px-10 py-5">Especialidade</th>
-                        <th className="px-10 py-5">Serviços</th>
+                        <th className="px-10 py-5">ServiÃ§os</th>
                         <th className="px-10 py-5">Status</th>
                       </tr>
                     </thead>
@@ -1840,7 +1840,7 @@ const AdminDashboard = () => {
                                   {s.nome}
                                 </span>
                               ))}
-                              {(!p.services || p.services.length === 0) && <span className="text-gray-400 italic text-[10px]">Sem serviços</span>}
+                              {(!p.services || p.services.length === 0) && <span className="text-gray-400 italic text-[10px]">Sem serviÃ§os</span>}
                             </div>
                           </td>
                           <td className="px-10 py-6">
@@ -1865,7 +1865,7 @@ const AdminDashboard = () => {
                 {modalMode === 'create' ? 'Novo Agendamento/Bloqueio' : 'Editar Item'}
               </h3>
               <p className="text-brand-gold text-xs font-black uppercase tracking-widest mt-1">
-                {new Date(modalData.data + 'T12:00').toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })} às {modalData.hora}
+                {new Date(modalData.data + 'T12:00').toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })} Ã s {modalData.hora}
               </p>
               <button onClick={() => setShowModal(false)} className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors">
                 <X className="w-6 h-6" />
@@ -1882,7 +1882,7 @@ const AdminDashboard = () => {
                     className="w-full border-2 border-brand-light rounded-2xl px-4 py-3 focus:border-brand-gold outline-none font-sans text-sm bg-white"
                   >
                     <option value="">Selecione...</option>
-                    {(allProfessionals || []).map(p => (
+                    {(Array.isArray(allProfessionals) ? allProfessionals : []).map(p => (
                       <option key={p.id} value={p.id}>{p.nome}</option>
                     ))}
                   </select>
@@ -1904,7 +1904,7 @@ const AdminDashboard = () => {
               {modalData.status !== 'BLOQUEADO' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Serviço</label>
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">ServiÃ§o</label>
                     <select
                       value={modalData.service_id}
                       onChange={(e) => setModalData({ ...modalData, service_id: e.target.value })}
@@ -1952,19 +1952,19 @@ const AdminDashboard = () => {
                   onClick={handleModalSave}
                   className="flex-[2] bg-brand-dark text-white px-6 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-brand-gold transition-all shadow-xl shadow-brand-dark/10 flex items-center justify-center gap-2"
                 >
-                  <CheckCircle className="w-4 h-4" /> {modalMode === 'create' ? 'CRIAR ITEM' : 'SALVAR ALTERAÇÕES'}
+                  <CheckCircle className="w-4 h-4" /> {modalMode === 'create' ? 'CRIAR ITEM' : 'SALVAR ALTERAÃ‡Ã•ES'}
                 </button>
               </div>
             </div>
           </div>
         </div>
       )}
-      {/* Modal Adicionar Usuário */}
+      {/* Modal Adicionar UsuÃ¡rio */}
       {showAddUserModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-brand-dark/60 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-white rounded-[40px] shadow-2xl w-full max-w-md overflow-hidden border border-brand-gold/20 flex flex-col animate-in zoom-in-95 duration-300">
             <div className="p-8 bg-brand-dark text-white relative">
-              <h3 className="text-2xl font-serif font-bold italic">Novo Registro de Usuário</h3>
+              <h3 className="text-2xl font-serif font-bold italic">Novo Registro de UsuÃ¡rio</h3>
               <p className="text-brand-gold text-[10px] font-black uppercase tracking-widest mt-1">Manual Admin Entry</p>
               <button
                 onClick={() => setShowAddUserModal(false)}
@@ -2007,7 +2007,7 @@ const AdminDashboard = () => {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Senha Provisória</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Senha ProvisÃ³ria</label>
                 <input
                   type="password"
                   value={newUserData.senha}
@@ -2046,14 +2046,14 @@ const AdminDashboard = () => {
           <div className="bg-white rounded-[40px] shadow-2xl w-full max-w-2xl overflow-hidden border border-brand-gold/20 flex flex-col animate-in zoom-in-95 duration-300">
             <div className="p-8 bg-brand-dark text-white relative">
               <h3 className="text-2xl font-serif font-bold italic">Criar Novo Post</h3>
-              <p className="text-brand-gold text-[10px] font-black uppercase tracking-widest mt-1">Conteúdo para o Blog La Prime</p>
+              <p className="text-brand-gold text-[10px] font-black uppercase tracking-widest mt-1">ConteÃºdo para o Blog La Prime</p>
               <button onClick={() => setShowAddPostModal(false)} className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors">
                 <X className="w-6 h-6" />
               </button>
             </div>
             <div className="p-8 space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Título do Post</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">TÃ­tulo do Post</label>
                 <input
                   type="text"
                   value={newPostData.titulo}
@@ -2114,12 +2114,12 @@ const AdminDashboard = () => {
                 )}
               </div>
               <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Conteúdo do Post</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">ConteÃºdo do Post</label>
                 <textarea
                   value={newPostData.conteudo}
                   onChange={(e) => setNewPostData({ ...newPostData, conteudo: e.target.value })}
                   className="w-full bg-brand-light/30 border-2 border-transparent focus:border-brand-gold rounded-2xl px-6 py-3.5 outline-none font-sans text-sm transition-all h-48"
-                  placeholder="Escreva aqui o conteúdo do seu post..."
+                  placeholder="Escreva aqui o conteÃºdo do seu post..."
                 />
               </div>
               <button
@@ -2139,7 +2139,7 @@ const AdminDashboard = () => {
           <div className="bg-white rounded-[40px] shadow-2xl w-full max-w-md overflow-hidden border border-brand-gold/20 flex flex-col animate-in zoom-in-95 duration-300">
             <div className="p-8 bg-brand-dark text-white relative">
               <h3 className="text-2xl font-serif font-bold italic">Adicionar Foto</h3>
-              <p className="text-brand-gold text-[10px] font-black uppercase tracking-widest mt-1">Expansão da Galeria</p>
+              <p className="text-brand-gold text-[10px] font-black uppercase tracking-widest mt-1">ExpansÃ£o da Galeria</p>
               <button onClick={() => setShowAddGalleryModal(false)} className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors">
                 <X className="w-6 h-6" />
               </button>
@@ -2197,23 +2197,23 @@ const AdminDashboard = () => {
                 )}
               </div>
               <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Título (Opcional)</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">TÃ­tulo (Opcional)</label>
                 <input
                   type="text"
                   value={newGalleryData.titulo}
                   onChange={(e) => setNewGalleryData({ ...newGalleryData, titulo: e.target.value })}
                   className="w-full bg-brand-light/30 border-2 border-transparent focus:border-brand-gold rounded-2xl px-6 py-3.5 outline-none font-sans text-sm transition-all"
-                  placeholder="Ex: Nossa recepção"
+                  placeholder="Ex: Nossa recepÃ§Ã£o"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Descrição (Opcional)</label>
+                <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">DescriÃ§Ã£o (Opcional)</label>
                 <input
                   type="text"
                   value={newGalleryData.descricao}
                   onChange={(e) => setNewGalleryData({ ...newGalleryData, descricao: e.target.value })}
                   className="w-full bg-brand-light/30 border-2 border-transparent focus:border-brand-gold rounded-2xl px-6 py-3.5 outline-none font-sans text-sm transition-all"
-                  placeholder="Ex: Ambiente climatizado e confortável"
+                  placeholder="Ex: Ambiente climatizado e confortÃ¡vel"
                 />
               </div>
               <button
