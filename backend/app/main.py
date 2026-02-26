@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 
@@ -17,7 +16,6 @@ try:
 except Exception as e:
     print(f"Erro ao criar tabelas: {e}")
 
-# Create uploads directory if it doesn't exist
 os.makedirs("uploads", exist_ok=True)
 
 app = FastAPI(title="Clínica Estética API")
@@ -39,20 +37,13 @@ app.include_router(reviews.router, prefix="/api")
 app.include_router(settings.router, prefix="/api")
 app.include_router(uploads.router, prefix="/api")
 
-# Serve frontend static files
-# No Dockerfile, o dist fica em /app/dist
-frontend_path = os.path.join(os.getcwd(), "dist")
-print(f"Procurando frontend em: {frontend_path}")
-
-if os.path.exists(frontend_path):
-    print(f"✅ Frontend encontrado! Montando em /")
-    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
-else:
-    print(f"⚠️ Frontend não encontrado em {frontend_path}")
-    print(f"Arquivos na raiz: {os.listdir(os.getcwd())}")
+# -------------------------------------------------------
+# Endpoints de API definidos ANTES do mount do frontend
+# -------------------------------------------------------
 
 @app.get("/api/health")
 def health_check():
+    frontend_path = os.path.join(os.getcwd(), "dist")
     return {
         "status": "online",
         "message": "Sistema La Prime",
@@ -61,8 +52,7 @@ def health_check():
         "cwd": os.getcwd()
     }
 
-# Endpoint temporario para criar o usuario admin
-# REMOVA ESTE ENDPOINT APOS O USO
+# ENDPOINT TEMPORARIO - remover apos criar o admin
 @app.get("/api/setup-admin")
 def setup_admin():
     from .db.session import SessionLocal
@@ -81,7 +71,7 @@ def setup_admin():
             existing.senha = get_password_hash(SENHA)
             existing.ativo = True
             db.commit()
-            return {"status": "ok", "message": f"Usuario {EMAIL} atualizado para ADMIN"}
+            return {"status": "ok", "message": f"Usuario {EMAIL} atualizado para ADMIN", "email": EMAIL, "senha": SENHA}
         else:
             new_admin = User(
                 nome=NOME,
@@ -95,7 +85,7 @@ def setup_admin():
             db.refresh(new_admin)
             return {
                 "status": "ok",
-                "message": "Admin criado com sucesso!",
+                "message": "Admin criado!",
                 "email": EMAIL,
                 "senha": SENHA,
                 "id": new_admin.id
@@ -105,3 +95,16 @@ def setup_admin():
         return {"status": "error", "detail": str(e)}
     finally:
         db.close()
+
+# -------------------------------------------------------
+# Mount do frontend DEVE ser o ULTIMO
+# -------------------------------------------------------
+frontend_path = os.path.join(os.getcwd(), "dist")
+print(f"Procurando frontend em: {frontend_path}")
+
+if os.path.exists(frontend_path):
+    print("✅ Frontend encontrado! Montando em /")
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+else:
+    print(f"⚠️ Frontend não encontrado em {frontend_path}")
+    print(f"Arquivos na raiz: {os.listdir(os.getcwd())}")
