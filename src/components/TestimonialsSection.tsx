@@ -27,7 +27,8 @@ const TestimonialsSection: React.FC = () => {
         const fetchReviews = async () => {
             try {
                 const response = await axios.get('/api/reviews/?approved_only=true');
-                setReviews(response.data);
+                const data = Array.isArray(response.data) ? response.data : [];
+                setReviews(data);
             } catch (error) {
                 console.error('Erro ao buscar avaliações:', error);
             } finally {

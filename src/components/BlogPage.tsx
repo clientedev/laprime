@@ -14,7 +14,8 @@ const BlogPage = () => {
         const fetchPosts = async () => {
             try {
                 const response = await api.get('/blog/');
-                setPosts(response.data);
+                const data = Array.isArray(response.data) ? response.data : [];
+                setPosts(data);
             } catch (error) {
                 console.error('Erro ao buscar posts:', error);
             } finally {

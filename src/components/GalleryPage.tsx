@@ -13,7 +13,8 @@ const GalleryPage = () => {
         const fetchImages = async () => {
             try {
                 const response = await api.get('/gallery/');
-                setImages(response.data);
+                const data = Array.isArray(response.data) ? response.data : [];
+                setImages(data);
             } catch (error) {
                 console.error('Erro ao buscar galeria:', error);
             } finally {
