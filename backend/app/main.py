@@ -9,41 +9,47 @@ from .db.session import engine, Base
 from .models import models
 from .api.endpoints import auth, services, appointments, availability, admin, professionals, users, blog, gallery, reviews, settings, uploads
 
-Base.metadata.create_all(bind=engine)
+# Initialize Database
+try:
+    print("Iniciando criação de tabelas no banco de dados...")
+    Base.metadata.create_all(bind=engine)
+    print("Tabelas criadas com sucesso!")
+except Exception as e:
+    print(f"Erro ao criar tabelas: {e}")
 
 # Create uploads directory if it doesn't exist
 os.makedirs("uploads", exist_ok=True)
 
 app = FastAPI(title="Clínica Estética API")
 
-# Serve static files
+# Serve static files for uploads
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-app.include_router(auth.router)
-app.include_router(users.router)
-app.include_router(services.router)
-app.include_router(appointments.router)
-app.include_router(availability.router)
-app.include_router(admin.router)
-app.include_router(professionals.router)
-app.include_router(blog.router)
-app.include_router(gallery.router)
-app.include_router(reviews.router)
-app.include_router(settings.router)
-app.include_router(uploads.router)
+# Include API routers
+app.include_router(auth.router, prefix="/api")
+app.include_router(users.router, prefix="/api")
+app.include_router(services.router, prefix="/api")
+app.include_router(appointments.router, prefix="/api")
+app.include_router(availability.router, prefix="/api")
+app.include_router(admin.router, prefix="/api")
+app.include_router(professionals.router, prefix="/api")
+app.include_router(blog.router, prefix="/api")
+app.include_router(gallery.router, prefix="/api")
+app.include_router(reviews.router, prefix="/api")
+app.include_router(settings.router, prefix="/api")
+app.include_router(uploads.router, prefix="/api")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    expose_headers=["*"]
-)
+# Serve frontend static files
+# Note: In production, the 'dist' folder should be present in the project root
+frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "dist")
+if os.path.exists(frontend_path):
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+else:
+    print(f"Aviso: Frontend 'dist' não encontrado em {frontend_path}")
 
-# Root endpoint for health check
-@app.get("/")
-def read_root():
+# Root health check (optional since static files mount to /)
+@app.get("/api/health")
+def health_check():
     return {
         "status": "online",
         "message": "Sistema de Gestão Clínica LA PRIME",
