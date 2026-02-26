@@ -63,8 +63,8 @@ const TestimonialsSection: React.FC = () => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                     {loading ? (
                         <div className="col-span-full text-center text-gray-500 italic">Carregando avaliações...</div>
-                    ) : reviews.length > 0 ? (
-                        {(Array.isArray(reviews) ? reviews : []).map((testimonial: any, index) => (
+                    ) : (Array.isArray(reviews) && reviews.length > 0) ? (
+                        reviews.map((testimonial: any, index) => (
                             <TestimonialCard key={index} quote={testimonial.comentario} author={testimonial.nome_cliente} />
                         ))
                     ) : (
