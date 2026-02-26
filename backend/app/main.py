@@ -40,12 +40,43 @@ app.include_router(settings.router, prefix="/api")
 app.include_router(uploads.router, prefix="/api")
 
 # Serve frontend static files
-# Note: In production, the 'dist' folder should be present in the project root
-frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "dist")
+# Use current working directory as base, fallback to absolute path if needed
+base_dir = os.getcwd()
+frontend_path = os.path.join(base_dir, "dist")
+
+print(f"DEBUG: Current Working Directory: {base_dir}")
+print(f"DEBUG: Calculated Frontend Path: {frontend_path}")
+
 if os.path.exists(frontend_path):
+    print("Sucesso: Pasta 'dist' encontrada. Montando frontend...")
     app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
 else:
-    print(f"Aviso: Frontend 'dist' não encontrado em {frontend_path}")
+    # Alternative strategy: check relative to this file
+    alt_frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "dist")
+    if os.path.exists(alt_frontend_path):
+        print(f"Sucesso: Pasta 'dist' encontrada em caminho alternativo: {alt_frontend_path}")
+        app.mount("/", StaticFiles(directory=alt_frontend_path, html=True), name="frontend")
+    else:
+        print(f"ERRO CRÍTICO: Frontend 'dist' NÃO encontrado.")
+        print(f"Tentado: {frontend_path}")
+        print(f"Tentado (alt): {alt_frontend_path}")
+
+# Debug endpoint to list files on server
+@app.get("/api/debug/files")
+def debug_files():
+    try:
+        files_in_root = os.listdir(".")
+        dist_exists = os.path.exists("dist")
+        dist_files = os.listdir("dist") if dist_exists else []
+        return {
+            "cwd": os.getcwd(),
+            "root_files": files_in_root,
+            "dist_exists": dist_exists,
+            "dist_files": dist_files,
+            "backend_exists": os.path.exists("backend")
+        }
+    except Exception as e:
+        return {"error": str(e)}
 
 # Root health check (optional since static files mount to /)
 @app.get("/api/health")

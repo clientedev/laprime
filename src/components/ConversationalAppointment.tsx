@@ -254,8 +254,8 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                 return;
             }
             await addBotMessage('Que tipo de serviço você deseja?', {
-                options: uniqueServices.map((s: any) => ({
-                    label: `${s.nome} — R$ ${Number(s.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} (${s.duracao}min)`,
+                options: (uniqueServices || []).map((s: any) => ({
+                    label: `\${s.nome} — R$ \${Number(s.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} (\${s.duracao}min)`,
                     value: s.id
                 }))
             });
@@ -287,8 +287,8 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                 return;
             }
             await addBotMessage('Com qual especialista você prefere?', {
-                options: filtered.map((p: any) => ({
-                    label: `✨ ${p.nome || p.especialidade} (${p.especialidade})`,
+                options: (filtered || []).map((p: any) => ({
+                    label: `✨ \${p.nome || p.especialidade} (\${p.especialidade})`,
                     value: p.id,
                     description: 'Especialista dedicada ao seu bem-estar.'
                 }))
@@ -308,7 +308,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
         try {
             const res = await axios.get(`/api/availability/${prof.id}`);
             setAvailabilities(res.data);
-            const dates = [...new Set<string>(res.data.map((a: any) => new Date(a.data).toISOString().split('T')[0]))];
+            const dates = [...new Set<string>((res.data || []).map((a: any) => new Date(a.data).toISOString().split('T')[0]))];
             if (dates.length === 0) {
                 await addBotMessage('Não há datas disponíveis para esta profissional no momento. Escolha outra?', {
                     options: [{ label: '⬅️ Escolher outra profissional', value: 'back' }]
@@ -317,7 +317,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                 return;
             }
             await addBotMessage('Que dia você prefere?', {
-                options: dates.map(d => ({
+                options: (dates || []).map(d => ({
                     label: new Date(d + 'T12:00:00').toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' }),
                     value: d
                 }))
@@ -391,8 +391,8 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
             }
 
             await addBotMessage('Que horário fica melhor para você? ⏰', {
-                options: slots.map(t => ({
-                    label: `🕐 ${t}`,
+                options: (slots || []).map(t => ({
+                    label: `🕐 \${t}`,
                     value: t
                 }))
             });
@@ -506,7 +506,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
 
                 {/* Messages */}
                 <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4 bg-[#f8f5f0]">
-                    {messages.map((msg) => (
+                    {(messages || []).map((msg) => (
                         <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'} gap-2`}>
                             {msg.from === 'bot' && (
                                 <div className="w-8 h-8 bg-brand-gold rounded-full flex items-center justify-center flex-shrink-0 mt-1">
@@ -522,7 +522,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                                 </div>
                                 {msg.options && (
                                     <div className={`mt-3 flex flex-col gap-2 ${step === 'select_service' ? 'sm:grid sm:grid-cols-2' : ''}`}>
-                                        {msg.options.map((opt, i) => (
+                                        {(msg.options || []).map((opt, i) => (
                                             <button
                                                 key={i}
                                                 onClick={() => handleOption(opt.value)}

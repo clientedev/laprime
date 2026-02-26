@@ -119,7 +119,7 @@ const AppointmentForm = ({ onSuccess }) => {
           value={formData.service_id}
         >
           <option value="">Selecione o procedimento...</option>
-          {services.map(s => <option key={s.id} value={s.id}>{s.nome} — R$ {s.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</option>)}
+          {(services || []).map(s => <option key={s.id} value={s.id}>{s.nome} — R$ {s.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</option>)}
         </select>
       </div>
 
@@ -135,7 +135,7 @@ const AppointmentForm = ({ onSuccess }) => {
           value={formData.professional_id}
         >
           <option value="">Selecione o especialista...</option>
-          {professionals.map(p => <option key={p.id} value={p.id}>{p.especialidade}</option>)}
+          {(professionals || []).map(p => <option key={p.id} value={p.id}>{p.especialidade}</option>)}
         </select>
       </div>
 
@@ -153,7 +153,7 @@ const AppointmentForm = ({ onSuccess }) => {
               value={formData.data}
             >
               <option value="">Selecione a data...</option>
-              {[...new Set(availabilities.map(a => new Date(a.data).toISOString().split('T')[0]))].map(date => (
+              {[...new Set((availabilities || []).map(a => new Date(a.data).toISOString().split('T')[0]))].map(date => (
                 <option key={date} value={date}>{new Date(date).toLocaleDateString('pt-BR')}</option>
               ))}
             </select>
@@ -171,7 +171,7 @@ const AppointmentForm = ({ onSuccess }) => {
               disabled={!formData.data}
             >
               <option value="">Selecione o horário...</option>
-              {getValidSlots().map(slot => (
+              {(getValidSlots() || []).map(slot => (
                 <option key={slot} value={slot}>{slot}</option>
               ))}
             </select>

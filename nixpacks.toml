@@ -1,11 +1,15 @@
 [phases.setup]
-nixPkgs = ["python313", "nodejs", "gcc"]
+nixPkgs = ["python313", "nodejs_20", "gcc"]
 
 [phases.install]
-cmds = ["npm install", "pip install -r requirements.txt"]
+cmds = ["npm install", "pip install -r requirements.txt", "pip install email-validator"]
 
 [phases.build]
-cmds = ["npm run build"]
+cmds = ["npm run build", "ls -R dist"]
 
 [start]
 cmd = "uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port ${PORT:-8080}"
+
+[variables]
+NODE_ENV = "production"
+NIXPACKS_NO_CACHE = "true"

@@ -35,7 +35,7 @@ const GalleryPage = () => {
 
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {images.length > 0 ? (
-                        images.map((img: any) => (
+                        {(images || []).map((img: any) => (
                             <div key={img.id} className="group relative aspect-square overflow-hidden rounded-lg shadow-md">
                                 <img src={img.url} alt={img.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                 {(img.titulo || img.descricao) && (

@@ -800,10 +800,10 @@ const AdminDashboard = () => {
             <>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {[
-                  { label: 'Total Agendamentos', val: stats.total_appointments, icon: <Calendar />, color: 'text-brand-dark' },
-                  { label: 'Taxa Aprovação', val: `${stats.approval_rate.toFixed(1)}%`, icon: <CheckCircle />, color: 'text-green-600' },
-                  { label: 'Clientes Ativos', val: stats.active_clients, icon: <Users />, color: 'text-brand-gold' },
-                  { label: 'Especialidades', val: stats.services_usage.length, icon: <Scissors />, color: 'text-purple-600' }
+                  { label: 'Total Agendamentos', val: stats?.total_appointments || 0, icon: <Calendar />, color: 'text-brand-dark' },
+                  { label: 'Taxa Aprovação', val: `\${(stats?.approval_rate || 0).toFixed(1)}%`, icon: <CheckCircle />, color: 'text-green-600' },
+                  { label: 'Clientes Ativos', val: stats?.active_clients || 0, icon: <Users />, color: 'text-brand-gold' },
+                  { label: 'Especialidades', val: (stats?.services_usage || []).length, icon: <Scissors />, color: 'text-purple-600' }
                 ].map((kpi, i) => (
                   <div key={i} className="p-8 bg-white rounded-3xl shadow-xl border border-brand-gold/5 flex flex-col justify-between hover:scale-[1.02] transition-transform">
                     <div className="flex justify-between items-center mb-4">
@@ -827,7 +827,7 @@ const AdminDashboard = () => {
                   </h2>
                   <div className="h-[400px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={stats.services_usage}>
+                      <BarChart data={stats?.services_usage || []}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
                         <XAxis dataKey="name" tick={{ fill: '#3c3c3c', fontSize: 12 }} axisLine={false} tickLine={false} />
                         <YAxis axisLine={false} tickLine={false} tick={{ fill: '#3c3c3c', fontSize: 12 }} />
@@ -847,7 +847,7 @@ const AdminDashboard = () => {
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
-                          data={stats.services_usage}
+                          data={stats?.services_usage || []}
                           cx="50%"
                           cy="50%"
                           innerRadius={80}
@@ -888,7 +888,7 @@ const AdminDashboard = () => {
                     <tbody className="divide-y divide-gray-100 font-sans">
                       {appointments.length === 0 ? (
                         <tr><td colSpan={4} className="px-10 py-20 text-center text-gray-400 font-serif text-xl italic">Toda a agenda está em dia.</td></tr>
-                      ) : appointments.map((appt: any) => (
+                      ) : (appointments || []).map((appt: any) => (
                         <tr key={appt.id} className="hover:bg-brand-light/20 transition-colors">
                           <td className="px-10 py-6">
                             <div className="font-bold text-brand-dark">{appt.cliente_nome || `ID: \${appt.cliente_id}`}</div>
@@ -991,7 +991,7 @@ const AdminDashboard = () => {
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-gold text-sm"
                       >
                         <option value="" className="bg-brand-dark text-white">Selecione...</option>
-                        {allProfessionals.map(p => (
+                        {(allProfessionals || []).map(p => (
                           <option key={p.id} value={p.id} className="bg-brand-dark text-white">{p.nome}</option>
                         ))}
                       </select>
@@ -1006,7 +1006,7 @@ const AdminDashboard = () => {
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-gold text-sm disabled:opacity-30"
                       >
                         <option value="" className="bg-brand-dark text-white">Opcional: Ver Tudo</option>
-                        {allProfessionals.find(p => String(p.id) === bulkConfig.professional_id)?.services?.map((s: any) => (
+                        {(allProfessionals || []).find(p => String(p.id) === bulkConfig.professional_id)?.services?.map((s: any) => (
                           <option key={s.id} value={s.id} className="bg-brand-dark text-white">{s.nome} ({s.duracao}m)</option>
                         ))}
                       </select>
@@ -1102,7 +1102,7 @@ const AdminDashboard = () => {
                     className="border-2 border-brand-light rounded-xl px-4 py-2 text-sm font-sans outline-none focus:border-brand-gold bg-white"
                   >
                     <option value="all">Todos Profissionais</option>
-                    {allProfessionals.map(p => (
+                    {(allProfessionals || []).map(p => (
                       <option key={p.id} value={p.id}>{p.nome}</option>
                     ))}
                   </select>
@@ -1264,7 +1264,7 @@ const AdminDashboard = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-sans">
-                    {users.map((u: any) => (
+                    {(users || []).map((u: any) => (
                       <tr key={u.id} className="hover:bg-brand-light/20 transition-colors">
                         <td className="px-10 py-6">
                           <div className="font-bold text-brand-dark">{u.nome}</div>
@@ -1275,7 +1275,7 @@ const AdminDashboard = () => {
                           <select
                             value={u.role}
                             onChange={(e) => handleRoleChange(u.id, e.target.value)}
-                            className={`px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest outline-none border-2 border-transparent focus:border-brand-gold transition-all ${u.role === 'ADMIN' ? 'bg-brand-dark text-white' : u.role === 'PROFISSIONAL' ? 'bg-brand-gold text-brand-dark' : 'bg-gray-100 text-gray-600'}`}
+                            className={`px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest outline-none border-2 border-transparent focus:border-brand-gold transition-all \${u.role === 'ADMIN' ? 'bg-brand-dark text-white' : u.role === 'PROFISSIONAL' ? 'bg-brand-gold text-brand-dark' : 'bg-gray-100 text-gray-600'}`}
                           >
                             <option value="CLIENTE">CLIENTE</option>
                             <option value="PROFISSIONAL">PROFISSIONAL</option>
@@ -1283,15 +1283,15 @@ const AdminDashboard = () => {
                           </select>
                         </td>
                         <td className="px-10 py-6">
-                          <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${u.ativo ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50'}`}>
-                            <div className={`w-1.5 h-1.5 rounded-full ${u.ativo ? 'bg-green-600' : 'bg-red-600'}`} />
+                          <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest \${u.ativo ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50'}`}>
+                            <div className={`w-1.5 h-1.5 rounded-full \${u.ativo ? 'bg-green-600' : 'bg-red-600'}`} />
                             {u.ativo ? 'Ativo' : 'Inativo'}
                           </span>
                         </td>
                         <td className="px-10 py-6">
                           <button
                             onClick={() => toggleUser(u.id)}
-                            className={`px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest transition-all ${u.ativo ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-green-500 text-white hover:bg-green-600'} shadow-md`}
+                            className={`px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest transition-all \${u.ativo ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-green-500 text-white hover:bg-green-600'} shadow-md`}
                           >
                             {u.ativo ? 'SUSPENDER' : 'REATIVAR'}
                           </button>
@@ -1425,13 +1425,13 @@ const AdminDashboard = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-sans">
-                    {allReviews.map((rev: any) => (
+                    {(allReviews || []).map((rev: any) => (
                       <tr key={rev.id} className="hover:bg-brand-light/20 transition-colors">
                         <td className="px-10 py-6 font-bold text-brand-dark">{rev.nome_cliente}</td>
                         <td className="px-10 py-6 text-brand-gold font-bold">{rev.rating}/5</td>
                         <td className="px-10 py-6 text-gray-600 max-w-xs truncate">{rev.comentario}</td>
                         <td className="px-10 py-6">
-                          <span className={`px-3 py-1 rounded-full text-[10px] font-black tracking-widest ${rev.is_approved ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                          <span className={`px-3 py-1 rounded-full text-[10px] font-black tracking-widest \${rev.is_approved ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
                             {rev.is_approved ? 'APROVADO' : 'PENDENTE'}
                           </span>
                         </td>
@@ -1440,7 +1440,7 @@ const AdminDashboard = () => {
                             {!rev.is_approved && (
                               <button
                                 onClick={async () => {
-                                  await axios.patch(`/api/reviews/${rev.id}/approve`);
+                                  await axios.patch(`/api/reviews/\${rev.id}/approve`);
                                   fetchData();
                                 }}
                                 className="text-green-600 hover:text-green-800 font-bold text-xs"
@@ -1450,7 +1450,7 @@ const AdminDashboard = () => {
                             )}
                             <button
                               onClick={async () => {
-                                await axios.delete(`/api/reviews/${rev.id}`);
+                                await axios.delete(`/api/reviews/\${rev.id}`);
                                 fetchData();
                               }}
                               className="text-red-500 hover:text-red-700 font-bold text-xs"
@@ -1640,7 +1640,7 @@ const AdminDashboard = () => {
                       </div>
 
                       <div className="space-y-2 max-h-[220px] overflow-y-auto pr-2 custom-scrollbar">
-                        {heroImages.map((url, idx) => (
+                        {(heroImages || []).map((url, idx) => (
                           <div key={idx} className="flex gap-3 items-center bg-white p-2 rounded-xl border border-brand-light group">
                             <div className="w-14 h-14 relative shrink-0">
                               <img src={url} className="w-full h-full object-cover rounded-lg" alt="Preview" />
@@ -1694,7 +1694,7 @@ const AdminDashboard = () => {
                       className="w-full border-2 border-brand-light rounded-xl px-5 py-3 focus:border-brand-gold outline-none font-sans bg-white"
                     >
                       <option value="">Selecione um usuário...</option>
-                      {users.map(u => (
+                      {(users || []).map(u => (
                         <option key={u.id} value={u.id}>{u.nome} ({u.email})</option>
                       ))}
                     </select>
@@ -1763,7 +1763,7 @@ const AdminDashboard = () => {
 
                     {newProf.services.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-4">
-                        {newProf.services.map((s, idx) => (
+                        {(newProf.services || []).map((s, idx) => (
                           <div key={idx} className="bg-brand-dark text-white px-3 py-1.5 rounded-lg flex items-center gap-2 group">
                             <span className="text-[10px] font-bold">{s.nome} ({s.duracao} min) - R${s.preco}</span>
                             <button
@@ -1824,7 +1824,7 @@ const AdminDashboard = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 font-sans">
-                      {allProfessionals.map((p) => (
+                      {(allProfessionals || []).map((p) => (
                         <tr key={p.id} className="hover:bg-brand-light/10 transition-colors">
                           <td className="px-10 py-6 font-bold text-brand-dark">{p.nome || `Prof. #${p.id}`}</td>
                           <td className="px-10 py-6 text-sm">{p.especialidade}</td>
@@ -1877,7 +1877,7 @@ const AdminDashboard = () => {
                     className="w-full border-2 border-brand-light rounded-2xl px-4 py-3 focus:border-brand-gold outline-none font-sans text-sm bg-white"
                   >
                     <option value="">Selecione...</option>
-                    {allProfessionals.map(p => (
+                    {(allProfessionals || []).map(p => (
                       <option key={p.id} value={p.id}>{p.nome}</option>
                     ))}
                   </select>
@@ -1906,7 +1906,7 @@ const AdminDashboard = () => {
                       className="w-full border-2 border-brand-light rounded-2xl px-4 py-3 focus:border-brand-gold outline-none font-sans text-sm bg-white"
                     >
                       <option value="">Selecione...</option>
-                      {allServices.map(s => (
+                      {(allServices || []).map(s => (
                         <option key={s.id} value={s.id}>{s.nome} (R$ {s.preco})</option>
                       ))}
                     </select>
@@ -1919,7 +1919,7 @@ const AdminDashboard = () => {
                       className="w-full border-2 border-brand-light rounded-2xl px-4 py-3 focus:border-brand-gold outline-none font-sans text-sm bg-white"
                     >
                       <option value="">Selecione...</option>
-                      {users.map(u => (
+                      {(users || []).map(u => (
                         <option key={u.id} value={u.id}>{u.nome}</option>
                       ))}
                     </select>
