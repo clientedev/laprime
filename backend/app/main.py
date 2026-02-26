@@ -40,67 +40,23 @@ app.include_router(settings.router, prefix="/api")
 app.include_router(uploads.router, prefix="/api")
 
 # Serve frontend static files
-base_dir = os.getcwd()
-frontend_path = os.path.join(base_dir, "dist")
-
-print(f"DEBUG: Current Working Directory: {base_dir}")
-try:
-    print(f"DEBUG: Root Directory Contents: {os.listdir(base_dir)}")
-except Exception as e:
-    print(f"DEBUG: Could not list root directory: {e}")
-
-# Aggressive search for dist
-import glob
-print("DEBUG: Iniciando busca recursiva por pasta 'dist'...")
-found_dists = glob.glob("**/dist", recursive=True)
-print(f"DEBUG: Pastas 'dist' encontradas: {found_dists}")
+# No Dockerfile, o dist fica em /app/dist
+frontend_path = os.path.join(os.getcwd(), "dist")
+print(f"Procurando frontend em: {frontend_path}")
 
 if os.path.exists(frontend_path):
-    print("Sucesso: Pasta 'dist' encontrada em /app/dist. Montando frontend...")
+    print(f"✅ Frontend encontrado! Montando em /")
     app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
-elif found_dists:
-    best_dist = found_dists[0]
-    print(f"Sucesso: Pasta 'dist' encontrada via glob em: {best_dist}. Montando frontend...")
-    app.mount("/", StaticFiles(directory=best_dist, html=True), name="frontend")
 else:
-    # Alternative strategy: check relative to this file
-    try:
-        root_from_file = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        alt_frontend_path = os.path.join(root_from_file, "dist")
-        print(f"DEBUG: Root from file: {root_from_file}")
-        
-        if os.path.exists(alt_frontend_path):
-            print(f"Sucesso: Pasta 'dist' encontrada em caminho alternativo: {alt_frontend_path}")
-            app.mount("/", StaticFiles(directory=alt_frontend_path, html=True), name="frontend")
-        else:
-            print(f"ERRO CRÍTICO: Frontend 'dist' NÃO encontrado em lugar nenhum.")
-            print(f"Tentado: {frontend_path}")
-            print(f"Tentado (alt): {alt_frontend_path}")
-    except Exception as e:
-        print(f"Erro durante diagnóstico de caminhos: {e}")
+    print(f"⚠️ Frontend não encontrado em {frontend_path}")
+    print(f"Arquivos na raiz: {os.listdir(os.getcwd())}")
 
-# Debug endpoint to list files on server
-@app.get("/api/debug/files")
-def debug_files():
-    try:
-        files_in_root = os.listdir(".")
-        dist_exists = os.path.exists("dist")
-        dist_files = os.listdir("dist") if dist_exists else []
-        return {
-            "cwd": os.getcwd(),
-            "root_files": files_in_root,
-            "dist_exists": dist_exists,
-            "dist_files": dist_files,
-            "backend_exists": os.path.exists("backend")
-        }
-    except Exception as e:
-        return {"error": str(e)}
-
-# Root health check (optional since static files mount to /)
 @app.get("/api/health")
 def health_check():
     return {
         "status": "online",
-        "message": "Sistema de Gestão Clínica LA PRIME",
-        "version": "1.0.0"
+        "message": "Sistema La Prime",
+        "version": "1.0.0",
+        "dist_exists": os.path.exists(frontend_path),
+        "cwd": os.getcwd()
     }
