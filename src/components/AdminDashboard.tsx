@@ -888,7 +888,7 @@ const AdminDashboard = () => {
                     <tbody className="divide-y divide-gray-100 font-sans">
                       {appointments.length === 0 ? (
                         <tr><td colSpan={4} className="px-10 py-20 text-center text-gray-400 font-serif text-xl italic">Toda a agenda está em dia.</td></tr>
-                      ) : (appointments || []).map((appt: any) => (
+                      ) : (Array.isArray(appointments) ? appointments : []).map((appt: any) => (
                         <tr key={appt.id} className="hover:bg-brand-light/20 transition-colors">
                           <td className="px-10 py-6">
                             <div className="font-bold text-brand-dark">{appt.cliente_nome || `ID: \${appt.cliente_id}`}</div>
@@ -1640,7 +1640,7 @@ const AdminDashboard = () => {
                       </div>
 
                       <div className="space-y-2 max-h-[220px] overflow-y-auto pr-2 custom-scrollbar">
-                        {(heroImages || []).map((url, idx) => (
+                        {(Array.isArray(heroImages) ? heroImages : []).map((url, idx) => (
                           <div key={idx} className="flex gap-3 items-center bg-white p-2 rounded-xl border border-brand-light group">
                             <div className="w-14 h-14 relative shrink-0">
                               <img src={url} className="w-full h-full object-cover rounded-lg" alt="Preview" />
@@ -1694,7 +1694,7 @@ const AdminDashboard = () => {
                       className="w-full border-2 border-brand-light rounded-xl px-5 py-3 focus:border-brand-gold outline-none font-sans bg-white"
                     >
                       <option value="">Selecione um usuário...</option>
-                      {(users || []).map(u => (
+                      {(Array.isArray(users) ? users : []).map(u => (
                         <option key={u.id} value={u.id}>{u.nome} ({u.email})</option>
                       ))}
                     </select>
@@ -1824,7 +1824,7 @@ const AdminDashboard = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 font-sans">
-                      {(allProfessionals || []).map((p) => (
+                      {(Array.isArray(allProfessionals) ? allProfessionals : []).map((p) => (
                         <tr key={p.id} className="hover:bg-brand-light/10 transition-colors">
                           <td className="px-10 py-6 font-bold text-brand-dark">{p.nome || `Prof. #${p.id}`}</td>
                           <td className="px-10 py-6 text-sm">{p.especialidade}</td>

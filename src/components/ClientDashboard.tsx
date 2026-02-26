@@ -64,10 +64,10 @@ const ClientDashboard = () => {
           <div className="bg-white rounded-2xl shadow-xl border border-brand-gold/10 overflow-hidden">
             <div className="px-8 py-6 bg-brand-light/50 border-b border-brand-gold/10 flex justify-between items-center">
               <h2 className="font-serif font-bold text-brand-dark text-xl">Histórico de Solicitações</h2>
-              <span className="text-xs font-bold text-brand-gold uppercase tracking-widest bg-white px-3 py-1 rounded-full">{appointments.length} REGISTROS</span>
+              <span className="text-xs font-bold text-brand-gold uppercase tracking-widest bg-white px-3 py-1 rounded-full">{Array.isArray(appointments) ? appointments.length : 0} REGISTROS</span>
             </div>
             <div className="divide-y divide-gray-100">
-              {appointments.length === 0 ? (
+              {!Array.isArray(appointments) || appointments.length === 0 ? (
                 <div className="p-20 text-center">
                   <div className="inline-flex p-6 bg-brand-light rounded-full mb-6 text-brand-gold">
                     <Calendar className="w-12 h-12" />
@@ -80,7 +80,7 @@ const ClientDashboard = () => {
                     Fazer meu primeiro agendamento
                   </button>
                 </div>
-              ) : (appointments || []).map((appt: any) => (
+              ) : (Array.isArray(appointments) ? appointments : []).map((appt: any) => (
                 <div key={appt.id} className="p-8 hover:bg-brand-light/20 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <div className="flex items-start gap-6">
                     <div className="bg-brand-light p-4 rounded-xl text-brand-gold">

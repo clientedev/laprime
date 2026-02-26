@@ -36,7 +36,7 @@ const BlogPage = () => {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {posts.length > 0 ? (
-                        {(posts || []).map((post: any) => (
+                        {(Array.isArray(posts) ? posts : []).map((post: any) => (
                             <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow flex flex-col">
                                 {post.imagem_url && (
                                     <img src={post.imagem_url} alt={post.titulo} className="w-full h-48 object-cover" />

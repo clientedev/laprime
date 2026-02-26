@@ -5,7 +5,7 @@ nixPkgs = ["python313", "nodejs_20", "gcc"]
 cmds = ["npm install", "pip install -r requirements.txt", "pip install email-validator"]
 
 [phases.build]
-cmds = ["npm run build", "ls -R dist"]
+cmds = ["npm run build", "ls -la", "ls -R dist || echo 'Dist not found after build'"]
 
 [start]
 cmd = "uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port ${PORT:-8080}"

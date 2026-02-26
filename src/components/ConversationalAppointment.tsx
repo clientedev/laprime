@@ -254,7 +254,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                 return;
             }
             await addBotMessage('Que tipo de serviço você deseja?', {
-                options: (uniqueServices || []).map((s: any) => ({
+                options: (Array.isArray(uniqueServices) ? uniqueServices : []).map((s: any) => ({
                     label: `\${s.nome} — R$ \${Number(s.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} (\${s.duracao}min)`,
                     value: s.id
                 }))
@@ -287,7 +287,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                 return;
             }
             await addBotMessage('Com qual especialista você prefere?', {
-                options: (filtered || []).map((p: any) => ({
+                options: (Array.isArray(filtered) ? filtered : []).map((p: any) => ({
                     label: `✨ \${p.nome || p.especialidade} (\${p.especialidade})`,
                     value: p.id,
                     description: 'Especialista dedicada ao seu bem-estar.'
@@ -317,7 +317,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                 return;
             }
             await addBotMessage('Que dia você prefere?', {
-                options: (dates || []).map(d => ({
+                options: (Array.isArray(dates) ? dates : []).map(d => ({
                     label: new Date(d + 'T12:00:00').toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long' }),
                     value: d
                 }))
@@ -391,7 +391,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
             }
 
             await addBotMessage('Que horário fica melhor para você? ⏰', {
-                options: (slots || []).map(t => ({
+                options: (Array.isArray(slots) ? slots : []).map(t => ({
                     label: `🕐 \${t}`,
                     value: t
                 }))
@@ -506,7 +506,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
 
                 {/* Messages */}
                 <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4 bg-[#f8f5f0]">
-                    {(messages || []).map((msg) => (
+                    {(Array.isArray(messages) ? messages : []).map((msg) => (
                         <div key={msg.id} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'} gap-2`}>
                             {msg.from === 'bot' && (
                                 <div className="w-8 h-8 bg-brand-gold rounded-full flex items-center justify-center flex-shrink-0 mt-1">

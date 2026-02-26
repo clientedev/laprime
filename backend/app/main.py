@@ -40,26 +40,44 @@ app.include_router(settings.router, prefix="/api")
 app.include_router(uploads.router, prefix="/api")
 
 # Serve frontend static files
-# Use current working directory as base, fallback to absolute path if needed
 base_dir = os.getcwd()
 frontend_path = os.path.join(base_dir, "dist")
 
 print(f"DEBUG: Current Working Directory: {base_dir}")
-print(f"DEBUG: Calculated Frontend Path: {frontend_path}")
+try:
+    print(f"DEBUG: Root Directory Contents: {os.listdir(base_dir)}")
+except Exception as e:
+    print(f"DEBUG: Could not list root directory: {e}")
+
+# Aggressive search for dist
+import glob
+print("DEBUG: Iniciando busca recursiva por pasta 'dist'...")
+found_dists = glob.glob("**/dist", recursive=True)
+print(f"DEBUG: Pastas 'dist' encontradas: {found_dists}")
 
 if os.path.exists(frontend_path):
-    print("Sucesso: Pasta 'dist' encontrada. Montando frontend...")
+    print("Sucesso: Pasta 'dist' encontrada em /app/dist. Montando frontend...")
     app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+elif found_dists:
+    best_dist = found_dists[0]
+    print(f"Sucesso: Pasta 'dist' encontrada via glob em: {best_dist}. Montando frontend...")
+    app.mount("/", StaticFiles(directory=best_dist, html=True), name="frontend")
 else:
     # Alternative strategy: check relative to this file
-    alt_frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "dist")
-    if os.path.exists(alt_frontend_path):
-        print(f"Sucesso: Pasta 'dist' encontrada em caminho alternativo: {alt_frontend_path}")
-        app.mount("/", StaticFiles(directory=alt_frontend_path, html=True), name="frontend")
-    else:
-        print(f"ERRO CRÍTICO: Frontend 'dist' NÃO encontrado.")
-        print(f"Tentado: {frontend_path}")
-        print(f"Tentado (alt): {alt_frontend_path}")
+    try:
+        root_from_file = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        alt_frontend_path = os.path.join(root_from_file, "dist")
+        print(f"DEBUG: Root from file: {root_from_file}")
+        
+        if os.path.exists(alt_frontend_path):
+            print(f"Sucesso: Pasta 'dist' encontrada em caminho alternativo: {alt_frontend_path}")
+            app.mount("/", StaticFiles(directory=alt_frontend_path, html=True), name="frontend")
+        else:
+            print(f"ERRO CRÍTICO: Frontend 'dist' NÃO encontrado em lugar nenhum.")
+            print(f"Tentado: {frontend_path}")
+            print(f"Tentado (alt): {alt_frontend_path}")
+    except Exception as e:
+        print(f"Erro durante diagnóstico de caminhos: {e}")
 
 # Debug endpoint to list files on server
 @app.get("/api/debug/files")
