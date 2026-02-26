@@ -856,7 +856,7 @@ const AdminDashboard = () => {
                           dataKey="count"
                           nameKey="name"
                         >
-                          {stats.services_usage.map((entry: any, index: number) => (
+                          {(stats?.services_usage || []).map((entry: any, index: number) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>

@@ -1,54 +1,62 @@
 """
-Script standalone para criar/resetar o admin e migrar o banco.
+Script standalone para criar/resetar o admin e migrar o banco usando SQLAlchemy.
+Este script é compatível com qualquer banco de dados definido na variável de ambiente DATABASE_URL.
 """
-import sqlite3
 import os
+import sys
+from dotenv import load_dotenv
 from passlib.context import CryptContext
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql_app.db")
-print(f"Banco de dados: {DB_PATH}")
+# Adicionar o diretório atual ao sys.path para importar o app
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
-hashed = pwd_context.hash("admin123")
+from app.db.session import engine, Base, SessionLocal
+from app.models.models import User
 
-conn = sqlite3.connect(DB_PATH)
-cursor = conn.cursor()
+# Carregar variáveis de ambiente
+load_dotenv()
 
-# Verificar se a tabela existe
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='users'")
-if not cursor.fetchone():
-    print("ERRO: Tabela 'users' nao encontrada. Iniciando o backend primeiro para criar as tabelas.")
-    conn.close()
-    exit(1)
+def reset_admin():
+    print(f"Banco de dados: {os.getenv('DATABASE_URL')}")
+    
+    pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
+    hashed_password = pwd_context.hash("admin123")
 
-# Verificar colunas existentes
-cursor.execute("PRAGMA table_info(users)")
-cols = [row[1] for row in cursor.fetchall()]
-print(f"Colunas atuais: {cols}")
+    # Criar tabelas se não existirem
+    print("Criando tabelas...")
+    Base.metadata.create_all(bind=engine)
+    print("Tabelas verificadas/criadas.")
 
-# Adicionar coluna telefone se nao existir
-if "telefone" not in cols:
-    cursor.execute("ALTER TABLE users ADD COLUMN telefone TEXT")
-    print("Coluna 'telefone' adicionada.")
-    conn.commit()
+    db = SessionLocal()
+    try:
+        # Remover admin existente
+        admin_email = "admin@laprime.com"
+        db.query(User).filter(User.email == admin_email).delete()
+        db.commit()
+        print(f"Admin antigo removido (se existia).")
 
-# Remover admin existente
-cursor.execute("DELETE FROM users WHERE email = 'admin@laprime.com'")
-deleted = cursor.rowcount
-if deleted:
-    print(f"Admin antigo removido.")
+        # Criar novo admin
+        new_admin = User(
+            nome="Administrador",
+            email=admin_email,
+            telefone="11999999999",
+            senha=hashed_password,
+            role="ADMIN",
+            ativo=True
+        )
+        db.add(new_admin)
+        db.commit()
 
-# Criar novo admin
-cursor.execute("""
-    INSERT INTO users (nome, email, telefone, senha, role, ativo)
-    VALUES (?, ?, ?, ?, ?, ?)
-""", ("Administrador", "admin@laprime.com", "11999999999", hashed, "ADMIN", 1))
+        print("=" * 40)
+        print("Admin criado com sucesso!")
+        print(f"  Email: {admin_email}")
+        print("  Senha: admin123")
+        print("=" * 40)
+    except Exception as e:
+        print(f"Erro ao resetar admin: {e}")
+        db.rollback()
+    finally:
+        db.close()
 
-conn.commit()
-conn.close()
-
-print("=" * 40)
-print("Admin criado com sucesso!")
-print("  Email: admin@laprime.com")
-print("  Senha: admin123")
-print("=" * 40)
+if __name__ == "__main__":
+    reset_admin()

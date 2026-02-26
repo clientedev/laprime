@@ -23,7 +23,7 @@ const ClientDashboard = () => {
   }, [refresh]);
 
   const getStatusColor = (status: string) => {
-    switch(status) {
+    switch (status) {
       case 'APROVADO': return 'bg-green-50 text-green-700 border-green-100';
       case 'RECUSADO': return 'bg-red-50 text-red-700 border-red-100';
       default: return 'bg-brand-light text-brand-gold border-brand-gold/20';
@@ -37,7 +37,7 @@ const ClientDashboard = () => {
           <h1 className="text-4xl font-serif font-bold text-brand-dark">Meus Agendamentos</h1>
           <p className="text-gray-500 font-sans mt-1">Gerencie suas consultas e procedimentos na La Prime.</p>
         </div>
-        <button 
+        <button
           onClick={() => setShowForm(!showForm)}
           className="bg-brand-gold text-brand-dark px-6 py-3 rounded-full flex items-center gap-2 transition-all hover:bg-opacity-90 shadow-lg font-bold font-sans"
         >
@@ -73,14 +73,14 @@ const ClientDashboard = () => {
                     <Calendar className="w-12 h-12" />
                   </div>
                   <p className="text-gray-500 font-serif text-xl italic">Você ainda não possui agendamentos.</p>
-                  <button 
+                  <button
                     onClick={() => setShowForm(true)}
                     className="mt-6 text-brand-gold font-bold hover:underline font-sans"
                   >
                     Fazer meu primeiro agendamento
                   </button>
                 </div>
-              ) : appointments.map((appt: any) => (
+              ) : (appointments || []).map((appt: any) => (
                 <div key={appt.id} className="p-8 hover:bg-brand-light/20 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <div className="flex items-start gap-6">
                     <div className="bg-brand-light p-4 rounded-xl text-brand-gold">

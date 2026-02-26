@@ -20,7 +20,7 @@ const ProfessionalDashboard = () => {
   }, []);
 
   const getStatusIcon = (status: string) => {
-    switch(status) {
+    switch (status) {
       case 'APROVADO': return <CheckCircle className="w-5 h-5 text-green-600" />;
       case 'RECUSADO': return <XCircle className="w-5 h-5 text-red-600" />;
       default: return <AlertCircle className="w-5 h-5 text-brand-gold" />;
@@ -38,7 +38,7 @@ const ProfessionalDashboard = () => {
           <div className="bg-white px-8 py-4 rounded-2xl shadow-xl border border-brand-gold/10 text-center hover:scale-105 transition-transform">
             <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-1">Hoje</p>
             <p className="text-3xl font-serif font-bold text-brand-gold">
-              {appointments.filter((a: any) => new Date(a.data).toDateString() === new Date().toDateString()).length}
+              {(appointments || []).filter((a: any) => new Date(a.data).toDateString() === new Date().toDateString()).length}
             </p>
           </div>
         </div>
@@ -50,9 +50,9 @@ const ProfessionalDashboard = () => {
           <Scissors className="text-brand-gold w-6 h-6" />
         </div>
         <div className="divide-y divide-gray-100 font-sans">
-          {appointments.length === 0 ? (
+          {(!appointments || appointments.length === 0) ? (
             <div className="p-20 text-center font-serif text-xl italic text-gray-400">Tudo calmo. Nenhum atendimento agendado no momento.</div>
-          ) : appointments.map((appt: any) => (
+          ) : (appointments || []).map((appt: any) => (
             <div key={appt.id} className="p-8 hover:bg-brand-light/20 flex flex-col md:flex-row items-center justify-between transition-colors gap-6">
               <div className="flex items-center gap-8">
                 <div className="text-center w-20">
