@@ -63,7 +63,7 @@ def health_check():
 
 # Endpoint temporario para criar o usuario admin
 # REMOVA ESTE ENDPOINT APOS O USO
-@app.post("/api/setup-admin")
+@app.get("/api/setup-admin")
 def setup_admin():
     from .db.session import SessionLocal
     from .models.models import User
