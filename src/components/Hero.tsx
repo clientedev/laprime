@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     <>
       <section id="home" className="relative h-screen flex items-center justify-center text-center text-white pt-20 overflow-hidden">
         {/* Carousel Images */}
-        {images?.map((url, idx) => (
+        {(Array.isArray(images) ? images : []).map((url, idx) => (
           <div
             key={url + idx}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === activeIndex ? 'opacity-100' : 'opacity-0'
@@ -87,7 +87,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
         {/* Indicators */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex gap-2">
-          {images?.map((_, idx) => (
+          {(Array.isArray(images) ? images : []).map((_, idx) => (
             <button
               key={idx}
               onClick={() => setActiveIndex(idx)}

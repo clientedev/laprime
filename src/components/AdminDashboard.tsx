@@ -856,7 +856,7 @@ const AdminDashboard = () => {
                           dataKey="count"
                           nameKey="name"
                         >
-                          {(stats?.services_usage || []).map((entry: any, index: number) => (
+                          {(Array.isArray(stats?.services_usage) ? stats.services_usage : []).map((entry: any, index: number) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
@@ -991,7 +991,7 @@ const AdminDashboard = () => {
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-gold text-sm"
                       >
                         <option value="" className="bg-brand-dark text-white">Selecione...</option>
-                        {(allProfessionals || []).map(p => (
+                        {(Array.isArray(allProfessionals) ? allProfessionals : []).map(p => (
                           <option key={p.id} value={p.id} className="bg-brand-dark text-white">{p.nome}</option>
                         ))}
                       </select>
@@ -1006,9 +1006,14 @@ const AdminDashboard = () => {
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-brand-gold text-sm disabled:opacity-30"
                       >
                         <option value="" className="bg-brand-dark text-white">Opcional: Ver Tudo</option>
-                        {(allProfessionals || []).find(p => String(p.id) === bulkConfig.professional_id)?.services?.map((s: any) => (
-                          <option key={s.id} value={s.id} className="bg-brand-dark text-white">{s.nome} ({s.duracao}m)</option>
-                        ))}
+                        {(() => {
+                          const prof = (Array.isArray(allProfessionals) ? allProfessionals : []).find(p => String(p.id) === bulkConfig.professional_id);
+                          return (Array.isArray(prof?.services) ? prof.services : []).map((s: any) => (
+                            <option key={s.id} value={s.id} className="bg-brand-dark text-white">
+                              {s.nome} ({s.duracao}m)
+                            </option>
+                          ));
+                        })()}
                       </select>
                     </div>
 
@@ -1264,7 +1269,7 @@ const AdminDashboard = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-sans">
-                    {(users || []).map((u: any) => (
+                    {(Array.isArray(users) ? users : []).map((u: any) => (
                       <tr key={u.id} className="hover:bg-brand-light/20 transition-colors">
                         <td className="px-10 py-6">
                           <div className="font-bold text-brand-dark">{u.nome}</div>
@@ -1324,7 +1329,7 @@ const AdminDashboard = () => {
               </div>
 
               <div className="grid grid-cols-1 gap-6">
-                {(blogPosts || []).length > 0 ? blogPosts.map((post: any) => (
+                {(Array.isArray(blogPosts) && blogPosts.length > 0) ? blogPosts.map((post: any) => (
                   <div key={post.id} className="flex flex-col md:flex-row gap-6 p-6 bg-brand-light/10 border border-brand-gold/5 rounded-3xl hover:bg-white hover:shadow-2xl transition-all group">
                     <div className="w-full md:w-48 h-32 shrink-0 bg-gray-100 rounded-2xl overflow-hidden shadow-inner">
                       {post.imagem_url ? (
@@ -1384,7 +1389,7 @@ const AdminDashboard = () => {
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {(galleryImages || []).length > 0 ? galleryImages.map((img: any) => (
+                {(Array.isArray(galleryImages) && galleryImages.length > 0) ? galleryImages.map((img: any) => (
                   <div key={img.id} className="relative group aspect-square rounded-3xl overflow-hidden shadow-lg border border-white hover:z-10 transition-all duration-500 hover:scale-105">
                     <img src={img.url} alt={img.titulo} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
@@ -1425,7 +1430,7 @@ const AdminDashboard = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-sans">
-                    {(allReviews || []).map((rev: any) => (
+                    {(Array.isArray(allReviews) ? allReviews : []).map((rev: any) => (
                       <tr key={rev.id} className="hover:bg-brand-light/20 transition-colors">
                         <td className="px-10 py-6 font-bold text-brand-dark">{rev.nome_cliente}</td>
                         <td className="px-10 py-6 text-brand-gold font-bold">{rev.rating}/5</td>
@@ -1763,7 +1768,7 @@ const AdminDashboard = () => {
 
                     {newProf.services.length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-4">
-                        {(newProf.services || []).map((s, idx) => (
+                        {(Array.isArray(newProf.services) ? newProf.services : []).map((s, idx) => (
                           <div key={idx} className="bg-brand-dark text-white px-3 py-1.5 rounded-lg flex items-center gap-2 group">
                             <span className="text-[10px] font-bold">{s.nome} ({s.duracao} min) - R${s.preco}</span>
                             <button
@@ -1830,7 +1835,7 @@ const AdminDashboard = () => {
                           <td className="px-10 py-6 text-sm">{p.especialidade}</td>
                           <td className="px-10 py-6">
                             <div className="flex flex-wrap gap-1 max-w-sm">
-                              {p.services?.map((s: any) => (
+                              {(Array.isArray(p.services) ? p.services : []).map((s: any) => (
                                 <span key={s.id} className="px-2 py-0.5 bg-brand-light text-brand-dark rounded text-[8px] font-black uppercase">
                                   {s.nome}
                                 </span>

@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <h2 className="text-3xl md:text-4xl font-serif text-brand-dark mb-4 text-center">
-      {children}
+        {children}
     </h2>
-  );
-  
+);
+
 const ServiceCard: React.FC<{ icon: React.ReactElement, title: string, description: string, link?: string }> = ({ icon, title, description, link }) => {
     const content = (
         <>
@@ -18,7 +18,7 @@ const ServiceCard: React.FC<{ icon: React.ReactElement, title: string, descripti
             <p className="text-gray-600 text-sm mb-4">{description}</p>
             {link && (
                 <span className="text-brand-gold font-semibold text-sm inline-flex items-center">
-                    Saiba mais 
+                    Saiba mais
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -65,10 +65,10 @@ const ServicesSection: React.FC = () => {
                     Oferecemos uma gama completa de serviços para o seu bem-estar, unindo saúde e beleza em um só lugar.
                 </p>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((service, index) => (
+                    {(Array.isArray(services) ? services : []).map((service, index) => (
                         <ServiceCard key={index} {...service} />
                     ))}
-                     <div className="bg-brand-dark text-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center flex flex-col items-center justify-center">
+                    <div className="bg-brand-dark text-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center flex flex-col items-center justify-center">
                         <h3 className="text-xl font-serif text-brand-gold mb-2">E muito mais!</h3>
                         <p className="text-gray-300 text-sm">Agende uma avaliação e descubra o tratamento perfeito para você.</p>
                     </div>

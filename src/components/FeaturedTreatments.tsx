@@ -45,7 +45,7 @@ const FeaturedTreatments: React.FC = () => {
                     Conheça nossas especialidades e os tratamentos mais procurados para resultados visíveis e que elevam a autoestima.
                 </p>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {treatments.map((treatment, index) => (
+                    {(Array.isArray(treatments) ? treatments : []).map((treatment, index) => (
                         <TreatmentCard key={index} {...treatment} />
                     ))}
                 </div>

@@ -308,7 +308,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
         try {
             const res = await axios.get(`/api/availability/${prof.id}`);
             setAvailabilities(res.data);
-            const dates = [...new Set<string>((res.data || []).map((a: any) => new Date(a.data).toISOString().split('T')[0]))];
+            const dates = [...new Set<string>((Array.isArray(res.data) ? res.data : []).map((a: any) => new Date(a.data).toISOString().split('T')[0]))];
             if (dates.length === 0) {
                 await addBotMessage('Não há datas disponíveis para esta profissional no momento. Escolha outra?', {
                     options: [{ label: '⬅️ Escolher outra profissional', value: 'back' }]
@@ -522,7 +522,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                                 </div>
                                 {msg.options && (
                                     <div className={`mt-3 flex flex-col gap-2 ${step === 'select_service' ? 'sm:grid sm:grid-cols-2' : ''}`}>
-                                        {(msg.options || []).map((opt, i) => (
+                                        {(Array.isArray(msg.options) ? msg.options : []).map((opt, i) => (
                                             <button
                                                 key={i}
                                                 onClick={() => handleOption(opt.value)}

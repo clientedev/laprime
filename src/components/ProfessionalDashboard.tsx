@@ -52,7 +52,7 @@ const ProfessionalDashboard = () => {
         <div className="divide-y divide-gray-100 font-sans">
           {(!appointments || appointments.length === 0) ? (
             <div className="p-20 text-center font-serif text-xl italic text-gray-400">Tudo calmo. Nenhum atendimento agendado no momento.</div>
-          ) : (appointments || []).map((appt: any) => (
+          ) : (Array.isArray(appointments) ? appointments : []).map((appt: any) => (
             <div key={appt.id} className="p-8 hover:bg-brand-light/20 flex flex-col md:flex-row items-center justify-between transition-colors gap-6">
               <div className="flex items-center gap-8">
                 <div className="text-center w-20">

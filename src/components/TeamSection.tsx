@@ -16,9 +16,9 @@ interface TeamMemberProps {
 const TeamMember: React.FC<TeamMemberProps> = ({ name, role, description, imageUrl }) => (
   <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow text-center">
     <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-brand-gold/20">
-      <img 
-        src={imageUrl} 
-        alt={`${name} - ${role}`} 
+      <img
+        src={imageUrl}
+        alt={`${name} - ${role}`}
         className="w-full h-full object-cover"
       />
     </div>
@@ -58,7 +58,7 @@ const TeamSection: React.FC = () => {
           Profissionais dedicados ao seu bem-estar, prontos para proporcionar a melhor experiência em beleza e saúde.
         </p>
         <div className="grid md:grid-cols-3 gap-8">
-          {team.map((member, index) => (
+          {(Array.isArray(team) ? team : []).map((member, index) => (
             <TeamMember key={index} {...member} />
           ))}
         </div>
@@ -67,9 +67,9 @@ const TeamSection: React.FC = () => {
           <p className="text-gray-600 mb-6">
             Estamos ansiosas para te receber e proporcionar uma experiência única de cuidado e bem-estar.
           </p>
-          <a 
-            href="https://wa.me/5511992153511?text=Olá! Gostaria de conhecer a equipe da La Prime." 
-            target="_blank" 
+          <a
+            href="https://wa.me/5511992153511?text=Olá! Gostaria de conhecer a equipe da La Prime."
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-brand-gold text-white px-8 py-3 rounded-full font-semibold hover:bg-brand-dark transition-colors"
           >
