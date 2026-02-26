@@ -60,3 +60,48 @@ def health_check():
         "dist_exists": os.path.exists(frontend_path),
         "cwd": os.getcwd()
     }
+
+# Endpoint temporario para criar o usuario admin
+# REMOVA ESTE ENDPOINT APOS O USO
+@app.post("/api/setup-admin")
+def setup_admin():
+    from .db.session import SessionLocal
+    from .models.models import User
+    from .core.auth import get_password_hash
+
+    EMAIL = "admin@sistema.com"
+    SENHA = "admin123"
+    NOME = "Administrador"
+
+    db = SessionLocal()
+    try:
+        existing = db.query(User).filter(User.email == EMAIL).first()
+        if existing:
+            existing.role = "ADMIN"
+            existing.senha = get_password_hash(SENHA)
+            existing.ativo = True
+            db.commit()
+            return {"status": "ok", "message": f"Usuario {EMAIL} atualizado para ADMIN"}
+        else:
+            new_admin = User(
+                nome=NOME,
+                email=EMAIL,
+                senha=get_password_hash(SENHA),
+                role="ADMIN",
+                ativo=True
+            )
+            db.add(new_admin)
+            db.commit()
+            db.refresh(new_admin)
+            return {
+                "status": "ok",
+                "message": "Admin criado com sucesso!",
+                "email": EMAIL,
+                "senha": SENHA,
+                "id": new_admin.id
+            }
+    except Exception as e:
+        db.rollback()
+        return {"status": "error", "detail": str(e)}
+    finally:
+        db.close()
