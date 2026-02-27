@@ -23,7 +23,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, description, imageU
       <img
         src={imageUrl}
         alt={`${name} - ${role}`}
-        className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+        className="w-full h-full object-cover object-top transform hover:scale-110 transition-transform duration-500"
       />
     </div>
     <h3 className="text-2xl font-serif text-brand-dark mb-2">{name}</h3>
