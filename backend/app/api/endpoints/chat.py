@@ -54,5 +54,11 @@ async def chat_with_bina(request: ChatRequest):
         print(f"Auth error in Groq API: {str(e)}")
         raise HTTPException(status_code=401, detail="⚠️ A chave de API do Groq configurada no servidor é inválida ou possui espaços em branco.")
     except Exception as e:
-        print(f"Error in Groq API: {str(e)}")
-        raise HTTPException(status_code=500, detail="Erro interno ao se comunicar com a Bina.")
+        import traceback
+        print("====== GRAVE: ERRO NA API DO GROQ ======")
+        print(f"Tipo do Erro: {type(e).__name__}")
+        print(f"Mensagem: {str(e)}")
+        print("Traceback Completo:")
+        traceback.print_exc()
+        print("========================================")
+        raise HTTPException(status_code=500, detail="Erro interno ao se comunicar com a Bina. Verifique os logs do Railway para mais detalhes.")
