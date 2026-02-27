@@ -42,7 +42,7 @@ async def chat_with_bina(request: ChatRequest):
             
         chat_completion = await client.chat.completions.create(
             messages=messages,
-            model="llama3-8b-8192",  # Fast and good for simple chatbot
+            model="llama-3.1-8b-instant",  # Current fast model for Simple Chatbot
             temperature=0.7,
             max_tokens=500,
         )
