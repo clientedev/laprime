@@ -51,36 +51,30 @@ const PromotionBanner: React.FC = () => {
         >
             <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-            <div className={`container mx-auto flex items-center justify-center gap-3 relative z-10 ${style.marquee ? 'overflow-hidden whitespace-nowrap' : ''}`}>
-                <div className={style.marquee ? 'flex animate-marquee' : 'flex items-center gap-3'}
+            <div className={`container mx-auto flex items-center justify-center relative z-10 ${style.marquee ? 'overflow-hidden whitespace-nowrap' : ''}`}>
+                <div
+                    className={style.marquee ? 'inline-flex animate-marquee whitespace-nowrap' : 'flex items-center gap-3 justify-center'}
                     style={style.marquee ? { animationDuration: `${style.speed}s` } : {}}
                 >
-                    <Sparkles className="w-4 h-4 text-brand-gold animate-pulse shrink-0" />
-                    <p className={`text-xs sm:text-sm font-sans uppercase tracking-[0.2em] text-center ${style.fontWeight === 'bold' ? 'font-black' : 'font-normal'}`}>
-                        {bannerText}
-                    </p>
-                    <Sparkles className="w-4 h-4 text-brand-gold animate-pulse shrink-0" />
-
-                    {/* Duplicate for seamless marquee */}
-                    {style.marquee && (
-                        <>
-                            <span className="mx-10 shrink-0 opacity-0 md:opacity-100"></span>
+                    {/* Items */}
+                    {[...Array(style.marquee ? 6 : 1)].map((_, i) => (
+                        <div key={i} className="flex items-center justify-center gap-3 mx-4 md:mx-8">
                             <Sparkles className="w-4 h-4 text-brand-gold animate-pulse shrink-0" />
                             <p className={`text-xs sm:text-sm font-sans uppercase tracking-[0.2em] text-center ${style.fontWeight === 'bold' ? 'font-black' : 'font-normal'}`}>
                                 {bannerText}
                             </p>
                             <Sparkles className="w-4 h-4 text-brand-gold animate-pulse shrink-0" />
-                        </>
-                    )}
+                        </div>
+                    ))}
                 </div>
             </div>
 
             <button
                 onClick={() => setIsVisible(false)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors p-1 z-20"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors p-1 z-20 bg-black/10 rounded-full"
                 aria-label="Fechar"
             >
-                <X className="w-3 h-3" />
+                <X className="w-4 h-4" />
             </button>
             <style dangerouslySetInnerHTML={{
                 __html: `
@@ -90,6 +84,7 @@ const PromotionBanner: React.FC = () => {
                 }
                 .animate-marquee {
                     animation: marquee linear infinite;
+                    min-width: 200%;
                 }
             `}} />
         </div>
