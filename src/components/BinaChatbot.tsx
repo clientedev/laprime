@@ -45,9 +45,10 @@ const BinaChatbot = () => {
             });
 
             setMessages([...newHistory, { role: 'assistant', content: response.data.reply }]);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Chat error:', error);
-            setMessages([...newHistory, { role: 'assistant', content: 'Ops, tive um errinho de conexão. Poderia chamar a nossa equipe no WhatsApp clicando no botão no menu?' }]);
+            const errorMessage = error.response?.data?.detail || 'Ops, tive um errinho de conexão. Poderia chamar a nossa equipe no WhatsApp clicando no botão no menu?';
+            setMessages([...newHistory, { role: 'assistant', content: errorMessage }]);
         } finally {
             setIsLoading(false);
         }
@@ -115,8 +116,8 @@ const BinaChatbot = () => {
                         <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                             <div
                                 className={`max-w-[85%] p-3 rounded-2xl text-sm shadow-sm ${msg.role === 'user'
-                                        ? 'bg-brand-dark text-white rounded-tr-sm'
-                                        : 'bg-white text-gray-700 border border-brand-gold/10 rounded-tl-sm'
+                                    ? 'bg-brand-dark text-white rounded-tr-sm'
+                                    : 'bg-white text-gray-700 border border-brand-gold/10 rounded-tl-sm'
                                     }`}
                             >
                                 {msg.content}

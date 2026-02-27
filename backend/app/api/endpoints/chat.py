@@ -25,11 +25,9 @@ Sempre seja educada e termine oferecendo mais ajuda se necessário."""
 
 @router.post("/")
 async def chat_with_bina(request: ChatRequest):
-    groq_api_key = os.environ.get("GROQ_API_KEY")
+    groq_api_key = os.environ.get("GROQ_API_KEY", "").strip()
     
     if not groq_api_key:
-        # Se a chave não estiver configurada, retornar uma mensagem amigável de manutenção ou erro
-        # para que o frontend não quebre feio.
         return {
             "reply": "Olá! No momento eu estou passando por uma atualização no sistema e não posso responder. Por favor, chame a nossa equipe no WhatsApp para um atendimento rápido!"
         }
@@ -51,7 +49,10 @@ async def chat_with_bina(request: ChatRequest):
         
         reply = chat_completion.choices[0].message.content
         return {"reply": reply}
-        
+
+    except groq.AuthenticationError as e:
+        print(f"Auth error in Groq API: {str(e)}")
+        raise HTTPException(status_code=401, detail="⚠️ A chave de API do Groq configurada no servidor é inválida ou possui espaços em branco.")
     except Exception as e:
         print(f"Error in Groq API: {str(e)}")
-        raise HTTPException(status_code=500, detail="Erro ao se comunicar com a Bina.")
+        raise HTTPException(status_code=500, detail="Erro interno ao se comunicar com a Bina.")
