@@ -16,19 +16,22 @@ const PromotionBanner: React.FC = () => {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                const textRes = await axios.get('/api/settings/promo_text');
-                const activeRes = await axios.get('/api/settings/promo_active');
-                const styleRes = await axios.get('/api/settings/promo_style');
+                const timestamp = Date.now();
+                const [textRes, activeRes, styleRes] = await Promise.all([
+                    axios.get(`/api/settings/promo_text?t=${timestamp}`),
+                    axios.get(`/api/settings/promo_active?t=${timestamp}`),
+                    axios.get(`/api/settings/promo_style?t=${timestamp}`)
+                ]);
 
-                if (activeRes.data.value === 'true' || activeRes.data.value === true) {
-                    setBannerText(textRes.data.value);
-                    if (styleRes.data && styleRes.data.value) {
-                        try {
-                            const parsedStyle = JSON.parse(styleRes.data.value);
-                            setStyle(prev => ({ ...prev, ...parsedStyle }));
-                        } catch (e) {
-                            console.error("Error parsing promo_style", e);
-                        }
+                const active = activeRes.data.value === 'true' || activeRes.data.value === true;
+                setBannerText(textRes.data.value || '');
+
+                if (active && styleRes.data && styleRes.data.value) {
+                    try {
+                        const parsedStyle = JSON.parse(styleRes.data.value);
+                        setStyle(prev => ({ ...prev, ...parsedStyle }));
+                    } catch (e) {
+                        console.error("Error parsing promo_style", e);
                     }
                     setIsVisible(true);
                 }
