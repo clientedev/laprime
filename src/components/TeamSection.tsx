@@ -19,7 +19,7 @@ interface TeamMemberProps {
 
 const TeamMember: React.FC<TeamMemberProps> = ({ name, role, description, imageUrl }) => (
   <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow text-center h-full flex flex-col items-center">
-    <div className="w-40 h-40 mb-6 rounded-full overflow-hidden bg-brand-gold/10 border-4 border-brand-gold/20 shadow-inner">
+    <div className="w-full h-80 sm:h-96 mb-6 rounded-2xl overflow-hidden bg-brand-gold/10 border-4 border-brand-gold/20 shadow-inner">
       <img
         src={imageUrl}
         alt={`${name} - ${role}`}
