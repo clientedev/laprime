@@ -255,7 +255,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
             }
             await addBotMessage('Que tipo de serviço você deseja?', {
                 options: (Array.isArray(uniqueServices) ? uniqueServices : []).map((s: any) => ({
-                    label: `\${s.nome} — R$ \${Number(s.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} (\${s.duracao}min)`,
+                    label: `${s.nome} — R$ ${Number(s.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} (${s.duracao}min)`,
                     value: s.id
                 }))
             });
@@ -288,7 +288,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
             }
             await addBotMessage('Com qual especialista você prefere?', {
                 options: (Array.isArray(filtered) ? filtered : []).map((p: any) => ({
-                    label: `✨ \${p.nome || p.especialidade} (\${p.especialidade})`,
+                    label: `✨ ${p.nome || p.especialidade} (${p.especialidade})`,
                     value: p.id,
                     description: 'Especialista dedicada ao seu bem-estar.'
                 }))
@@ -392,7 +392,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
 
             await addBotMessage('Que horário fica melhor para você? ⏰', {
                 options: (Array.isArray(slots) ? slots : []).map(t => ({
-                    label: `🕐 \${t}`,
+                    label: `🕐 ${t}`,
                     value: t
                 }))
             });

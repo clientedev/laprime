@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 import os
 from dotenv import load_dotenv
 
@@ -103,8 +104,17 @@ frontend_path = os.path.join(os.getcwd(), "dist")
 print(f"Procurando frontend em: {frontend_path}")
 
 if os.path.exists(frontend_path):
-    print("✅ Frontend encontrado! Montando em /")
-    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+    print("✅ Frontend encontrado! Configurando SPA Fallback em /")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        # Serve static files if they exist in dist
+        path = os.path.join(frontend_path, full_path)
+        if os.path.isfile(path) and not full_path.startswith("api/"):
+            return FileResponse(path)
+        
+        # Fallback to index.html for SPA routes
+        return FileResponse(os.path.join(frontend_path, "index.html"))
 else:
     print(f"⚠️ Frontend não encontrado em {frontend_path}")
     print(f"Arquivos na raiz: {os.listdir(os.getcwd())}")

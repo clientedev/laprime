@@ -801,7 +801,7 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {[
                   { label: 'Total Agendamentos', val: stats?.total_appointments || 0, icon: <Calendar />, color: 'text-brand-dark' },
-                  { label: 'Taxa AprovaÃ§Ã£o', val: `\${(stats?.approval_rate || 0).toFixed(1)}%`, icon: <CheckCircle />, color: 'text-green-600' },
+                  { label: 'Taxa Aprovação', val: `${(stats?.approval_rate || 0).toFixed(1)}%`, icon: <CheckCircle />, color: 'text-green-600' },
                   { label: 'Clientes Ativos', val: stats?.active_clients || 0, icon: <Users />, color: 'text-brand-gold' },
                   { label: 'Especialidades', val: (stats?.services_usage || []).length, icon: <Scissors />, color: 'text-purple-600' }
                 ].map((kpi, i) => (
@@ -1280,7 +1280,7 @@ const AdminDashboard = () => {
                           <select
                             value={u.role}
                             onChange={(e) => handleRoleChange(u.id, e.target.value)}
-                            className={`px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest outline-none border-2 border-transparent focus:border-brand-gold transition-all \${u.role === 'ADMIN' ? 'bg-brand-dark text-white' : u.role === 'PROFISSIONAL' ? 'bg-brand-gold text-brand-dark' : 'bg-gray-100 text-gray-600'}`}
+                            className={`px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest outline-none border-2 border-transparent focus:border-brand-gold transition-all ${u.role === 'ADMIN' ? 'bg-brand-dark text-white' : u.role === 'PROFISSIONAL' ? 'bg-brand-gold text-brand-dark' : 'bg-gray-100 text-gray-600'}`}
                           >
                             <option value="CLIENTE">CLIENTE</option>
                             <option value="PROFISSIONAL">PROFISSIONAL</option>
@@ -1288,15 +1288,15 @@ const AdminDashboard = () => {
                           </select>
                         </td>
                         <td className="px-10 py-6">
-                          <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest \${u.ativo ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50'}`}>
-                            <div className={`w-1.5 h-1.5 rounded-full \${u.ativo ? 'bg-green-600' : 'bg-red-600'}`} />
+                          <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${u.ativo ? 'text-green-600 bg-green-50' : 'text-red-600 bg-red-50'}`}>
+                            <div className={`w-1.5 h-1.5 rounded-full ${u.ativo ? 'bg-green-600' : 'bg-red-600'}`} />
                             {u.ativo ? 'Ativo' : 'Inativo'}
                           </span>
                         </td>
                         <td className="px-10 py-6">
                           <button
                             onClick={() => toggleUser(u.id)}
-                            className={`px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest transition-all \${u.ativo ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-green-500 text-white hover:bg-green-600'} shadow-md`}
+                            className={`px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest transition-all ${u.ativo ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-green-500 text-white hover:bg-green-600'} shadow-md`}
                           >
                             {u.ativo ? 'SUSPENDER' : 'REATIVAR'}
                           </button>
@@ -1436,7 +1436,7 @@ const AdminDashboard = () => {
                         <td className="px-10 py-6 text-brand-gold font-bold">{rev.rating}/5</td>
                         <td className="px-10 py-6 text-gray-600 max-w-xs truncate">{rev.comentario}</td>
                         <td className="px-10 py-6">
-                          <span className={`px-3 py-1 rounded-full text-[10px] font-black tracking-widest \${rev.is_approved ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                          <span className={`px-3 py-1 rounded-full text-[10px] font-black tracking-widest ${rev.is_approved ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
                             {rev.is_approved ? 'APROVADO' : 'PENDENTE'}
                           </span>
                         </td>
@@ -1445,7 +1445,7 @@ const AdminDashboard = () => {
                             {!rev.is_approved && (
                               <button
                                 onClick={async () => {
-                                  await axios.patch(`/api/reviews/\${rev.id}/approve`);
+                                  await axios.patch(`/api/reviews/${rev.id}/approve`);
                                   fetchData();
                                 }}
                                 className="text-green-600 hover:text-green-800 font-bold text-xs"
@@ -1455,7 +1455,7 @@ const AdminDashboard = () => {
                             )}
                             <button
                               onClick={async () => {
-                                await axios.delete(`/api/reviews/\${rev.id}`);
+                                await axios.delete(`/api/reviews/${rev.id}`);
                                 fetchData();
                               }}
                               className="text-red-500 hover:text-red-700 font-bold text-xs"
