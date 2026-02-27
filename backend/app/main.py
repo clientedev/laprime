@@ -7,7 +7,7 @@ load_dotenv()
 from fastapi.staticfiles import StaticFiles
 from .db.session import engine, Base
 from .models import models
-from .api.endpoints import auth, services, appointments, availability, admin, professionals, users, blog, gallery, reviews, settings, uploads
+from .api.endpoints import auth, services, appointments, availability, admin, professionals, users, blog, gallery, reviews, settings, uploads, chat
 
 # Initialize Database
 try:
@@ -37,6 +37,7 @@ app.include_router(gallery.router, prefix="/api")
 app.include_router(reviews.router, prefix="/api")
 app.include_router(settings.router, prefix="/api")
 app.include_router(uploads.router, prefix="/api")
+app.include_router(chat.router, prefix="/api")
 
 # -------------------------------------------------------
 # Endpoints de API definidos ANTES do mount do frontend

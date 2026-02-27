@@ -16,6 +16,7 @@ import BlogPage from './components/BlogPage';
 import BlogPostPage from './components/BlogPostPage';
 import GalleryPage from './components/GalleryPage';
 import PromotionBanner from './components/PromotionBanner';
+import BinaChatbot from './components/BinaChatbot';
 
 const App = () => {
   const [user, setUser] = useState(() => {
@@ -52,6 +53,7 @@ const App = () => {
 
   return (
     <Router>
+      <BinaChatbot />
       <Header user={user} onLogout={handleLogout} onNavigate={scrollToSection} />
       <div className="min-h-screen bg-brand-light font-sans text-brand-text w-full overflow-x-hidden">
         <Suspense fallback={<div className="p-20 text-center font-serif text-2xl text-brand-dark italic">Carregando experiência La Prime...</div>}>
