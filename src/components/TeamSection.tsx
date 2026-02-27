@@ -3,7 +3,7 @@ import team1 from '@assets/team-1.jpg';
 import team2 from '@assets/team-2.jpg';
 import team3 from '@assets/team-3.jpg';
 
-// Team Section - Versão Atualizada com Fotos Reais
+// Team Section - Versão Definitiva com Fotos Corretas
 const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <h2 className="text-3xl md:text-4xl font-serif text-brand-dark mb-4 text-center">
     {children}
