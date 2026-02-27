@@ -882,24 +882,24 @@ const AdminDashboard = () => {
                         <th className="px-10 py-5">Cliente</th>
                         <th className="px-10 py-5">Data & Hora</th>
                         <th className="px-10 py-5">Especialidade</th>
-                        <th className="px-10 py-5">DecisÃ£o</th>
+                        <th className="px-10 py-5">Decisão</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 font-sans">
                       {appointments.length === 0 ? (
-                        <tr><td colSpan={4} className="px-10 py-20 text-center text-gray-400 font-serif text-xl italic">Toda a agenda estÃ¡ em dia.</td></tr>
+                        <tr><td colSpan={4} className="px-10 py-20 text-center text-gray-400 font-serif text-xl italic">Toda a agenda está em dia.</td></tr>
                       ) : (Array.isArray(appointments) ? appointments : []).map((appt: any) => (
                         <tr key={appt.id} className="hover:bg-brand-light/20 transition-colors">
                           <td className="px-10 py-6">
-                            <div className="font-bold text-brand-dark">{appt.cliente_nome || `ID: \${appt.cliente_id}`}</div>
+                            <div className="font-bold text-brand-dark">{appt.cliente_nome || `ID: ${appt.cliente_id}`}</div>
                             <div className="text-xs text-brand-gold font-sans">{appt.cliente_telefone || 'Sem telefone'}</div>
                           </td>
                           <td className="px-10 py-6 text-gray-600">
-                            <span className="font-bold">{new Date(appt.data).toLocaleDateString()}</span> Ã s {appt.hora}
+                            <span className="font-bold">{new Date(appt.data).toLocaleDateString()}</span> às {appt.hora}
                           </td>
                           <td className="px-10 py-6">
-                            <div className="text-brand-gold font-bold">{appt.service_nome || `ServiÃ§o #\${appt.service_id}`}</div>
-                            <div className="text-[10px] text-gray-400 font-sans uppercase tracking-widest">com {appt.professional_nome || `Prof. #\${appt.professional_id}`}</div>
+                            <div className="text-brand-gold font-bold">{appt.service_nome || `Serviço #${appt.service_id}`}</div>
+                            <div className="text-[10px] text-gray-400 font-sans uppercase tracking-widest">com {appt.professional_nome || `Prof. #${appt.professional_id}`}</div>
                           </td>
                           <td className="px-10 py-6">
                             <div className="flex flex-wrap gap-2">

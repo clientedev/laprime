@@ -81,7 +81,7 @@ const Login = ({ onLogin }) => {
             <button
               type="submit"
               disabled={loading}
-              className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transition-all font-sans \${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-full text-brand-dark bg-brand-gold hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transition-all font-sans ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LogIn className="h-5 w-5 text-brand-dark/50 group-hover:text-brand-dark" aria-hidden="true" />
