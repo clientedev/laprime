@@ -30,7 +30,7 @@ const BlogPage = () => {
     }
 
     return (
-        <div className="min-h-screen bg-brand-light py-24">
+        <div className="min-h-screen bg-brand-light pt-32 pb-24">
             <div className="container mx-auto px-4">
                 <h1 className="text-5xl font-serif text-brand-dark mb-12 text-center">Blog La Prime</h1>
 

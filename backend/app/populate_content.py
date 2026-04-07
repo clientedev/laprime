@@ -1,20 +1,7 @@
 import os
-import sys
 from sqlalchemy.orm import Session
-from datetime import datetime
-
-# Garantir que o CWD seja o diretório 'backend'
-if os.path.basename(os.getcwd()) != "backend":
-    if os.path.exists("backend"):
-        os.chdir("backend")
-    else:
-        print("Erro: Diretório 'backend' não encontrado.")
-        sys.path.append(os.getcwd())
-else:
-    sys.path.append(os.getcwd())
-
-from app.db.session import SessionLocal, engine, Base
-from app.models.models import BlogPost, GalleryImage, User
+from .db.session import SessionLocal, engine, Base
+from .models.models import BlogPost, GalleryImage, User
 
 def populate():
     # Garantir que as tabelas existem
@@ -26,8 +13,7 @@ def populate():
         # Pega o primeiro admin como autor
         admin = db.query(User).filter(User.role == "ADMIN").first()
         if not admin:
-            # Se não tiver admin, tenta usar o setup_admin do main.py ou cria um temporario
-            from app.core.auth import get_password_hash
+            from .core.auth import get_password_hash
             admin = User(
                 nome="Administrador",
                 email="admin@sistema.com",

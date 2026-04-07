@@ -19,6 +19,15 @@ except Exception as e:
 
 os.makedirs("uploads", exist_ok=True)
 
+# Auto-populate blog and gallery if empty
+try:
+    from .populate_content import populate
+    print("Iniciando população automática de conteúdo...")
+    populate()
+    print("População concluída!")
+except Exception as e:
+    print(f"Aviso: Falha na população automática: {e}")
+
 app = FastAPI(title="Clínica Estética API")
 
 # Serve static files for uploads
