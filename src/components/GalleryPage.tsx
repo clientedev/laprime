@@ -29,11 +29,7 @@ const GalleryPage = () => {
     }
 
     return (
-<<<<<<< HEAD
         <div className="min-h-screen bg-brand-light pt-32 pb-24">
-=======
-        <div className="min-h-screen bg-brand-light py-16 md:py-24">
->>>>>>> b7126eef233f6504399ed8e8c4336389d5c0d804
             <div className="container mx-auto px-4">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-brand-dark mb-8 md:mb-12 text-center">Nossa Galeria</h1>
 
