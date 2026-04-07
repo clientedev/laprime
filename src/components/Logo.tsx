@@ -1,4 +1,5 @@
 import React from 'react';
+import logoImg from '../assets/logo.png';
 
 interface LogoProps {
   className?: string;
@@ -6,7 +7,7 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ className = 'w-36 h-auto' }) => (
   <div className={className}>
-    <img src="/logo-v4.png" alt="La Prime - Universo da Beleza" className="w-full h-full object-contain" />
+    <img src={logoImg} alt="La Prime - Universo da Beleza" className="w-full h-full object-contain" />
   </div>
 );
 
