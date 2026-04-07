@@ -4,11 +4,19 @@ from typing import List
 from ...db.session import get_db
 from ...models import models
 from ...schemas import schemas
+from ...core.auth import get_current_user
 
 router = APIRouter(prefix="/blog", tags=["blog"])
 
 @router.post("/", response_model=schemas.BlogPostResponse)
-def create_blog_post(post: schemas.BlogPostCreate, db: Session = Depends(get_db)):
+def create_blog_post(
+    post: schemas.BlogPostCreate, 
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    if current_user.role != "ADMIN":
+        raise HTTPException(status_code=403, detail="Apenas administradores podem criar posts")
+    
     db_post = models.BlogPost(**post.dict())
     db.add(db_post)
     db.commit()
@@ -27,7 +35,14 @@ def get_blog_post(post_id: int, db: Session = Depends(get_db)):
     return post
 
 @router.delete("/{post_id}")
-def delete_blog_post(post_id: int, db: Session = Depends(get_db)):
+def delete_blog_post(
+    post_id: int, 
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    if current_user.role != "ADMIN":
+        raise HTTPException(status_code=403, detail="Apenas administradores podem deletar posts")
+        
     post = db.query(models.BlogPost).filter(models.BlogPost.id == post_id).first()
     if not post:
         raise HTTPException(status_code=404, detail="Post não encontrado")

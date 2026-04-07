@@ -4,11 +4,19 @@ from typing import List
 from ...db.session import get_db
 from ...models import models
 from ...schemas import schemas
+from ...core.auth import get_current_user
 
 router = APIRouter(prefix="/gallery", tags=["gallery"])
 
 @router.post("/", response_model=schemas.GalleryImageResponse)
-def add_gallery_image(image: schemas.GalleryImageCreate, db: Session = Depends(get_db)):
+def add_gallery_image(
+    image: schemas.GalleryImageCreate, 
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    if current_user.role != "ADMIN":
+        raise HTTPException(status_code=403, detail="Apenas administradores podem adicionar imagens")
+        
     db_image = models.GalleryImage(**image.dict())
     db.add(db_image)
     db.commit()
@@ -20,7 +28,14 @@ def get_gallery_images(db: Session = Depends(get_db)):
     return db.query(models.GalleryImage).order_by(models.GalleryImage.uploaded_at.desc()).all()
 
 @router.delete("/{image_id}")
-def delete_gallery_image(image_id: int, db: Session = Depends(get_db)):
+def delete_gallery_image(
+    image_id: int, 
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    if current_user.role != "ADMIN":
+        raise HTTPException(status_code=403, detail="Apenas administradores podem deletar imagens")
+        
     image = db.query(models.GalleryImage).filter(models.GalleryImage.id == image_id).first()
     if not image:
         raise HTTPException(status_code=404, detail="Imagem não encontrada")
