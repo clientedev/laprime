@@ -42,7 +42,7 @@ const Login = ({ onLogin }) => {
           <div className="inline-flex p-4 bg-brand-light rounded-full mb-4">
             <ShieldCheck className="w-8 h-8 text-brand-gold" />
           </div>
-          <h2 className="text-3xl font-serif font-bold text-brand-dark tracking-tight">Bem-vindo de volta</h2>
+          <h2 className="text-3xl font-serif font-bold text-brand-dark tracking-tight">Sua Área Exclusiva</h2>
           <p className="mt-2 text-sm text-gray-600 font-sans">
             Novo por aqui?{' '}
             <Link to="/register" className="font-medium text-brand-gold hover:text-opacity-80">
@@ -86,7 +86,7 @@ const Login = ({ onLogin }) => {
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LogIn className="h-5 w-5 text-brand-dark/50 group-hover:text-brand-dark" aria-hidden="true" />
               </span>
-              {loading ? 'Entrando...' : 'Acessar Sistema'}
+              {loading ? 'Entrando...' : 'Acessar minha conta'}
             </button>
           </div>
         </form>

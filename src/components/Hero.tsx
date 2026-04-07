@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ConversationalAppointment from './ConversationalAppointment';
 
 interface HeroProps {
   onNavigate: () => void;
@@ -14,7 +13,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=1920&auto=format&fit=crop"
   ]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showAppointment, setShowAppointment] = useState(false);
+  const WHATSAPP_URL = "https://wa.me/5511992153511?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20La%20Prime.";
 
   useEffect(() => {
     const fetchHeroImages = async () => {
@@ -67,15 +66,17 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             Na La Prime, você encontra estética, odontologia e beleza com qualidade e conforto.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up">
-            <button
-              onClick={() => setShowAppointment(true)}
-              className="bg-brand-gold text-brand-dark font-sans font-bold py-4 px-10 rounded-full text-lg hover:bg-opacity-90 transition-all transform hover:scale-105 duration-300 shadow-xl hover:shadow-brand-gold/20 active:scale-95 relative overflow-hidden group w-full sm:w-auto"
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-brand-gold text-brand-dark font-sans font-bold py-4 px-10 rounded-full text-lg hover:bg-opacity-90 transition-all transform hover:scale-105 duration-300 shadow-xl hover:shadow-brand-gold/20 active:scale-95 relative overflow-hidden group w-full sm:w-auto inline-block text-center"
             >
               <span className="relative z-10 flex items-center gap-2 justify-center">
                 Agendar Agora ✨
               </span>
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </button>
+            </a>
             <button
               onClick={() => onNavigate()}
               className="bg-white/10 backdrop-blur-md border border-white/20 text-white font-sans font-bold py-4 px-10 rounded-full text-lg hover:bg-white/20 transition-all transform hover:scale-105 duration-300 active:scale-95 w-full sm:w-auto"
@@ -98,9 +99,6 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {showAppointment && (
-        <ConversationalAppointment onClose={() => setShowAppointment(false)} />
-      )}
     </>
   );
 };

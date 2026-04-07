@@ -96,7 +96,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
               </div>
             ) : (
               <div className="flex items-center gap-4">
-                <Link to="/login" className="text-white hover:text-brand-gold text-sm font-semibold">Entrar</Link>
+                <Link to="/login" className="text-white hover:text-brand-gold text-sm font-semibold">Minha Conta</Link>
                 <Link
                   to="/register"
                   className="bg-brand-gold text-brand-dark font-sans font-semibold py-2 px-6 rounded-full hover:bg-opacity-80 transition-all duration-300"
@@ -144,7 +144,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
               </div>
             ) : (
               <div className="w-full pt-4 border-t border-gray-700 flex flex-col items-center gap-4">
-                <Link to="/login" onClick={() => setIsOpen(false)} className="text-white font-bold">Entrar</Link>
+                <Link to="/login" onClick={() => setIsOpen(false)} className="text-white font-bold">Minha Conta</Link>
                 <Link to="/register" onClick={() => setIsOpen(false)} className="bg-brand-gold text-brand-dark font-bold py-2 px-8 rounded-full">Cadastrar</Link>
               </div>
             )}

@@ -33,7 +33,7 @@ const Register = () => {
           <div className="inline-flex p-4 bg-brand-light rounded-full mb-4">
             <UserPlus className="w-8 h-8 text-brand-gold" />
           </div>
-          <h2 className="text-3xl font-serif font-bold text-brand-dark tracking-tight">Criar sua conta</h2>
+          <h2 className="text-3xl font-serif font-bold text-brand-dark tracking-tight">Cadastre-se para Agendar</h2>
           <p className="mt-2 text-sm text-gray-600 font-sans">
             Já possui uma conta?{' '}
             <Link to="/login" className="font-medium text-brand-gold hover:text-opacity-80">

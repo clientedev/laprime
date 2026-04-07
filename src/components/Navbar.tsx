@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, LogOut, Scissors, User } from 'lucide-react';
+import { LayoutDashboard, LogOut } from 'lucide-react';
+import Logo from './Logo';
 
 const Navbar = ({ user, onLogout }) => {
   const location = useLocation();
@@ -12,10 +13,7 @@ const Navbar = ({ user, onLogout }) => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-2">
-            <div className="bg-blue-600 p-2 rounded-lg">
-              <Scissors className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-black text-gray-900 tracking-tighter">LA PRIME</span>
+            <Logo className="w-24 h-auto" />
           </Link>
 
           <div className="flex items-center gap-6">
