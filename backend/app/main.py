@@ -17,7 +17,10 @@ try:
 except Exception as e:
     print(f"Erro ao criar tabelas: {e}")
 
-os.makedirs("uploads", exist_ok=True)
+# Serve static files for uploads
+BASE_DIR = os.path.dirname(os.path.abspath(__file__)) # backend/app
+UPLOAD_DIR = os.path.join(os.path.dirname(BASE_DIR), "uploads")
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # Auto-populate blog and gallery if empty
 try:
@@ -30,8 +33,7 @@ except Exception as e:
 
 app = FastAPI(title="Clínica Estética API")
 
-# Serve static files for uploads
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
 # Include API routers
 app.include_router(auth.router, prefix="/api")
