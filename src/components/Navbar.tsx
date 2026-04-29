@@ -13,7 +13,7 @@ const Navbar = ({ user, onLogout }) => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-2">
-            <Logo className="w-24 h-auto" />
+            <Logo className="h-14 w-auto" />
           </Link>
 
           <div className="flex items-center gap-6">

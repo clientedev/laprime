@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0 cursor-pointer" onClick={() => navigate('/')}>
-            <Logo className="w-28 text-brand-gold" />
+            <Logo className="h-14 w-auto" />
           </div>
 
           {/* Desktop Navigation */}

@@ -5,10 +5,8 @@ interface LogoProps {
   className?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ className = 'w-36 h-auto' }) => (
-  <div className={className}>
-    <img src={logoImg} alt="La Dinie - Universo da Beleza" className="w-full h-full object-contain" />
-  </div>
+const Logo: React.FC<LogoProps> = ({ className = 'h-16 w-auto' }) => (
+  <img src={logoImg} alt="La Dinie - Universo da Beleza" className={`${className} object-contain`} />
 );
 
 export default Logo;

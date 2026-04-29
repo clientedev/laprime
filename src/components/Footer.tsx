@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8 text-center md:text-left">
                     <div className="col-span-2 md:col-span-2 lg:col-span-1 mb-2 md:mb-0 flex flex-col items-center md:items-start">
-                        <Logo className="w-28 md:w-36 h-auto" />
+                        <Logo className="h-20 md:h-24 w-auto" />
                         <p className="mt-3 md:mt-4 text-gray-400 text-xs md:text-sm">Promovendo autocuidado, saúde e autoestima.</p>
                     </div>
                     <div>
