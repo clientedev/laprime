@@ -32,7 +32,7 @@ def populate():
         posts = [
             {
                 "titulo": "Tendências de Skincare para 2024",
-                "conteudo": "A jornada para uma pele radiante em 2024 foca em minimalismo e ingredientes potentes. Na La Prime, acreditamos que a saúde da pele começa com o entendimento profundo de suas necessidades únicas. Desde a 'skin streaming' até o uso de retinóides de nova geração, descubra como simplificar sua rotina e maximizar os resultados.",
+                "conteudo": "A jornada para uma pele radiante em 2024 foca em minimalismo e ingredientes potentes. Na La Dinie, acreditamos que a saúde da pele começa com o entendimento profundo de suas necessidades únicas. Desde a 'skin streaming' até o uso de retinóides de nova geração, descubra como simplificar sua rotina e maximizar os resultados.",
                 "imagem_url": "/uploads/skincare_trends.png",
                 "author_id": admin.id
             },

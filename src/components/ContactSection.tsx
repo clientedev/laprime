@@ -29,7 +29,7 @@ const ContactSection: React.FC = () => {
               <a href="https://wa.me/5511992153511" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold">(11) 99215-3511</a>
             </ContactInfoItem>
             <ContactInfoItem icon={<MailIcon />} title="E-mail">
-              <a href="mailto:laprime.mkt@gmail.com" className="hover:text-brand-gold">laprime.mkt@gmail.com</a>
+              <a href="mailto:ladinie.mkt@gmail.com" className="hover:text-brand-gold">ladinie.mkt@gmail.com</a>
             </ContactInfoItem>
             <ContactInfoItem icon={<MapPinIcon />} title="Endereço">
               <p>Rua Clovis da Cunha Castro, nº 5</p>
@@ -49,7 +49,7 @@ const ContactSection: React.FC = () => {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Localização da La Prime"
+              title="Localização da La Dinie"
             ></iframe>
           </div>
         </div>

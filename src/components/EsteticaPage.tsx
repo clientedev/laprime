@@ -23,7 +23,7 @@ const EsteticaPage: React.FC = () => {
         <section className="mb-10 md:mb-16">
           <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-4 md:mb-6">Tratamentos Estéticos Avançados</h2>
           <p className="text-base md:text-lg text-brand-text leading-relaxed mb-6 md:mb-8">
-            Na La Prime, combinamos tecnologia de ponta com técnicas especializadas para cuidar da sua pele. 
+            Na La Dinie, combinamos tecnologia de ponta com técnicas especializadas para cuidar da sua pele. 
             Nossos tratamentos faciais e corporais são personalizados para atender suas necessidades específicas, 
             promovendo beleza, saúde e bem-estar.
           </p>
@@ -96,7 +96,7 @@ const EsteticaPage: React.FC = () => {
         </section>
 
         <section className="mb-10 md:mb-16">
-          <h3 className="text-lg sm:text-2xl md:text-3xl font-serif font-bold text-brand-dark mb-4 md:mb-6">Diferenciais La Prime</h3>
+          <h3 className="text-lg sm:text-2xl md:text-3xl font-serif font-bold text-brand-dark mb-4 md:mb-6">Diferenciais La Dinie</h3>
           <div className="grid sm:grid-cols-3 gap-4 md:gap-6">
             {[
               { icon: "🔬", title: "Tecnologia Avançada", desc: "Equipamentos de última geração para resultados superiores" },

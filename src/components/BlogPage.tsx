@@ -32,7 +32,7 @@ const BlogPage = () => {
     return (
         <div className="min-h-screen bg-brand-light pt-32 pb-24">
             <div className="container mx-auto px-4">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-brand-dark mb-8 md:mb-12 text-center">Blog La Prime</h1>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif text-brand-dark mb-8 md:mb-12 text-center">Blog La Dinie</h1>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {(Array.isArray(posts) && posts.length > 0) ? (

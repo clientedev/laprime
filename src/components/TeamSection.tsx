@@ -50,7 +50,7 @@ const TeamSection: React.FC = () => {
             Estamos ansiosas para te receber e proporcionar uma experiência única de cuidado e bem-estar.
           </p>
           <a
-            href="https://wa.me/5511992153511?text=Olá! Gostaria de conhecer a equipe da La Prime."
+            href="https://wa.me/5511992153511?text=Olá! Gostaria de conhecer a equipe da La Dinie."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-brand-gold text-white px-6 md:px-8 py-2 md:py-3 rounded-full font-semibold hover:bg-brand-dark transition-colors text-sm md:text-base"

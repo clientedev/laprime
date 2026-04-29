@@ -59,7 +59,7 @@ def health_check():
     frontend_path = os.path.join(os.getcwd(), "dist")
     return {
         "status": "online",
-        "message": "Sistema La Prime",
+        "message": "Sistema La Dinie",
         "version": "1.0.0",
         "dist_exists": os.path.exists(frontend_path),
         "cwd": os.getcwd()

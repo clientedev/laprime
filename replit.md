@@ -1,7 +1,7 @@
-# La Prime Saúde e Bem Estar
+# La Dinie Saúde e Bem Estar
 
 ## Overview
-La Prime Saúde e Bem Estar is a comprehensive multi-page beauty and wellness website built with React, TypeScript, Vite, and React Router. The site showcases dedicated pages for each service (Salão, Unhas, Cílios, Estética, Odontologia) with detailed treatment information, integrates complete business information from the briefing, and provides smooth SPA navigation between pages and sections.
+La Dinie Saúde e Bem Estar is a comprehensive multi-page beauty and wellness website built with React, TypeScript, Vite, and React Router. The site showcases dedicated pages for each service (Salão, Unhas, Cílios, Estética, Odontologia) with detailed treatment information, integrates complete business information from the briefing, and provides smooth SPA navigation between pages and sections.
 
 **Current State:** Fully enriched multi-page experience with React Router navigation, all briefing data integrated, and smooth cross-page navigation implemented.
 
@@ -53,7 +53,7 @@ La Prime Saúde e Bem Estar is a comprehensive multi-page beauty and wellness we
 │   ├── Footer.tsx              # Site footer with links
 │   ├── Header.tsx              # Navigation header
 │   ├── Hero.tsx                # Homepage hero section
-│   ├── Logo.tsx                # La Prime logo component
+│   ├── Logo.tsx                # La Dinie logo component
 │   ├── ServicesSection.tsx     # Service cards with links
 │   ├── TeamSection.tsx         # Team information
 │   └── TestimonialsSection.tsx # Customer testimonials
@@ -79,10 +79,10 @@ La Prime Saúde e Bem Estar is a comprehensive multi-page beauty and wellness we
 - **Responsive Design:** Mobile-first design with Tailwind CSS
 - **Contact Integration:**
   - WhatsApp: (11) 99215-3511
-  - Email: laprime.mkt@gmail.com
+  - Email: ladinie.mkt@gmail.com
   - Address: Rua Clovis da Cunha Castro nº 5
   - Hours: Tuesday-Saturday 10:00-20:00
-  - Instagram: @clinica.laprime
+  - Instagram: @clinica.ladinie
 - **Google Maps:** Embedded map in contact section
 - **Team Section:** Professional team presentation
 - **CTAs:** Clear call-to-action buttons for appointment booking
@@ -114,12 +114,12 @@ npm run preview
 ```
 
 ## Business Information
-- **Business Name:** La Prime Saúde e Bem Estar
+- **Business Name:** La Dinie Saúde e Bem Estar
 - **Phone:** (11) 99215-3511
-- **Email:** laprime.mkt@gmail.com
+- **Email:** ladinie.mkt@gmail.com
 - **Address:** Rua Clovis da Cunha Castro nº 5
 - **Hours:** Tuesday-Saturday, 10:00-20:00
-- **Instagram:** @clinica.laprime
+- **Instagram:** @clinica.ladinie
 - **Services:** Salão (hair), Unhas (nails), Cílios (eyelashes), Estética (aesthetics), Odontologia (dentistry)
 
 ## Technical Notes

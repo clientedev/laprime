@@ -23,7 +23,7 @@ const OdontologiaPage: React.FC = () => {
         <section className="mb-10 md:mb-16">
           <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-4 md:mb-6">Odontologia Moderna e Humanizada</h2>
           <p className="text-base md:text-lg text-brand-text leading-relaxed">
-            Na La Prime, oferecemos uma odontologia completa que une estética, saúde e bem-estar. 
+            Na La Dinie, oferecemos uma odontologia completa que une estética, saúde e bem-estar. 
             Com tecnologia de ponta e profissionais altamente capacitados, cuidamos do seu sorriso com excelência e acolhimento.
           </p>
         </section>

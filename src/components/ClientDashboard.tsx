@@ -35,7 +35,7 @@ const ClientDashboard = () => {
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
           <h1 className="text-4xl font-serif font-bold text-brand-dark">Meus Agendamentos</h1>
-          <p className="text-gray-500 font-sans mt-1">Gerencie suas consultas e procedimentos na La Prime.</p>
+          <p className="text-gray-500 font-sans mt-1">Gerencie suas consultas e procedimentos na La Dinie.</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}

@@ -100,7 +100,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
 
         const init = async () => {
             const loggedIn = !!localStorage.getItem('token');
-            await addBotMessage('Olá! ✨ Seja bem-vinda à La Prime. Estou aqui para te ajudar a agendar seu horário com toda comodidade!');
+            await addBotMessage('Olá! ✨ Seja bem-vinda à La Dinie. Estou aqui para te ajudar a agendar seu horário com toda comodidade!');
             await delay(600);
             if (loggedIn) {
                 await addBotMessage('Vejo que você já tem uma conta. Deseja continuar com ela ou prefere usar outra opção?', {
@@ -449,7 +449,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
 
             await addBotMessage('🎉 Agendamento realizado com sucesso! Nossa equipe irá confirmar em breve. Você receberá uma mensagem no WhatsApp!');
             await delay(500);
-            await addBotMessage('Até logo e obrigada por escolher a La Prime! 💛✨');
+            await addBotMessage('Até logo e obrigada por escolher a La Dinie! 💛✨');
             setStep('done');
         } catch (err: any) {
             const detail = err.response?.data?.detail || 'Erro desconhecido';
@@ -484,7 +484,7 @@ const ConversationalAppointment: React.FC<ConversationalAppointmentProps> = ({ o
                                 <Sparkles className="w-5 h-5 text-white" />
                             </div>
                             <div>
-                                <h2 className="text-white font-bold font-serif text-lg tracking-tight">La Prime</h2>
+                                <h2 className="text-white font-bold font-serif text-lg tracking-tight">La Dinie</h2>
                                 <p className="text-brand-gold/80 text-xs font-sans uppercase tracking-[0.2em]">Exclusividade</p>
                             </div>
                         </div>

@@ -52,7 +52,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             <div className="absolute inset-0 bg-black opacity-40 z-10"></div>
             <img
               src={url}
-              alt={`Transformação La Prime ${idx + 1}`}
+              alt={`Transformação La Dinie ${idx + 1}`}
               className="absolute inset-0 w-full h-full object-cover scale-105"
             />
           </div>
@@ -63,7 +63,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             Autocuidado e bem-estar em um só lugar.
           </h1>
           <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 font-sans font-light animate-fade-in-up drop-shadow-md">
-            Na La Prime, você encontra estética, odontologia e beleza com qualidade e conforto.
+            Na La Dinie, você encontra estética, odontologia e beleza com qualidade e conforto.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up">
             <a

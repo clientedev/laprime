@@ -23,7 +23,7 @@ const SalaoPage: React.FC = () => {
         <section className="mb-10 md:mb-16">
           <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-4 md:mb-6">O que oferecemos</h2>
           <p className="text-base md:text-lg text-brand-text leading-relaxed">
-            No salão da La Prime, você encontra profissionais especializados em transformar e valorizar seus cabelos. 
+            No salão da La Dinie, você encontra profissionais especializados em transformar e valorizar seus cabelos. 
             Oferecemos uma gama completa de serviços capilares com produtos de alta qualidade e técnicas modernas.
           </p>
         </section>

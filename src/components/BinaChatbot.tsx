@@ -20,7 +20,7 @@ const BinaChatbot = () => {
         if (isOpen && messages.length === 0) {
             setMessages([{
                 role: 'assistant',
-                content: 'Olá! Sou a Bina, a especialista virtual da Clínica La Prime ✨ Como posso ajudar a realçar a sua beleza hoje?'
+                content: 'Olá! Sou a Bina, a especialista virtual da Clínica La Dinie ✨ Como posso ajudar a realçar a sua beleza hoje?'
             }]);
         }
     }, [isOpen]);
@@ -99,7 +99,7 @@ const BinaChatbot = () => {
                         </div>
                         <div>
                             <h3 className="text-white font-serif font-bold leading-tight">Bina</h3>
-                            <p className="text-brand-gold text-[10px] uppercase font-black tracking-wider">Especialista La Prime</p>
+                            <p className="text-brand-gold text-[10px] uppercase font-black tracking-wider">Especialista La Dinie</p>
                         </div>
                     </div>
                     <button

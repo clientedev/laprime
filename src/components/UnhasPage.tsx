@@ -23,7 +23,7 @@ const UnhasPage: React.FC = () => {
         <section className="mb-10 md:mb-16">
           <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-4 md:mb-6">Cuidado Completo para suas Unhas</h2>
           <p className="text-base md:text-lg text-brand-text leading-relaxed">
-            Na La Prime, suas unhas recebem cuidado profissional com técnicas modernas e produtos de alta qualidade. 
+            Na La Dinie, suas unhas recebem cuidado profissional com técnicas modernas e produtos de alta qualidade. 
             Nossa equipe é especializada em deixar suas mãos e pés impecáveis, elevando sua autoestima e bem-estar.
           </p>
         </section>
@@ -69,7 +69,7 @@ const UnhasPage: React.FC = () => {
         </section>
 
         <section className="mb-10 md:mb-16">
-          <h3 className="text-lg sm:text-2xl md:text-3xl font-serif font-bold text-brand-dark mb-4 md:mb-6">Por que escolher a La Prime?</h3>
+          <h3 className="text-lg sm:text-2xl md:text-3xl font-serif font-bold text-brand-dark mb-4 md:mb-6">Por que escolher a La Dinie?</h3>
           <div className="grid sm:grid-cols-3 gap-4 md:gap-6">
             {[
               { icon: "💅", title: "Materiais Premium", desc: "Produtos importados e de alta qualidade para resultados superiores" },

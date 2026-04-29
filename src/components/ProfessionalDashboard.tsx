@@ -32,7 +32,7 @@ const ProfessionalDashboard = () => {
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
         <div>
           <h1 className="text-5xl font-serif font-bold text-brand-dark tracking-tight">Minha Agenda</h1>
-          <p className="text-brand-gold font-bold uppercase tracking-[0.2em] text-xs mt-2">Atendimentos Profissionais La Prime</p>
+          <p className="text-brand-gold font-bold uppercase tracking-[0.2em] text-xs mt-2">Atendimentos Profissionais La Dinie</p>
         </div>
         <div className="flex gap-4">
           <div className="bg-white px-8 py-4 rounded-2xl shadow-xl border border-brand-gold/10 text-center hover:scale-105 transition-transform">

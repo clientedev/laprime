@@ -25,7 +25,7 @@ const AboutSection: React.FC = () => {
     <section className="py-12 md:py-24 bg-[#fdfaf7] overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center mb-10 md:mb-20">
-          <SectionTitle>Bem-vinda à La Prime Saúde e Bem Estar</SectionTitle>
+          <SectionTitle>Bem-vinda à La Dinie Saúde e Bem Estar</SectionTitle>
           <div className="h-1 w-24 bg-[#bda07e] mx-auto mb-6 md:mb-8"></div>
           <p className="text-base sm:text-xl md:text-2xl text-gray-700 font-light italic leading-relaxed">
             "A clínica foi construída com o intuito de que o cliente não venha só procurar um serviço,
@@ -38,7 +38,7 @@ const AboutSection: React.FC = () => {
             <div className="relative">
               <h3 className="text-xl md:text-3xl font-serif text-[#0d2438] mb-4 md:mb-6">Nossa História</h3>
               <p className="text-gray-600 leading-relaxed text-sm md:text-lg font-light first-letter:text-3xl md:first-letter:text-4xl first-letter:font-serif first-letter:text-[#bda07e] first-letter:mr-1">
-                A La Prime nasceu do desejo de criar um espaço onde beleza, saúde e bem-estar se encontram.
+                A La Dinie nasceu do desejo de criar um espaço onde beleza, saúde e bem-estar se encontram.
                 Mais do que uma clínica, somos um universo dedicado ao cuidado completo: salão, unhas, cílios,
                 estética e odontologia em um só lugar. Acreditamos que cuidar de si é um ato de amor próprio,
                 e nossa missão é proporcionar esse momento especial com atendimento acolhedor e qualidade excepcional.
@@ -56,7 +56,7 @@ const AboutSection: React.FC = () => {
           <div className="relative hidden lg:block">
             <div className="grid grid-cols-12 grid-rows-12 gap-4 h-[600px]">
               <div className="col-span-8 row-span-12 relative overflow-hidden rounded-2xl shadow-2xl group">
-                <img src={aboutInterior} alt="Interior sofisticado La Prime" className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" />
+                <img src={aboutInterior} alt="Interior sofisticado La Dinie" className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d2438]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
               <div className="col-span-4 row-span-6 relative overflow-hidden rounded-2xl shadow-xl group">
@@ -73,7 +73,7 @@ const AboutSection: React.FC = () => {
           {/* Mobile image row - shown only on small/medium screens */}
           <div className="grid grid-cols-3 gap-3 lg:hidden">
             <div className="col-span-2 overflow-hidden rounded-xl shadow-lg aspect-[4/3]">
-              <img src={aboutInterior} alt="Interior La Prime" className="w-full h-full object-cover" />
+              <img src={aboutInterior} alt="Interior La Dinie" className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col gap-3">
               <div className="overflow-hidden rounded-xl shadow-md flex-1">

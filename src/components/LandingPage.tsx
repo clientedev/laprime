@@ -13,7 +13,7 @@ const LandingPage = () => {
               Sua beleza merece o <span className="text-brand-gold">melhor cuidado.</span>
             </h1>
             <p className="text-lg text-gray-600 max-w-xl">
-              Na La Prime, unimos tecnologia avançada e profissionais especializados para transformar sua autoestima em um ambiente acolhedor e exclusivo.
+              Na La Dinie, unimos tecnologia avançada e profissionais especializados para transformar sua autoestima em um ambiente acolhedor e exclusivo.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <Link to="/register" className="bg-brand-dark text-white px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all shadow-lg text-center">
@@ -73,7 +73,7 @@ const LandingPage = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="col-span-1 md:col-span-2 space-y-6">
-              <h3 className="text-3xl font-black tracking-tighter">LA PRIME</h3>
+              <h3 className="text-3xl font-black tracking-tighter">LA DINIE</h3>
               <p className="text-gray-400 max-w-sm">Onde a tecnologia encontra o cuidado humano para elevar sua essência.</p>
               <div className="flex gap-4">
                 <a href="#" className="p-2 bg-white bg-opacity-10 rounded-full hover:bg-brand-gold transition-all"><Instagram className="w-5 h-5" /></a>
@@ -96,7 +96,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="mt-16 pt-8 border-t border-white border-opacity-10 text-center text-gray-500 text-sm">
-            © 2026 La Prime Saúde e Bem Estar. Todos os direitos reservados.
+            © 2026 La Dinie Saúde e Bem Estar. Todos os direitos reservados.
           </div>
         </div>
       </footer>

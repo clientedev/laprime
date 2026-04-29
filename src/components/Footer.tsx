@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
                         <h4 className="font-bold font-serif tracking-wider mb-3 md:mb-4 text-sm md:text-base">Contato</h4>
                         <ul className="space-y-1 md:space-y-2 text-gray-400 text-xs md:text-sm">
                             <li>(11) 99215-3511</li>
-                            <li>laprime.mkt@gmail.com</li>
+                            <li>ladinie.mkt@gmail.com</li>
                             <li>Rua Clovis da Cunha Castro, nº 5</li>
                             <li>São Paulo, SP</li>
                         </ul>
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
                 <div className="border-t border-gray-700 mt-6 md:mt-8 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center text-xs md:text-sm text-gray-500 gap-3">
-                    <p>&copy; {new Date().getFullYear()} La Prime. Todos os direitos reservados.</p>
+                    <p>&copy; {new Date().getFullYear()} La Dinie. Todos os direitos reservados.</p>
                     <div className="flex space-x-4">
                         <SocialIcon href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>

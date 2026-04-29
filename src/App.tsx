@@ -56,7 +56,7 @@ const App = () => {
       <BinaChatbot />
       <Header user={user} onLogout={handleLogout} onNavigate={scrollToSection} />
       <div className="min-h-screen bg-brand-light font-sans text-brand-text w-full overflow-x-hidden">
-        <Suspense fallback={<div className="p-20 text-center font-serif text-2xl text-brand-dark italic">Carregando experiência La Prime...</div>}>
+        <Suspense fallback={<div className="p-20 text-center font-serif text-2xl text-brand-dark italic">Carregando experiência La Dinie...</div>}>
           <Routes>
             <Route path="/" element={<HomePage aboutRef={aboutRef} servicesRef={servicesRef} testimonialsRef={testimonialsRef} contactRef={contactRef} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />

@@ -720,7 +720,7 @@ const AdminDashboard = () => {
           </div>
           {isSidebarOpen && (
             <div className="overflow-hidden">
-              <h1 className="text-white font-serif font-bold text-xl truncate">La Prime</h1>
+              <h1 className="text-white font-serif font-bold text-xl truncate">La Dinie</h1>
               <p className="text-brand-gold text-[10px] font-black uppercase tracking-widest truncate">Painel Executivo</p>
             </div>
           )}
@@ -913,7 +913,7 @@ const AdminDashboard = () => {
                               </button>
                               {appt.cliente_telefone && (
                                 <a
-                                  href={`https://wa.me/55${appt.cliente_telefone.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá ${appt.cliente_nome || 'Cliente'}, aqui é da La Prime. Seu agendamento para ${appt.service_nome || 'seu serviço'} no dia ${new Date(appt.data).toLocaleDateString()} às ${appt.hora} foi confirmado!`)}`}
+                                  href={`https://wa.me/55${appt.cliente_telefone.replace(/\D/g, '')}?text=${encodeURIComponent(`Olá ${appt.cliente_nome || 'Cliente'}, aqui é da La Dinie. Seu agendamento para ${appt.service_nome || 'seu serviço'} no dia ${new Date(appt.data).toLocaleDateString()} às ${appt.hora} foi confirmado!`)}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="bg-[#25D366] hover:bg-[#128C7E] text-white px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest transition-all shadow-md shadow-green-100 flex items-center gap-1.5"
@@ -1199,7 +1199,7 @@ const AdminDashboard = () => {
                                             <button
                                               onClick={(e) => {
                                                 e.stopPropagation();
-                                                const text = `Olá ${appt.cliente_nome}, aqui é da La Prime. Confirmamos seu horário no dia ${new Date(appt.data).toLocaleDateString()} às ${appt.hora}.`;
+                                                const text = `Olá ${appt.cliente_nome}, aqui é da La Dinie. Confirmamos seu horário no dia ${new Date(appt.data).toLocaleDateString()} às ${appt.hora}.`;
                                                 window.open(`https://wa.me/55${appt.cliente_telefone.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`, '_blank');
                                               }}
                                               className="p-1 hover:bg-white/20 rounded-md transition-colors"
@@ -2043,7 +2043,7 @@ const AdminDashboard = () => {
           <div className="bg-white rounded-[40px] shadow-2xl w-full max-w-2xl overflow-hidden border border-brand-gold/20 flex flex-col animate-in zoom-in-95 duration-300">
             <div className="p-8 bg-brand-dark text-white relative">
               <h3 className="text-2xl font-serif font-bold italic">Criar Novo Post</h3>
-              <p className="text-brand-gold text-[10px] font-black uppercase tracking-widest mt-1">Conteúdo para o Blog La Prime</p>
+              <p className="text-brand-gold text-[10px] font-black uppercase tracking-widest mt-1">Conteúdo para o Blog La Dinie</p>
               <button onClick={() => setShowAddPostModal(false)} className="absolute top-8 right-8 text-white/40 hover:text-white transition-colors">
                 <X className="w-6 h-6" />
               </button>
