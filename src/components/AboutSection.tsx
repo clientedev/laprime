@@ -39,8 +39,8 @@ const AboutSection: React.FC = () => {
               <h3 className="text-xl md:text-3xl font-serif text-[#0d2438] mb-4 md:mb-6">Nossa História</h3>
               <p className="text-gray-600 leading-relaxed text-sm md:text-lg font-light first-letter:text-3xl md:first-letter:text-4xl first-letter:font-serif first-letter:text-[#bda07e] first-letter:mr-1">
                 A La Dinie nasceu do desejo de criar um espaço onde beleza, saúde e bem-estar se encontram.
-                Mais do que uma clínica, somos um universo dedicado ao cuidado completo: salão, unhas, cílios,
-                estética e odontologia em um só lugar. Acreditamos que cuidar de si é um ato de amor próprio,
+                Mais do que uma clínica, somos um universo dedicado ao cuidado completo: estética, odontologia,
+                spa, unhas e tratamentos especializados em um só lugar. Acreditamos que cuidar de si é um ato de amor próprio,
                 e nossa missão é proporcionar esse momento especial com atendimento acolhedor e qualidade excepcional.
               </p>
             </div>
@@ -63,7 +63,7 @@ const AboutSection: React.FC = () => {
                 <img src={aboutFacial} alt="Tratamento facial premium" className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" />
               </div>
               <div className="col-span-4 row-span-6 relative overflow-hidden rounded-2xl shadow-xl group">
-                <img src={aboutEyebrows} alt="Design de sobrancelhas" className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" />
+                <img src={aboutEyebrows} alt="Cuidados estéticos" className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" />
               </div>
             </div>
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-[#bda07e]/10 -z-10 rounded-full blur-2xl"></div>
@@ -80,7 +80,7 @@ const AboutSection: React.FC = () => {
                 <img src={aboutFacial} alt="Tratamento facial" className="w-full h-full object-cover" />
               </div>
               <div className="overflow-hidden rounded-xl shadow-md flex-1">
-                <img src={aboutEyebrows} alt="Design sobrancelhas" className="w-full h-full object-cover" />
+                <img src={aboutEyebrows} alt="Cuidados estéticos" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

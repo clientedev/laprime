@@ -34,7 +34,7 @@ const UnhasPage: React.FC = () => {
             {[
               { title: "Alongamento de Unhas", desc: "Unhas longas e perfeitas com técnicas modernas e materiais de qualidade superior. Durabilidade e beleza para você arrasar por semanas.", items: ["Fibra de Vidro - resistente e natural", "Gel - brilho duradouro e flexível", "Acrílico - máxima resistência", "Porcelana - acabamento refinado"] },
               { title: "Esmaltação em Gel", desc: "Esmalte que dura até 3 semanas com brilho impecável. Secagem instantânea sob luz LED e cores vibrantes que não descascam.", items: ["Durabilidade de 15 a 21 dias", "Brilho intenso e duradouro", "Secagem rápida em cabine LED", "Variedade de cores e acabamentos"] },
-              { title: "Manicure Russa", desc: "Técnica europeia de alta precisão que proporciona cutículas perfeitas e unhas impecáveis. Resultado profissional que dura muito mais tempo.", items: ["Remoção precisa de cutículas", "Acabamento impecável", "Maior durabilidade do esmalte", "Técnica com brocas especializadas"] },
+              { title: "Spa de Mãos e Pés", desc: "Tratamento completo de relaxamento e cuidado com esfoliação, hidratação profunda e massagem. Suas mãos e pés merecem esse mimo!", items: ["Esfoliação revigorante", "Hidratação profunda", "Massagem relaxante", "Acabamento impecável"] },
               { title: "Nail Art & Decorações", desc: "Deixe suas unhas únicas com designs artísticos personalizados. De pedrarias a desenhos delicados, criamos a arte perfeita para você.", items: ["Desenhos artísticos", "Aplicação de pedrarias", "Francesinhas modernas", "Efeitos especiais (glitter, degradê)"] },
             ].map((card) => (
               <div key={card.title} className="bg-white p-5 md:p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow">
@@ -58,7 +58,7 @@ const UnhasPage: React.FC = () => {
           <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
             {[
               { title: "Blindagem de Unhas", desc: "Fortalecimento das unhas naturais com vitaminas e proteínas. Ideal para quem tem unhas frágeis ou deseja estimular o crescimento saudável." },
-              { title: "Spa de Mãos e Pés", desc: "Tratamento completo com esfoliação, hidratação profunda e massagem relaxante. Suas mãos e pés merecem esse mimo especial!" },
+              { title: "Cuidado com Cutículas", desc: "Hidratação e tratamento das cutículas com óleos nutritivos para uma aparência impecável e saudável." },
             ].map(item => (
               <div key={item.title} className="bg-white p-4 md:p-6 rounded-lg">
                 <h4 className="font-serif font-semibold text-brand-dark mb-2 text-base md:text-xl">{item.title}</h4>

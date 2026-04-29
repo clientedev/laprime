@@ -52,8 +52,8 @@ const LandingPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "Estética Avançada", icon: <Star />, desc: "Harmonização, toxina botulínica e tratamentos faciais/corporais de última geração." },
-              { title: "Salão & Spa", icon: <Scissors />, desc: "Cortes exclusivos, coloração premium e rituais de cuidado capilar." },
+              { title: "Estética Avançada", icon: <Star />, desc: "Tecnologias laser, criolipólise, protocolos personalizados e tratamentos para celulite e flacidez." },
+              { title: "Spa & Bem-Estar", icon: <Scissors />, desc: "Massagens terapêuticas, rituais de relaxamento e experiências exclusivas de cuidado." },
               { title: "Odontologia", icon: <ShieldCheck />, desc: "Sorriso renovado com facetas, clareamento e reabilitação estética." }
             ].map((service, idx) => (
               <div key={idx} className="p-8 bg-brand-light rounded-2xl border border-transparent hover:border-brand-gold transition-all group">

@@ -7,11 +7,14 @@ import ProfessionalDashboard from './components/ProfessionalDashboard';
 import AdminDashboard from './components/AdminDashboard';
 import HomePage from './components/HomePage';
 import Header from './components/Header';
-import SalaoPage from './components/SalaoPage';
 import UnhasPage from './components/UnhasPage';
-import CiliosPage from './components/CiliosPage';
 import EsteticaPage from './components/EsteticaPage';
 import OdontologiaPage from './components/OdontologiaPage';
+import SpaPage from './components/SpaPage';
+import ReconstrucaoPage from './components/ReconstrucaoPage';
+import DesignHennaPage from './components/DesignHennaPage';
+import BrowLaminationPage from './components/BrowLaminationPage';
+import LiftingPage from './components/LiftingPage';
 import BlogPage from './components/BlogPage';
 import BlogPostPage from './components/BlogPostPage';
 import GalleryPage from './components/GalleryPage';
@@ -61,11 +64,14 @@ const App = () => {
             <Route path="/" element={<HomePage aboutRef={aboutRef} servicesRef={servicesRef} testimonialsRef={testimonialsRef} contactRef={contactRef} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/servicos/salao" element={<SalaoPage />} />
             <Route path="/servicos/unhas" element={<UnhasPage />} />
-            <Route path="/servicos/cilios" element={<CiliosPage />} />
             <Route path="/servicos/estetica" element={<EsteticaPage />} />
             <Route path="/servicos/odontologia" element={<OdontologiaPage />} />
+            <Route path="/servicos/spa" element={<SpaPage />} />
+            <Route path="/servicos/reconstrucao" element={<ReconstrucaoPage />} />
+            <Route path="/servicos/design-henna" element={<DesignHennaPage />} />
+            <Route path="/servicos/brow-lamination" element={<BrowLaminationPage />} />
+            <Route path="/servicos/lifting" element={<LiftingPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogPostPage />} />
             <Route path="/galeria" element={<GalleryPage />} />

@@ -1,11 +1,20 @@
 # La Dinie Saúde e Bem Estar
 
 ## Overview
-La Dinie Saúde e Bem Estar is a comprehensive multi-page beauty and wellness website built with React, TypeScript, Vite, and React Router. The site showcases dedicated pages for each service (Salão, Unhas, Cílios, Estética, Odontologia) with detailed treatment information, integrates complete business information from the briefing, and provides smooth SPA navigation between pages and sections.
+La Dinie Saúde e Bem Estar is a comprehensive multi-page beauty and wellness website built with React, TypeScript, Vite, and React Router. The site showcases dedicated pages for each service (Estética, Odontologia, Spa, Manicure/Pedicure, Reconstrução Capilar, Design Henna e Tintura, Brow Lamination, Lash Lifting) with detailed treatment information, integrates complete business information from the briefing, and provides smooth SPA navigation between pages and sections.
 
-**Current State:** Fully enriched multi-page experience with React Router navigation, all briefing data integrated, and smooth cross-page navigation implemented.
+**Current State:** Fully enriched multi-page experience with React Router navigation, restructured service portfolio, and smooth cross-page navigation implemented.
 
 ## Recent Changes
+- **2026-04-29**: Service portfolio restructure
+  - Removed Salão de Beleza and Extensão de Cílios pages and routes
+  - Removed Manicure Russa from Unhas page; replaced with Cuidado com Cutículas
+  - Removed Design de Sobrancelhas and Micropigmentação from Estética complementary section
+  - Created 5 new dedicated service pages: SpaPage, ReconstrucaoPage, DesignHennaPage, BrowLaminationPage, LiftingPage
+  - Restructured EsteticaPage with featured "Tecnologias de Ponta" section (Laser, Criolipólise, Radiofrequência), "Protocolos Personalizados" (Enzimas), "Celulite e Flacidez" and grouped "Massagens Terapêuticas" sections
+  - Updated ServicesSection with 8 service cards reflecting the new portfolio
+  - Updated AboutSection, LandingPage, index.html metadata and chat.py system prompt to reflect new services
+
 - **2025-11-19**: Multi-page transformation and enrichment
   - Installed React Router DOM and created routing structure
   - Created 5 dedicated service pages with rich content:
@@ -120,7 +129,7 @@ npm run preview
 - **Address:** Rua Clovis da Cunha Castro nº 5
 - **Hours:** Tuesday-Saturday, 10:00-20:00
 - **Instagram:** @clinica.ladinie
-- **Services:** Salão (hair), Unhas (nails), Cílios (eyelashes), Estética (aesthetics), Odontologia (dentistry)
+- **Services:** Estética (aesthetics with laser, cryolipolysis, personalized protocols, cellulite & flaccidity), Odontologia (dentistry), Spa (massages & wellness), Manicure & Pedicure, Reconstrução Capilar, Design Henna e Tintura (brow design), Brow Lamination, Lash Lifting
 
 ## Technical Notes
 - The project uses Tailwind CSS via CDN for styling (loaded in index.html)
