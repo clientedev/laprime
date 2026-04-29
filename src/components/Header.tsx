@@ -60,9 +60,9 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onNavigate }) => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || !isHomePage ? 'bg-brand-dark shadow-lg' : 'bg-brand-dark/0'}`}>
       <PromotionBanner />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24">
           <div className="flex-shrink-0 cursor-pointer" onClick={() => navigate('/')}>
-            <Logo className="h-14 w-auto" />
+            <Logo className="h-20 w-auto" />
           </div>
 
           {/* Desktop Navigation */}
